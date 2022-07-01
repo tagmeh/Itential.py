@@ -335,13 +335,7 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/getAllLoopTasks", json=body)
 
     @staticmethod
-    def get_associated_jobs(
-        client: "Itential",
-        filters: Optional[Dict[str, str]] = None,
-        sort: Optional[Dict[str, int]] = None,
-        limit: int = 10,
-        skip: int = 0,
-    ) -> requests.Response:
+    def get_associated_jobs(        client: "Itential",        filters: Optional[Dict[str, str]] = None,        sort: Optional[Dict[str, int]] = None,        limit: int = 10,        skip: int = 0,    ) -> requests.Response:
         """
         Search for jobs that the user has touched.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getAssociatedJobs/
