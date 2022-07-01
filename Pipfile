@@ -6,11 +6,12 @@ name = "pypi"
 [packages]
 requests = "*"
 
+
 [dev-packages]
 nose = "*"
 mypy = "*"
 types-requests = "*"
-black = "*"
+black = "==22.6.0"
 
 [requires]
 python_version = "3.8"
