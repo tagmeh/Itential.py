@@ -335,7 +335,13 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/getAllLoopTasks", json=body)
 
     @staticmethod
-    def get_associated_jobs(        client: "Itential",        filters: Optional[Dict[str, str]] = None,        sort: Optional[Dict[str, int]] = None,        limit: int = 10,        skip: int = 0,    ) -> requests.Response:
+    def get_associated_jobs(
+        client: "Itential",
+        filters: Optional[Dict[str, str]] = None,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 10,
+        skip: int = 0,
+    ) -> requests.Response:
         """
         Search for jobs that the user has touched.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getAssociatedJobs/
@@ -402,7 +408,8 @@ class AppWorkflowEngine:
         Get the output of a completed job.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getJobOutput/
         :param client: Itential client object. Passed in to all commands
-        :param job_id: Returned when creating a job or querying for jobs by workflow name. Ex: "ec59ef85fef84e59bf36bd1e"
+        :param job_id: Returned when creating a job or querying for jobs by workflow name.
+            Ex: "ec59ef85fef84e59bf36bd1e"
         :return: requests.Response
         """
         return client.call(method="GET", url=f"{client.url}/workflow_engine/job/{job_id}/output")
