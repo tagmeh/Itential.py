@@ -335,6 +335,28 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/getAllLoopTasks", json=body)
 
     @staticmethod
+    def start_job_with_options(client: "Itential", workflow_name: str, options: Dict[str, Any]) -> requests.Response:
+        """
+        Initiate a job of a workflow with options.
+        https://docs.itential.com/2020.2/api/app-workflow_engine/startJobWithOptions/
+        :param client: The Itential state object
+        :param workflow_name: Name of the workflow from which to start the job.
+        :param options: Parameters to start the workflow with
+            Ex: "options": {
+                    "description": "str",
+                    "variables": {
+                        "incoming": {
+                            ...
+                            }
+                        }
+                    }
+        :return: Job which is started.
+        """
+        body = {"options": options}
+        return client.call(method="POST", url=f"{client.url}/workflow_engine/startJobWithOptions/{workflow_name}",
+                           json=body)
+
+    @staticmethod
     def get_associated_jobs(
         client: "Itential",
         filters: Optional[Dict[str, str]] = None,
@@ -408,7 +430,8 @@ class AppWorkflowEngine:
         Get the output of a completed job.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getJobOutput/
         :param client: Itential client object. Passed in to all commands
-        :param job_id: Returned when creating a job or querying for jobs by workflow name. Ex: "ec59ef85fef84e59bf36bd1e"
+        :param job_id: Returned when creating a job or querying for jobs by workflow name.
+        Ex: "ec59ef85fef84e59bf36bd1e"
         :return: requests.Response
         """
         return client.call(method="GET", url=f"{client.url}/workflow_engine/job/{job_id}/output")

@@ -1,9 +1,9 @@
 import logging
-from typing import Dict, Any, Union
+from typing import Dict, Any
 
 import requests
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
