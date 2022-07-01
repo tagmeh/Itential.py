@@ -1,15 +1,15 @@
 name: Lint
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Setup
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install dependencies
-      - uses: psf/black@stable
+        uses: psf/black@stable
         with:
           version: "22.6.0"
