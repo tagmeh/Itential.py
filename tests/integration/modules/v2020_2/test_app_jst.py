@@ -5,7 +5,6 @@ unittest.TestLoader.sortTestMethodsUsing = None
 
 from itential.core import Itential
 from itential.modules.v2020_2 import AppJst
-
 from tests.integration.mocks.v2020_2.app_jst import jst_json
 
 

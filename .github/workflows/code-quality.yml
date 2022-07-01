@@ -6,23 +6,28 @@ on:
       - github-actions-testing
 
 jobs:
-  Code-Quality-Check-Black:
+  Code-Quality-Check:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          python-version: "3.8"
 
       - name: Install dependencies
-        run: pip install black==22.6.0
-
-      - name: Change directory
         run: |
-          cd ${{ github.workspace }}
+          python -m pip install --upgrade pip
+          pip install black==22.6.0 mypy isort
 
-      - name: Check directory
-        run: | 
-          pwd
-
-      - name: Run Black
+      - name: Lint with Black
         run: |
-          black .
+          black --check --color .
+
+#      - name: Run Mypy
+#        run: |
+#          mypy .
+
+      - name: Run isort
+        run: |
+          isort --check-only .

@@ -9,8 +9,9 @@ Implemented  Doc String  Tests
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from itential.core import Itential
     import requests
+
+    from itential.core import Itential
 
 
 class AppAgManager:

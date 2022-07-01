@@ -5,7 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
-
+isort = "*"
+flake8 = "*"
+pylint = "*"
 
 [dev-packages]
 nose = "*"

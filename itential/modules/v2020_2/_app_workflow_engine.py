@@ -141,7 +141,7 @@ Implemented  Doc String  Tests
     [ ]         [ ]       [ ]   watchJob
 """
 import warnings
-from typing import TYPE_CHECKING, Optional, Dict, Any, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import requests
 

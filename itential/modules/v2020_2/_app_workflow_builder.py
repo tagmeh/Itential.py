@@ -16,10 +16,11 @@ Implemented  Doc String  Tests
     [x]         [x]       [ ]   replaceWorkflowGroups
     [x]         [x]       [ ]   saveWorkflow
 """
-from typing import TYPE_CHECKING, Dict, List, Any
+from typing import TYPE_CHECKING, Any, Dict, List
 
 if TYPE_CHECKING:
     import requests
+
     from itential.core import Itential
 
 

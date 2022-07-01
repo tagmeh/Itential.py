@@ -13,11 +13,12 @@ Implemented  Doc String  Tests
 
 """
 import json
-from typing import TYPE_CHECKING, Dict, Any, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 if TYPE_CHECKING:
-    from itential.core import Itential
     import requests
+
+    from itential.core import Itential
 
 
 class AppJst:
