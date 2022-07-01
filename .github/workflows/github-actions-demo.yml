@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - development
-      - github-actions-testing
 
 jobs:
   Explore-GitHub-Actions:
