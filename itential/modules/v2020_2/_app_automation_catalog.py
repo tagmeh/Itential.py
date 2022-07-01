@@ -12,11 +12,12 @@ Implemented  Doc String  Tests
     [x]         [x]       [ ]   runAutomation
     [x]         [x]       [ ]   updateAutomation
 """
-from typing import TYPE_CHECKING, List, Dict, Any
+from typing import TYPE_CHECKING, Any, Dict, List
 
 if TYPE_CHECKING:
-    from itential.core import Itential
     import requests
+
+    from itential.core import Itential
 
 
 class AppAutomationCatalog:

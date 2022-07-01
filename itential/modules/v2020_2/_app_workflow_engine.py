@@ -141,7 +141,7 @@ Implemented  Doc String  Tests
     [ ]         [ ]       [ ]   watchJob
 """
 import warnings
-from typing import TYPE_CHECKING, Optional, Dict, Any, List
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import requests
 
@@ -150,7 +150,7 @@ if TYPE_CHECKING:
 
 
 class AppWorkflowEngine:
-    """ https://docs.itential.com/2020.2/api/app-workflow_engine/ """
+    """https://docs.itential.com/2020.2/api/app-workflow_engine/"""
 
     @staticmethod
     def activate(client: "Itential", **kwargs: Dict[str, Any]) -> requests.Response:
@@ -277,8 +277,9 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/jobs/find", json=body)
 
     @staticmethod
-    def find_forward_paths(client: "Itential", start_task_id: str, end_task_id: str, workflow_details: Dict[str, Any])\
-            -> requests.Response:
+    def find_forward_paths(
+        client: "Itential", start_task_id: str, end_task_id: str, workflow_details: Dict[str, Any]
+    ) -> requests.Response:
         """
         Find the paths between two Tasks in a Workflow by Task ids and Workflow details.
         https://docs.itential.com/2020.2/api/app-workflow_engine/findForwardPaths/
@@ -292,8 +293,9 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/findForwardPaths", json=body)
 
     @staticmethod
-    def finish_manual_task(client: "Itential", task_id: str, job_id: str, task_data: Dict[str, Any]) \
-            -> requests.Response:
+    def finish_manual_task(
+        client: "Itential", task_id: str, job_id: str, task_data: Dict[str, Any]
+    ) -> requests.Response:
         """
         Finishes a manual task with finish state success
         https://docs.itential.com/2020.2/api/app-workflow_engine/finishManualTask/
@@ -333,11 +335,13 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/getAllLoopTasks", json=body)
 
     @staticmethod
-    def get_associated_jobs(client: "Itential",
-                            filters: Optional[Dict[str, str]] = None,
-                            sort: Optional[Dict[str, int]] = None,
-                            limit: int = 10,
-                            skip: int = 0) -> requests.Response:
+    def get_associated_jobs(
+        client: "Itential",
+        filters: Optional[Dict[str, str]] = None,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 10,
+        skip: int = 0,
+    ) -> requests.Response:
         """
         Search for jobs that the user has touched.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getAssociatedJobs/
@@ -367,11 +371,13 @@ class AppWorkflowEngine:
         return client.call(method="POST", url=f"{client.url}/workflow_engine/getAllLoopTasks", json=body)
 
     @staticmethod
-    def get_job_list(client: "Itential",
-                     status: str = "active",
-                     filters: Optional[Dict[str, str]] = None,
-                     limit: int = 10,
-                     skip: int = 0) -> requests.Response:
+    def get_job_list(
+        client: "Itential",
+        status: str = "active",
+        filters: Optional[Dict[str, str]] = None,
+        limit: int = 10,
+        skip: int = 0,
+    ) -> requests.Response:
         """
         Get a list of jobs by status
         https://docs.itential.com/2020.2/api/app-workflow_engine/getJobList/
@@ -402,18 +408,21 @@ class AppWorkflowEngine:
         Get the output of a completed job.
         https://docs.itential.com/2020.2/api/app-workflow_engine/getJobOutput/
         :param client: Itential client object. Passed in to all commands
-        :param job_id: Returned when creating a job or querying for jobs by workflow name. Ex: "ec59ef85fef84e59bf36bd1e"
+        :param job_id: Returned when creating a job or querying for jobs by workflow name.
+            Ex: "ec59ef85fef84e59bf36bd1e"
         :return: requests.Response
         """
         return client.call(method="GET", url=f"{client.url}/workflow_engine/job/{job_id}/output")
 
     @staticmethod
-    def search_workflows(client: "Itential",
-                         query: Optional[Dict[str, str]] = None,
-                         fields: Optional[Dict[str, int]] = None,
-                         sort: Optional[Dict[str, int]] = None,
-                         limit: int = 0,
-                         skip: int = 0) -> requests.Response:
+    def search_workflows(
+        client: "Itential",
+        query: Optional[Dict[str, str]] = None,
+        fields: Optional[Dict[str, int]] = None,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 0,
+        skip: int = 0,
+    ) -> requests.Response:
         """
         Search Workflows with Options
         https://docs.itential.com/2020.2/api/app-workflow_engine/searchWorkflows/
@@ -428,14 +437,7 @@ class AppWorkflowEngine:
                                                     "limit": int, "total": int}
         """
 
-        data = {
-            "options": {
-                "fields": {"name": 1},
-                "limit": limit,
-                "skip": skip,
-                "sort": {"name": 1}
-            }
-        }
+        data = {"options": {"fields": {"name": 1}, "limit": limit, "skip": skip, "sort": {"name": 1}}}
 
         if query:
             data["options"]['query'] = query

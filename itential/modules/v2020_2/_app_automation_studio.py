@@ -14,11 +14,12 @@ Implemented  Doc String  Tests
     [x]         [x]       [ ]   updateAutomation
     [x]         [x]       [ ]   updateTemplate
 """
-from typing import TYPE_CHECKING, List, Dict, Any
+from typing import TYPE_CHECKING, Any, Dict, List
 
 if TYPE_CHECKING:
-    from itential.core import Itential
     import requests
+
+    from itential.core import Itential
 
 
 class AppAutomationStudio:

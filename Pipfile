@@ -5,12 +5,16 @@ name = "pypi"
 
 [packages]
 requests = "*"
+isort = "*"
+flake8 = "*"
+pylint = "*"
+pyflakes = "*"
 
 [dev-packages]
 nose = "*"
 mypy = "*"
 types-requests = "*"
-black = "*"
+black = "==22.6.0"
 
 [requires]
 python_version = "3.8"
