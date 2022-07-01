@@ -353,8 +353,9 @@ class AppWorkflowEngine:
         :return: Job which is started.
         """
         body = {"options": options}
-        return client.call(method="POST", url=f"{client.url}/workflow_engine/startJobWithOptions/{workflow_name}",
-                           json=body)
+        return client.call(
+            method="POST", url=f"{client.url}/workflow_engine/startJobWithOptions/{workflow_name}", json=body
+        )
 
     @staticmethod
     def get_associated_jobs(
