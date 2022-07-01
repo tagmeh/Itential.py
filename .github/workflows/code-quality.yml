@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - github-actions-testing
+  pull_request:
+    branches:
+      - development
 
 jobs:
   Code-Quality-Check:
