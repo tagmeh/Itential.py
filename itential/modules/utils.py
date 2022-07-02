@@ -25,4 +25,4 @@ def index_repair(client: "Itential", index: str) -> requests.Response:
     More information can be found here:
     https://docs.itential.com/2021.1/admin/Itential%20Automation%20Platform/Configuration/#database-indexes
     """
-    return client.call(method="POST", url=f"{client.url}/indexes/{index}")
+    return client.call(method="GET", url=f"{client.url}/indexes/{index}")
