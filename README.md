@@ -1,5 +1,5 @@
 # Itential.py
-#### An effort to write a python library for the Itential API. (https://docs.itential.com/api/)
+#### An effort to write a python library for the Itential API. (https://apidocs.itential.com/api/)
 
 Usage
 ```python

@@ -1,5 +1,5 @@
 """
-Link to Itential Docs: https://docs.itential.com/2020.2/api/app-automation_catalog/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-automation_catalog/
 
 Implemented  Doc String  Tests
     [x]         [x]       [ ]   createAutomation
@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
 class AppAutomationCatalog:
-    """https://docs.itential.com/2020.2/api/app-automation_catalog/"""
+    """https://apidocs.itential.com/2020.2/api/app-automation_catalog/"""
 
     @staticmethod
     def create_automation(client: "Itential", name: str, description: str) -> "requests.Response":
@@ -28,7 +28,7 @@ class AppAutomationCatalog:
         Creates an automation with optional description.
         An automation's root structure is based off the agenda.js library,
          with any custom data falling into the 'data' array
-        https://docs.itential.com/2020.2/api/app-automation_catalog/createAutomation/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/createAutomation/
         :param client: Itential state object
         :param name: Unique name of the automation
         :param description: Short description of the automation
@@ -41,7 +41,7 @@ class AppAutomationCatalog:
     def delete_automations(client: "Itential", ids: List[str]) -> "requests.Response":
         """
         Deletes automations (based off an array of Ids)
-        https://docs.itential.com/2020.2/api/app-automation_catalog/deleteAutomations/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/deleteAutomations/
         :param client: Itential state object
         :param ids: List of automation IDs
         :return: requests.Response: Object containing a property removeCount
@@ -53,7 +53,7 @@ class AppAutomationCatalog:
     def export_automations(client: "Itential", automation_id: str) -> "requests.Response":
         """
         Returns a single automation formatted for importing
-        https://docs.itential.com/2020.2/api/app-automation_catalog/exportAutomation/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/exportAutomation/
         :param client: Itential state object
         :param automation_id: Unique id of the automation
         :return: requests.Response: Automation document that was requested in exported format
@@ -64,7 +64,7 @@ class AppAutomationCatalog:
     def get_automation_by_id(client: "Itential", automation_id: str) -> "requests.Response":
         """
         Gets an single automation by its id
-        https://docs.itential.com/2020.2/api/app-automation_catalog/getAutomationById/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/getAutomationById/
         :param client: Itential state object
         :param automation_id: Unique id of the automation
         :return: requests.Response: Automation document that was requested
@@ -75,7 +75,7 @@ class AppAutomationCatalog:
     def get_automations(client: "Itential", query_parameters: Dict[str, Any]) -> "requests.Response":
         """
         Gets all known automations returned in alphabetical order
-        https://docs.itential.com/2020.2/api/app-automation_catalog/getAutomations/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/getAutomations/
         :param client: Itential state object
         :param query_parameters: < Undocumented >
         :return: requests.Response: List of all automation documents
@@ -89,7 +89,7 @@ class AppAutomationCatalog:
     ) -> "requests.Response":
         """
         Insert automation documents into the automation collection from a user supplied JSON document.
-        https://docs.itential.com/2020.2/api/app-automation_catalog/importAutomations/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/importAutomations/
         :param client: Itential state object
         :param automation_jsons: List of json representations of automation catalogs
         :param options:
@@ -102,7 +102,7 @@ class AppAutomationCatalog:
     def migrate_agenda_jobs(client: "Itential", agenda_jobs: List[str]) -> "requests.Response":
         """
         Takes an existing Agenda Job data structure and converts it to an Automation
-        https://docs.itential.com/2020.2/api/app-automation_catalog/migrateAgendaJobs/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/migrateAgendaJobs/
         :param client: Itential state object
         :param agenda_jobs: List of Unique ids automations
         :return: requests.Response: The result of the migration process
@@ -114,7 +114,7 @@ class AppAutomationCatalog:
     def run_automation(client: "Itential", automation_id: str, options: Dict[str, Any]) -> "requests.Response":
         """
         Single run of an automation outside its scheduled runs, Requires a workflow to be attached to the automation.
-        https://docs.itential.com/2020.2/api/app-automation_catalog/runAutomation/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/runAutomation/
         :param client: Itential state object
         :param automation_id: Unique id of the automation
         :param options: Workflow based properties (Mostly undocumented)
@@ -129,7 +129,7 @@ class AppAutomationCatalog:
     def update_automation(client: "Itential", automation_id: str, options: Dict[str, Any]) -> "requests.Response":
         """
         Updates an automation's attributes (including scheduling data).
-        https://docs.itential.com/2020.2/api/app-automation_catalog/updateAutomation/
+        https://apidocs.itential.com/2020.2/api/app-automation_catalog/updateAutomation/
         :param client: Itential state object
         :param automation_id: Unique id of the automation
         :param options: Object containing the fields to be updated
