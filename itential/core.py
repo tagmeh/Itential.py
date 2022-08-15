@@ -19,10 +19,26 @@ class Itential:
         self.username: str = kwargs.get("username", "admin@pronghorn")
         self.password: str = kwargs.get("password", "admin")
         self.version: str = kwargs.get("version", "latest")
-        self.url: str = kwargs.get("url", "http://localhost:3000")
         self.auth_body: Dict[str, Dict[str, str]] = {"user": {"username": self.username, "password": self.password}}
 
+        self._url: str = "http://localhost:3000"
+        # self._url - Probably a better way to do this.
+        # self.__setattr__('url', kwargs.get('url', "http://localhost:3000"))
+
         self.session: requests.Session = kwargs.get('session', requests.Session())
+
+    @property
+    def url(self) -> str:
+        return self._url
+
+    @url.setter
+    def url(self, value: str) -> None:
+        """Cleans the input URL of any extra whitespace and trailing slashes."""
+        if value:
+            trimmed_value = value.strip()
+            if trimmed_value.endswith('/'):
+                value = trimmed_value[::-1].replace('/', '', 1)[::-1]
+            self._url = value
 
     def call(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """
@@ -81,9 +97,3 @@ class Itential:
         if not self.password:
             assert isinstance(self.password, str), "A password is required."
         log.debug("Password validated.")
-
-
-if __name__ == '__main__':
-    client = Itential()
-    client.authenticate()
-    print(client.session)
