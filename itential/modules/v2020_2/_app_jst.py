@@ -1,6 +1,6 @@
 """
 This app contains all of the methods used to modify transformations/JSTs on the server.
-Link to Itential Docs: https://docs.itential.com/2020.2/api/app-jst/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-jst/
 
 Implemented  Doc String  Tests
     [x]         [x]       [x]   createTransformation
@@ -21,13 +21,13 @@ if TYPE_CHECKING:
 
 
 class AppJst:
-    """https://docs.itential.com/2020.2/api/app-jst"""
+    """https://apidocs.itential.com/2020.2/api/app-jst"""
 
     @staticmethod
     def create_transformation(client: "Itential", jst_obj: Dict[str, Any]) -> "requests.Response":
         """
         Creates a single transformation.
-        https://docs.itential.com/2020.2/api/app-jst/createTransformation/ (Misleading param example and schema)
+        https://apidocs.itential.com/2020.2/api/app-jst/createTransformation/ (Misleading param example and schema)
         :param client: Itential state object
         :param jst_obj: Json object representation of the JST
         :return: requests.Response
@@ -38,7 +38,7 @@ class AppJst:
     def delete_transformation(client: "Itential", jst_id: str) -> "requests.Response":
         """
         Deletes a single transformation from the server.
-        https://docs.itential.com/2020.2/api/app-jst/deleteTransformation/
+        https://apidocs.itential.com/2020.2/api/app-jst/deleteTransformation/
         :param client: Itential state object
         :param jst_id: "_id" field of the JST json. ex: 6230fd0b56192935eed3eeb8
         :return: requests.Response  200: empty string
@@ -50,7 +50,7 @@ class AppJst:
         """
         Returns all transformations from the server, in full. This can return a rather large payload.
         Documentation is incorrect. Doesn't require "queryParameters". Don't have any examples of queryParameters usage.
-        https://docs.itential.com/2021.2/api/app-jst/searchTransformations/
+        https://apidocs.itential.com/2021.2/api/app-jst/searchTransformations/
         :param client: Itential state object
         :param jst_id: "_id" field of the JST json. ex: 6230fd0b56192935eed3eeb8
         :return: requests.Response
@@ -62,7 +62,7 @@ class AppJst:
         """
         Imports a single transformation/JST to the server. Will duplicate files if JST already exists.
         Will append a " (n)" to the end of the JST name. "n" is an incrementing integer
-        https://docs.itential.com/2020.2/api/app-jst/importTransformation/ (Misleading param example and schema)
+        https://apidocs.itential.com/2020.2/api/app-jst/importTransformation/ (Misleading param example and schema)
         :param client: Itential state object
         :param jst_obj: The json object representation of the transformation/JST
         :return: requests.Response
@@ -75,7 +75,7 @@ class AppJst:
     ) -> "requests.Response":
         """
         Runs a transformation
-        https://docs.itential.com/2020.2/api/app-jst/runTransformation/
+        https://apidocs.itential.com/2020.2/api/app-jst/runTransformation/
         :param client: Itential state object
         :param jst_id: "_id" of the JST. ex: 6143988e49bd502787711378
         :param incoming: A dict object of the input schema.
@@ -91,7 +91,7 @@ class AppJst:
         Returns all transformations from the server, in full. This can return a rather large payload.
         Doesn't require "queryParameters". The usage found in the website DOM is not correct
         Documentation is incomplete. Requires further testing to figure this one out.
-        https://docs.itential.com/2021.2/api/app-jst/searchTransformations/
+        https://apidocs.itential.com/2021.2/api/app-jst/searchTransformations/
         :param client: Itential state object
         :param query_parameters: < Unclear > Omitted the implementation at this time.
         :return: requests.Response
@@ -102,7 +102,7 @@ class AppJst:
     def update_transformation(client: "Itential", jst_id: str, jst_obj: Dict[str, Any]) -> "requests.Response":
         """
         Updates/Overwrites an existing transformation/JST based on ID. Does not create a duplicate file.
-        https://docs.itential.com/2020.2/api/app-jst/updateTransformation/  (Misleading param example and schema)
+        https://apidocs.itential.com/2020.2/api/app-jst/updateTransformation/  (Misleading param example and schema)
         :param client: Itential state object
         :param jst_id: "_id" field of the JST json. ex: 6230fd0b56192935eed3eeb8
         :param jst_obj: Full JST json. Does not require {"transformation": JST_json} like docs show.

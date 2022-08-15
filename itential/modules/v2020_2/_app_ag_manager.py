@@ -1,5 +1,5 @@
 """
-Link to Itential Docs: https://docs.itential.com/2020.2/api/app-ag_manager/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-ag_manager/
 
 Implemented  Doc String  Tests
     [x]         [x]       [ ]   discoverModules
@@ -14,14 +14,14 @@ if TYPE_CHECKING:
 
 
 class AppAgManager:
-    """https://docs.itential.com/2020.2/api/app-ag_manager/"""
+    """https://apidocs.itential.com/2020.2/api/app-ag_manager/"""
 
     @staticmethod
     def discover_modules(client: "Itential", adapter_id: str) -> "requests.Response":
         """
         Discovers all actions from a specified IAG adapter.
         This will restart this app and display a corresponding log message.
-        https://docs.itential.com/2020.2/api/app-ag_manager/discoverModules/
+        https://apidocs.itential.com/2020.2/api/app-ag_manager/discoverModules/
         :param client: Itential state object
         :param adapter_id: Automation Gateway adapter ID
         :return: requests.Response: A pronghorn.json object.
@@ -33,7 +33,7 @@ class AppAgManager:
         """
         Discovers all actions from all IAG adapters.
         This will restart this app and display a corresponding log message.
-        https://docs.itential.com/2020.2/api/app-ag_manager/undiscoverAll/
+        https://apidocs.itential.com/2020.2/api/app-ag_manager/undiscoverAll/
         :param client: Itential state object
         :return: requests.Response: A pronghorn.json object.
         """
@@ -44,7 +44,7 @@ class AppAgManager:
         """
         Removes all actions from a specified IAG adapter.
         This will restart this app and display a corresponding log message.
-        https://docs.itential.com/2020.2/api/app-ag_manager/undiscoverModules/
+        https://apidocs.itential.com/2020.2/api/app-ag_manager/undiscoverModules/
         :param client: Itential state object
         :param adapter_id: Automation Gateway adapter ID
         :return: requests.Response: A pronghorn.json object.
