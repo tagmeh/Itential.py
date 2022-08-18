@@ -3,53 +3,53 @@ Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-workflow_engi
 
 Implemented  Doc String  Tests  Fix Method Tooltip
     [x]         [x]       [ ]         [ ]   activate
-    [-]         [-]       [-]         [ ]   addDuration
+    [-]         [-]       [-]         [-]   addDuration
     [x]         [x]       [ ]         [ ]   addWatchers
-    [-]         [-]       [-]         [ ]   arrayConcat
-    [-]         [-]       [-]         [ ]   arrayIncludes
-    [-]         [-]       [-]         [ ]   arrayIndexOf
-    [-]         [-]       [-]         [ ]   arrayLastIndexOf
-    [-]         [-]       [-]         [ ]   arrayLength
-    [-]         [-]       [-]         [ ]   arrayPop
-    [-]         [-]       [-]         [ ]   arrayPush
-    [-]         [-]       [-]         [ ]   arrayShift
-    [-]         [-]       [-]         [ ]   arraySlice
-    [-]         [-]       [-]         [ ]   arrayToLocaleString
-    [-]         [-]       [-]         [ ]   arrayToString
-    [-]         [-]       [-]         [ ]   assign
-    [-]         [-]       [-]         [ ]   calculateTimeDiff
+    [-]         [-]       [-]         [-]   arrayConcat
+    [-]         [-]       [-]         [-]   arrayIncludes
+    [-]         [-]       [-]         [-]   arrayIndexOf
+    [-]         [-]       [-]         [-]   arrayLastIndexOf
+    [-]         [-]       [-]         [-]   arrayLength
+    [-]         [-]       [-]         [-]   arrayPop
+    [-]         [-]       [-]         [-]   arrayPush
+    [-]         [-]       [-]         [-]   arrayShift
+    [-]         [-]       [-]         [-]   arraySlice
+    [-]         [-]       [-]         [-]   arrayToLocaleString
+    [-]         [-]       [-]         [-]   arrayToString
+    [-]         [-]       [-]         [-]   assign
+    [-]         [-]       [-]         [-]   calculateTimeDiff
     [x]         [x]       [ ]         [ ]   cancelJob
-    [-]         [-]       [-]         [ ]   charAt
-    [-]         [-]       [-]         [ ]   charCodeAt
+    [-]         [-]       [-]         [-]   charAt
+    [-]         [-]       [-]         [-]   charCodeAt
     [x]         [x]       [ ]         [ ]   checkWorkflowForJobVariables
-    [-]         [-]       [-]         [ ]   childJob
+    [-]         [-]       [-]         [-]   childJob
     [x]         [x]       [-]         [ ]   claimTask
-    [-]         [-]       [-]         [ ]   codePointAt
-    [-]         [-]       [-]         [ ]   convertEpochToObject
-    [-]         [-]       [-]         [ ]   convertTimeFormat
-    [-]         [-]       [-]         [ ]   convertTimeToEpoch
-    [-]         [-]       [-]         [ ]   convertTimezone
-    [-]         [-]       [-]         [ ]   copyWithin
+    [-]         [-]       [-]         [-]   codePointAt
+    [-]         [-]       [-]         [-]   convertEpochToObject
+    [-]         [-]       [-]         [-]   convertTimeFormat
+    [-]         [-]       [-]         [-]   convertTimeToEpoch
+    [-]         [-]       [-]         [-]   convertTimezone
+    [-]         [-]       [-]         [-]   copyWithin
     [x]         [x]       [ ]         [ ]   createJobGroupEntry
     [x]         [x]       [ ]         [ ]   deactivate
-    [-]         [-]       [-]         [ ]   decision
-    [-]         [-]       [-]         [ ]   deepmerge
-    [-]         [-]       [-]         [ ]   delay
+    [-]         [-]       [-]         [-]   decision
+    [-]         [-]       [-]         [-]   deepmerge
+    [-]         [-]       [-]         [-]   delay
     [x]         [x]       [ ]         [ ]   deleteJobGroups
     [x]         [x]       [ ]         [ ]   diffToHTML
-    [-]         [-]       [-]         [ ]   endsWith
-    [-]         [-]       [-]         [ ]   ErrorHandling
-    [-]         [-]       [-]         [ ]   evaluation
-    [-]         [-]       [-]         [ ]   eventListenerJob
-    [-]         [-]       [-]         [ ]   extractField
-    [-]         [-]       [-]         [ ]   fill
+    [-]         [-]       [-]         [-]   endsWith
+    [-]         [-]       [-]         [-]   ErrorHandling
+    [-]         [-]       [-]         [-]   evaluation
+    [-]         [-]       [-]         [-]   eventListenerJob
+    [-]         [-]       [-]         [-]   extractField
+    [-]         [-]       [-]         [-]   fill
     [x]         [x]       [ ]         [ ]   find
     [x]         [x]       [ ]         [ ]   findForwardPaths
     [x]         [x]       [ ]         [ ]   finishManualTask
     [x]         [x]       [ ]         [ ]   fixJob
-    [-]         [-]       [-]         [ ]   FlattenJSONFormInput
-    [-]         [-]       [-]         [ ]   forEach
-    [-]         [-]       [-]         [ ]   getAllLoopTasks
+    [-]         [-]       [-]         [-]   FlattenJSONFormInput
+    [-]         [-]       [-]         [-]   forEach
+    [-]         [-]       [-]         [-]   getAllLoopTasks
     [x]         [x]       [ ]         [x]   getAssociatedJobs
     [x]         [x]       [ ]         [x]   getEntireJob
     [x]         [x]       [ ]         [x]   getJob
@@ -70,74 +70,74 @@ Implemented  Doc String  Tests  Fix Method Tooltip
     [-]         [-]       [-]         [-]   join
     [-]         [-]       [-]         [-]   keys
     [x]         [x]       [ ]         [x]   listJobGroups
-    [-]         [-]       [-]         [ ]   localeCompare
-    [-]         [-]       [-]         [ ]   makeData
-    [-]         [-]       [-]         [ ]   map
-    [-]         [-]       [-]         [ ]   match
-    [-]         [-]       [-]         [ ]   merge
-    [-]         [-]       [-]         [ ]   modify
-    [-]         [-]       [-]         [ ]   newVariable
-    [-]         [-]       [-]         [ ]   normalize
-    [-]         [-]       [-]         [ ]   numberToString
-    [-]         [-]       [-]         [ ]   objectHasOwnProperty
-    [-]         [-]       [-]         [ ]   objectToString
-    [-]         [-]       [-]         [ ]   padEnd
-    [-]         [-]       [-]         [ ]   padStart
-    [-]         [-]       [-]         [ ]   parse
-    [-]         [-]       [-]         [ ]   parseInt
+    [-]         [-]       [-]         [-]   localeCompare
+    [-]         [-]       [-]         [-]   makeData
+    [-]         [-]       [-]         [-]   map
+    [-]         [-]       [-]         [-]   match
+    [-]         [-]       [-]         [-]   merge
+    [-]         [-]       [-]         [-]   modify
+    [-]         [-]       [-]         [-]   newVariable
+    [-]         [-]       [-]         [-]   normalize
+    [-]         [-]       [-]         [-]   numberToString
+    [-]         [-]       [-]         [-]   objectHasOwnProperty
+    [-]         [-]       [-]         [-]   objectToString
+    [-]         [-]       [-]         [-]   padEnd
+    [-]         [-]       [-]         [-]   padStart
+    [-]         [-]       [-]         [-]   parse
+    [-]         [-]       [-]         [-]   parseInt
     [x]         [x]       [ ]         [x]   pauseJob
-    [-]         [-]       [-]         [ ]   pop
+    [-]         [-]       [-]         [-]   pop
     [x]         [x]       [ ]         [x]   prepareMetricsLogs
-    [-]         [-]       [-]         [ ]   push
-    [-]         [-]       [-]         [ ]   query
+    [-]         [-]       [-]         [-]   push
+    [-]         [-]       [-]         [-]   query
     [x]         [x]       [ ]         [x]   queryJobs
     [x]         [x]       [ ]         [x]   queryTasksBrief
     [x]         [x]       [ ]         [x]   releaseTask
     [x]         [x]       [ ]         [x]   removeJobGroup
-    [-]         [-]       [-]         [ ]   repeat
-    [-]         [-]       [-]         [ ]   replace
+    [-]         [-]       [-]         [-]   repeat
+    [-]         [-]       [-]         [-]   replace
     [x]         [x]       [ ]         [x]   replaceJobGroups
-    [-]         [-]       [-]         [ ]   restCall
+    [-]         [-]       [-]         [-]   restCall
     [x]         [x]       [ ]         [x]   resumeJob
-    [-]         [-]       [-]         [ ]   reverse
+    [-]         [-]       [-]         [-]   reverse
     [x]         [x]       [ ]         [x]   revertToTask
     [x]         [x]       [ ]         [x]   runEvaluationGroup
     [x]         [x]       [ ]         [x]   runEvaluationGroups
     [x]         [x]       [ ]         [x]   runValidation
-    [-]         [-]       [-]         [ ]   search
+    [-]         [-]       [-]         [-]   search
     [x]         [x]       [ ]         [x]   searchJobs
     [x]         [x]       [ ]         [x]   searchTasks
     [x]         [x]       [ ]         [x]   searchWorkflows
-    [-]         [-]       [-]         [ ]   setObjectKey
-    [-]         [-]       [-]         [ ]   shift
-    [-]         [-]       [-]         [ ]   sort
-    [-]         [-]       [-]         [ ]   split
+    [-]         [-]       [-]         [-]   setObjectKey
+    [-]         [-]       [-]         [-]   shift
+    [-]         [-]       [-]         [-]   sort
+    [-]         [-]       [-]         [-]   split
     [x]         [x]       [ ]         [x]   startJobWithOptions
-    [-]         [-]       [-]         [ ]   startsWith
-    [-]         [-]       [-]         [ ]   stringConcat
-    [-]         [-]       [-]         [ ]   stringIncludes
-    [-]         [-]       [-]         [ ]   stringIndexOf
-    [-]         [-]       [-]         [ ]   stringLastIndexOf
-    [-]         [-]       [-]         [ ]   stringLength
-    [-]         [-]       [-]         [ ]   stringSlice
-    [-]         [-]       [-]         [ ]   stringValueOf
-    [-]         [-]       [-]         [ ]   stub
-    [-]         [-]       [-]         [ ]   substring
-    [-]         [-]       [-]         [ ]   toLocaleLowerCase
-    [-]         [-]       [-]         [ ]   toLocaleUpperCase
-    [-]         [-]       [-]         [ ]   toLowerCase
-    [-]         [-]       [-]         [ ]   toUpperCase
-    [-]         [-]       [-]         [ ]   transformation
-    [-]         [-]       [-]         [ ]   trim
-    [-]         [-]       [-]         [ ]   trimEnd
-    [-]         [-]       [-]         [ ]   trimStart
-    [-]         [-]       [-]         [ ]   unshift
+    [-]         [-]       [-]         [-]   startsWith
+    [-]         [-]       [-]         [-]   stringConcat
+    [-]         [-]       [-]         [-]   stringIncludes
+    [-]         [-]       [-]         [-]   stringIndexOf
+    [-]         [-]       [-]         [-]   stringLastIndexOf
+    [-]         [-]       [-]         [-]   stringLength
+    [-]         [-]       [-]         [-]   stringSlice
+    [-]         [-]       [-]         [-]   stringValueOf
+    [-]         [-]       [-]         [-]   stub
+    [-]         [-]       [-]         [-]   substring
+    [-]         [-]       [-]         [-]   toLocaleLowerCase
+    [-]         [-]       [-]         [-]   toLocaleUpperCase
+    [-]         [-]       [-]         [-]   toLowerCase
+    [-]         [-]       [-]         [-]   toUpperCase
+    [-]         [-]       [-]         [-]   transformation
+    [-]         [-]       [-]         [-]   trim
+    [-]         [-]       [-]         [-]   trimEnd
+    [-]         [-]       [-]         [-]   trimStart
+    [-]         [-]       [-]         [-]   unshift
     [x]         [x]       [ ]         [x]   unwatchJob
-    [-]         [-]       [-]         [ ]   updateJobDescription
+    [-]         [-]       [-]         [-]   updateJobDescription
     [x]         [x]       [ ]         [x]   validateAllLoops
-    [-]         [-]       [-]         [ ]   values
-    [-]         [-]       [-]         [ ]   ViewData
-    [-]         [-]       [-]         [ ]   ViewDiff
+    [-]         [-]       [-]         [-]   values
+    [-]         [-]       [-]         [-]   ViewData
+    [-]         [-]       [-]         [-]   ViewDiff
     [x]         [x]       [ ]         [x]   watchJob
 """
 import warnings
