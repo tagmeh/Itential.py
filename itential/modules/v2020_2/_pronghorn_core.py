@@ -1,5 +1,5 @@
 """
-Link to Itential Docs: https://docs.itential.com/2020.2/api/app-workflow_engine/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-workflow_engine/
 
 Implemented  Doc String  Tests
     [ ]         [ ]       [ ]   createAccount

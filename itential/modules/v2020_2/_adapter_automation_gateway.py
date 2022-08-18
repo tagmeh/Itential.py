@@ -1,5 +1,5 @@
 """
-Link to Itential Docs: https://docs.itential.com/2020.2/api/adapter-automation_gateway/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/adapter-automation_gateway/
 
 Implemented  Doc String  Tests
     [ ]         [ ]       [ ]   addDeviceToDeviceGroup

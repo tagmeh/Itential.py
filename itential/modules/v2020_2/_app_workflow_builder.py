@@ -1,5 +1,5 @@
 """
-Link to Itential Docs: https://docs.itential.com/2020.2/api/app-workflow_builder/
+Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-workflow_builder/
 
 Implemented  Doc String  Tests
     [x]         [x]       [ ]   createWorkflowGroupEntry
@@ -25,14 +25,14 @@ if TYPE_CHECKING:
 
 class AppWorkflowBuilder:
     """
-    https://docs.itential.com/2020.2/api/app-workflow_builder/
+    https://apidocs.itential.com/2020.2/api/app-workflow_builder/
     """
 
     @staticmethod
     def delete_workflow(client: "Itential", name: str) -> "requests.Response":
         """
         Deletes a single workflow of the given name.
-        https://docs.itential.com/2020.2/api/app-workflow_builder/deleteWorkflow/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/deleteWorkflow/
         :param client: Itential state object
         :param name: Name of the workflow to be deleted.
         :return: requests.Response object
@@ -45,7 +45,7 @@ class AppWorkflowBuilder:
     def import_workflow(client: "Itential", data: Dict[str, Any]) -> "requests.Response":
         """
         Imports a single workflow.
-        https://docs.itential.com/2020.2/api/app-workflow_builder/importWorkflow/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/importWorkflow/
         :param client: Itential state object
         :param data: The workflow json object.
         :return: requests.Response object. Successful response ex: {'n': 1, 'ok': 1, 'name': 'automation_name'}
@@ -57,7 +57,7 @@ class AppWorkflowBuilder:
     def create_workflow_group_entry(client: "Itential", workflow_name: str, group_name: str) -> "requests.Response":
         """
         Add Group to a Workflow.
-        https://docs.itential.com/2020.2/api/app-workflow_builder/createWorkflowGroupEntry/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/createWorkflowGroupEntry/
         :param client: Itential state object
         :param workflow_name: Name of the workflow to be assigned to the group
         :param group_name: < Unclear atm. Docs show an id, but the description says "name".
@@ -73,7 +73,7 @@ class AppWorkflowBuilder:
     def delete_workflow_groups(client: "Itential", workflow_name: str, group_name: str) -> "requests.Response":
         """
         Delete all Groups for a Workflow
-        https://docs.itential.com/2020.2/api/app-workflow_builder/deleteWorkflowGroups/ (Docs are incomplete)
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/deleteWorkflowGroups/ (Docs are incomplete)
         :param client: Itential state object
         :param workflow_name: Name of the workflow to delete
         :param group_name: < unclear atm > Itential docs aren't complete for this version.
@@ -89,7 +89,7 @@ class AppWorkflowBuilder:
     def export_workflow(client: "Itential", workflow_id: str = '', workflow_name: str = '') -> "requests.Response":
         """
         Returns the workflow json (Does not include a "_id" key at the top level)
-        https://docs.itential.com/2020.2/api/app-workflow_builder/exportWorkflow/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/exportWorkflow/
         :param client: Itential state object
         :param workflow_id: ID of the workflow to export
         :param workflow_name: Name of the workflow to export.
@@ -114,7 +114,7 @@ class AppWorkflowBuilder:
     def get_schemas(client: "Itential", workflow_object: Dict[str, Any]) -> "requests.Response":
         """
         Calculate incoming/outgoing schemas for the workflow
-        https://docs.itential.com/2020.2/api/app-workflow_builder/getSchemas/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/getSchemas/
         :param client: Itential state object
         :param workflow_object: A workflow json object.
         :return: requests.Response  200: {"inputSchema": {...}, "outputSchema": {...}}
@@ -126,7 +126,7 @@ class AppWorkflowBuilder:
     def get_task_details(client: "Itential", app_name: str, task_id: str) -> "requests.Response":
         """
         Get Task Details
-        https://docs.itential.com/2020.2/api/app-workflow_builder/getTaskDetails/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/getTaskDetails/
         :param client: Itential state object
         :param app_name: Application Name (Export field in model)
         :param task_id: Task ID (Hexadecimal). < Unclear what this variable is >
@@ -138,7 +138,7 @@ class AppWorkflowBuilder:
     def get_tasks_list(client: "Itential") -> "requests.Response":
         """
         Get all Tasks.
-        https://docs.itential.com/2020.2/api/app-workflow_builder/getTasksList/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/getTasksList/
         :param client: Itential state object
         :return: requests.Response
         """
@@ -148,7 +148,7 @@ class AppWorkflowBuilder:
     def list_workflow_groups(client: "Itential", workflow_name: str) -> "requests.Response":
         """
         List the groups that have access to a Workflow
-        https://docs.itential.com/2020.2/api/app-workflow_builder/listWorkflowGroups/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/listWorkflowGroups/
         :param client: Itential state object
         :param workflow_name: Name of the workflow to query
         :return: requests.Response
@@ -159,7 +159,7 @@ class AppWorkflowBuilder:
     def remove_workflow_group(client: "Itential", workflow_name: str, group_name: str) -> "requests.Response":
         """
         Remove a group from the list of authorized groups for a Workflow
-        https://docs.itential.com/2020.2/api/app-workflow_builder/removeWorkflowGroup/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/removeWorkflowGroup/
         :param client: Itential state object
         :param workflow_name: Name of workflow to remove group from
         :param group_name: Name of group to remove from workflow.
@@ -173,7 +173,7 @@ class AppWorkflowBuilder:
     def rename_workflow(client: "Itential", workflow_object: Dict[str, Any], new_name: str) -> "requests.Response":
         """
         Rename a Workflow in the database
-        https://docs.itential.com/2020.2/api/app-workflow_builder/renameWorkflow/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/renameWorkflow/
         :param client: Itential state object
         :param workflow_object: Current workflow object. Minimum requirements are {"_id": "", "name": ""}
         :param new_name: New workflow name.
@@ -186,7 +186,7 @@ class AppWorkflowBuilder:
     def replace_workflow_groups(client: "Itential", workflow_name: str, group_list: List[str]) -> "requests.Response":
         """
         Overwrite the list of groups that have access to a Workflow
-        https://docs.itential.com/2020.2/api/app-workflow_builder/replaceWorkflowGroups/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/replaceWorkflowGroups/
         :param client: Itential state object
         :param workflow_name: Name of the workflow
         :param group_list: List of group IDs (Hexadecimal)
@@ -201,7 +201,7 @@ class AppWorkflowBuilder:
     def save_workflow(client: "Itential", workflow_obj: Dict[str, Any]) -> "requests.Response":
         """
         Add a Workflow to the database (Basically the save button)
-        https://docs.itential.com/2020.2/api/app-workflow_builder/saveWorkflow/
+        https://apidocs.itential.com/2020.2/api/app-workflow_builder/saveWorkflow/
         :param client: Itential state object
         :param workflow_obj: Full workflow json
         :return: requests.Response
