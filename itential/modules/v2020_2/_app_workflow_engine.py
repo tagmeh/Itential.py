@@ -3,46 +3,46 @@ Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-workflow_engi
 
 Implemented  Doc String  Tests  Fix Method Tooltip
     [x]         [x]       [ ]         [ ]   activate
-    [-]         [-]       [-]         [-]   addDuration
+    [-]         [-]       [-]         [ ]   addDuration
     [x]         [x]       [ ]         [ ]   addWatchers
-    [-]         [-]       [-]         [-]   arrayConcat
-    [-]         [-]       [-]         [-]   arrayIncludes
-    [-]         [-]       [-]         [-]   arrayIndexOf
-    [-]         [-]       [-]         [-]   arrayLastIndexOf
-    [-]         [-]       [-]         [-]   arrayLength
-    [-]         [-]       [-]         [-]   arrayPop
-    [-]         [-]       [-]         [-]   arrayPush
-    [-]         [-]       [-]         [-]   arrayShift
-    [-]         [-]       [-]         [-]   arraySlice
-    [-]         [-]       [-]         [-]   arrayToLocaleString
-    [-]         [-]       [-]         [-]   arrayToString
-    [-]         [-]       [-]         [-]   assign
-    [-]         [-]       [-]         [-]   calculateTimeDiff
+    [-]         [-]       [-]         [ ]   arrayConcat
+    [-]         [-]       [-]         [ ]   arrayIncludes
+    [-]         [-]       [-]         [ ]   arrayIndexOf
+    [-]         [-]       [-]         [ ]   arrayLastIndexOf
+    [-]         [-]       [-]         [ ]   arrayLength
+    [-]         [-]       [-]         [ ]   arrayPop
+    [-]         [-]       [-]         [ ]   arrayPush
+    [-]         [-]       [-]         [ ]   arrayShift
+    [-]         [-]       [-]         [ ]   arraySlice
+    [-]         [-]       [-]         [ ]   arrayToLocaleString
+    [-]         [-]       [-]         [ ]   arrayToString
+    [-]         [-]       [-]         [ ]   assign
+    [-]         [-]       [-]         [ ]   calculateTimeDiff
     [x]         [x]       [ ]         [ ]   cancelJob
-    [-]         [-]       [-]         [-]   charAt
-    [-]         [-]       [-]         [-]   charCodeAt
+    [-]         [-]       [-]         [ ]   charAt
+    [-]         [-]       [-]         [ ]   charCodeAt
     [x]         [x]       [ ]         [ ]   checkWorkflowForJobVariables
-    [-]         [-]       [-]         [-]   childJob
+    [-]         [-]       [-]         [ ]   childJob
     [x]         [x]       [-]         [ ]   claimTask
-    [-]         [-]       [-]         [-]   codePointAt
-    [-]         [-]       [-]         [-]   convertEpochToObject
-    [-]         [-]       [-]         [-]   convertTimeFormat
-    [-]         [-]       [-]         [-]   convertTimeToEpoch
-    [-]         [-]       [-]         [-]   convertTimezone
-    [-]         [-]       [-]         [-]   copyWithin
+    [-]         [-]       [-]         [ ]   codePointAt
+    [-]         [-]       [-]         [ ]   convertEpochToObject
+    [-]         [-]       [-]         [ ]   convertTimeFormat
+    [-]         [-]       [-]         [ ]   convertTimeToEpoch
+    [-]         [-]       [-]         [ ]   convertTimezone
+    [-]         [-]       [-]         [ ]   copyWithin
     [x]         [x]       [ ]         [ ]   createJobGroupEntry
     [x]         [x]       [ ]         [ ]   deactivate
-    [-]         [-]       [-]         [-]   decision
-    [-]         [-]       [-]         [-]   deepmerge
-    [-]         [-]       [-]         [-]   delay
+    [-]         [-]       [-]         [ ]   decision
+    [-]         [-]       [-]         [ ]   deepmerge
+    [-]         [-]       [-]         [ ]   delay
     [x]         [x]       [ ]         [ ]   deleteJobGroups
     [x]         [x]       [ ]         [ ]   diffToHTML
-    [-]         [-]       [-]         [-]   endsWith
-    [-]         [-]       [-]         [-]   ErrorHandling
-    [-]         [-]       [-]         [-]   evaluation
-    [-]         [-]       [-]         [-]   eventListenerJob
-    [-]         [-]       [-]         [-]   extractField
-    [-]         [-]       [-]         [-]   fill
+    [-]         [-]       [-]         [ ]   endsWith
+    [-]         [-]       [-]         [ ]   ErrorHandling
+    [-]         [-]       [-]         [ ]   evaluation
+    [-]         [-]       [-]         [ ]   eventListenerJob
+    [-]         [-]       [-]         [ ]   extractField
+    [-]         [-]       [-]         [ ]   fill
     [x]         [x]       [ ]         [ ]   find
     [x]         [x]       [ ]         [ ]   findForwardPaths
     [x]         [x]       [ ]         [ ]   finishManualTask
