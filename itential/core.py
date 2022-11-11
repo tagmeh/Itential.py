@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 class Itential:
     def __init__(self, **kwargs) -> None:  # type: ignore
         """
-        :param username: Know defaults include "admin@pronghorn" and "admin@itential"
+        :param username: Known defaults include "admin@pronghorn" and "admin@itential"
         :param password: For authenticating with the server. Never stored or printed.
         :param version: Not in use yet, might help with using the correct methods for authentication in the future.
         :param url: Used to change the server. Default is the local machine.
@@ -43,7 +43,7 @@ class Itential:
     def call(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """
         Wrapper for the Requests request method. Designed to have the Itential class authenticate with the server
-        or verify it's connection before making the module call.
+        or verify its connection before making the module call.
         """
         self.authenticate()
 
@@ -80,7 +80,7 @@ class Itential:
         Also labeled as a health check in the IAP docs.
         Used as a quick test to verify the current session object before attempting to (re)authenticate.
         """
-        response: requests.Response = self.session.get(url=f"{self.url}/health/applications")
+        response: requests.Response = self.session.get(url=f"{self.url}/health/applications", verify=False)
         log.debug(f"Health check: {response.status_code}")
         return response
 
