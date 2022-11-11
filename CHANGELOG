@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.0.6] - 2022-11-10
+### Fixed
+- Issue where a requests call wasn't set to skip ssl validation
+- Minor spelling and grammar issues
+
+## [0.0.5] - 2022-08-20
+### Updated
+- pyproject.toml with a [dependencies] section for deployment
+
 ## [0.0.4] - 2022-08-17
 ### Added
 - Completed (sans tests) the app_workflow_engine endpoints for version 2020.2.x
