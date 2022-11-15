@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.6] - 2022-11-15
+### Updated
+- Began refactoring the Itential class a bit, starting with how the url property is handled.
 
 ## [0.0.6] - 2022-11-10
 ### Fixed

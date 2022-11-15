@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 import requests
 
@@ -20,25 +20,17 @@ class Itential:
         self.password: str = kwargs.get("password", "admin")
         self.version: str = kwargs.get("version", "latest")
         self.auth_body: Dict[str, Dict[str, str]] = {"user": {"username": self.username, "password": self.password}}
-
-        self._url: str = "http://localhost:3000"
-        # self._url - Probably a better way to do this.
-        # self.__setattr__('url', kwargs.get('url', "http://localhost:3000"))
-
+        self.url: str = self.clean_url(kwargs.get("url")) or "http://localhost:3000"
         self.session: requests.Session = kwargs.get('session', requests.Session())
 
-    @property
-    def url(self) -> str:
-        return self._url
-
-    @url.setter
-    def url(self, value: str) -> None:
+    @staticmethod
+    def clean_url(value: str) -> Optional[str]:
         """Cleans the input URL of any extra whitespace and trailing slashes."""
         if value:
             trimmed_value = value.strip()
             if trimmed_value.endswith('/'):
                 value = trimmed_value[::-1].replace('/', '', 1)[::-1]
-            self._url = value
+            return value
 
     def call(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """
