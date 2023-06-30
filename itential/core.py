@@ -56,13 +56,11 @@ class Itential:
             f'Configuring Requests retry for status codes: {", ".join([str(status) for status in status_forcelist])}'
         )
 
-        retry = Retry(
-            total=self.max_retries,
-            backoff_factor=self.backoff_factor,
-            status_forcelist=status_forcelist
+        retry = Retry(total=self.max_retries, backoff_factor=self.backoff_factor, status_forcelist=status_forcelist)
+        log.debug(
+            f'Configured requests.Retry for with '
+            f'max_retries={self.max_retries} and backoff_factor={self.backoff_factor}'
         )
-        log.debug(f'Configured requests.Retry for with '
-                  f'max_retries={self.max_retries} and backoff_factor={self.backoff_factor}')
 
         adapter = HTTPAdapter(max_retries=retry)
         self.session.mount('http://', adapter)

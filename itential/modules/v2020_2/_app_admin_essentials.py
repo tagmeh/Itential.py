@@ -14,12 +14,14 @@ if TYPE_CHECKING:
 class AppAdminEssentials:
     """https://apidocs.itential.com/2020.2/api/app-admin_essentials/"""
 
-    @staticmethod
-    def get_services_health(client: "Itential") -> "requests.Response":
+    def __init__(self, client: "Itential"):
+        self.client = client
+
+    def get_services_health(self) -> "requests.Response":
         """
         Gets the health of all services in an IAP environment.
         https://apidocs.itential.com/2020.2/api/app-admin_essentials/getServicesHealth/
-        :param client: Itential state object
+
         :return:
         """
-        return client.call(method="GET", url=f"{client.url}/admin/services/health")
+        return self.client.call(method="GET", url=f"{self.client.url}/admin/services/health")

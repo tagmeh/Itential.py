@@ -195,8 +195,9 @@ class AppWorkflowEngine:
         :param workflow_name: Name of the workflow.
         :return: Variables of the workflow matching the name.
         """
-        return self.client.call(method="GET",
-                                url=f"{self.client.url}/workflow_engine/workflows/variables/{workflow_name}")
+        return self.client.call(
+            method="GET", url=f"{self.client.url}/workflow_engine/workflows/variables/{workflow_name}"
+        )
 
     def claim_task(self, task_id: str, user: str) -> requests.Response:
         """
@@ -270,7 +271,7 @@ class AppWorkflowEngine:
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/jobs/find", json=body)
 
     def find_forward_paths(
-            self, start_task_id: str, end_task_id: str, workflow_details: Dict[str, Any]
+        self, start_task_id: str, end_task_id: str, workflow_details: Dict[str, Any]
     ) -> requests.Response:
         """
         Find the paths between two Tasks in a Workflow by Task ids and Workflow details.
@@ -284,9 +285,7 @@ class AppWorkflowEngine:
         body = {"start_task": start_task_id, "end_task": end_task_id, "workflow_details": workflow_details}
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/findForwardPaths", json=body)
 
-    def finish_manual_task(
-            self, task_id: str, job_id: str, task_data: Dict[str, Any]
-    ) -> requests.Response:
+    def finish_manual_task(self, task_id: str, job_id: str, task_data: Dict[str, Any]) -> requests.Response:
         """
         Finishes a manual task with finish state success
         https://apidocs.itential.com/2020.2/api/app-workflow_engine/finishManualTask/
@@ -346,11 +345,11 @@ class AppWorkflowEngine:
         )
 
     def get_associated_jobs(
-            self,
-            filters: Optional[Dict[str, str]] = None,
-            sort: Optional[Dict[str, int]] = None,
-            limit: int = 10,
-            skip: int = 0,
+        self,
+        filters: Optional[Dict[str, str]] = None,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 10,
+        skip: int = 0,
     ) -> requests.Response:
         """
         Search for jobs that the user has touched.
@@ -440,11 +439,11 @@ class AppWorkflowEngine:
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/getJobFromTaskQuery", json=body)
 
     def get_job_list(
-            self,
-            status: str = "active",
-            filters: Optional[Dict[str, str]] = None,
-            limit: int = 10,
-            skip: int = 0,
+        self,
+        status: str = "active",
+        filters: Optional[Dict[str, str]] = None,
+        limit: int = 10,
+        skip: int = 0,
     ) -> requests.Response:
         """
         Get a list of jobs by status.
@@ -557,7 +556,7 @@ class AppWorkflowEngine:
         """
         return self.client.call(
             method="GET",
-            url=f"{self.client.url}/workflow_engine/locations/{location}/packages/{package}/tasks/{method}"
+            url=f"{self.client.url}/workflow_engine/locations/{location}/packages/{package}/tasks/{method}",
         )
 
     def get_task_statuses(self, job_id: str) -> requests.Response:
@@ -580,8 +579,9 @@ class AppWorkflowEngine:
         :param workflow_name: Name of the workflow.
         :return: requests.Response Workflow details matching the Workflow name
         """
-        return self.client.call(method="GET",
-                                url=f"{self.client.url}/workflow_engine/workflows/detailed/{workflow_name}")
+        return self.client.call(
+            method="GET", url=f"{self.client.url}/workflow_engine/workflows/detailed/{workflow_name}"
+        )
 
     def is_active(self) -> requests.Response:
         """
@@ -673,8 +673,9 @@ class AppWorkflowEngine:
         :param group_id: ID of a group. Ex:
         :return: requests.Response Status of the removal of a group from a job.
         """
-        return self.client.call(method="DELETE",
-                                url=f"{self.client.url}/workflow_engine/jobs/{job_id}/groups/{group_id}")
+        return self.client.call(
+            method="DELETE", url=f"{self.client.url}/workflow_engine/jobs/{job_id}/groups/{group_id}"
+        )
 
     def replace_job_groups(self, job_id: str, group_list: List[str]) -> requests.Response:
         """
@@ -715,9 +716,7 @@ class AppWorkflowEngine:
         body = {"job_id": job_id, "current_task": current_task_id, "target_task": target_task_id}
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/revertToTask", json=body)
 
-    def run_evaluation_group(
-            self, evaluation_group: List[Dict[str, Any]], all_true_flag: bool
-    ) -> requests.Response:
+    def run_evaluation_group(self, evaluation_group: List[Dict[str, Any]], all_true_flag: bool) -> requests.Response:
         """
         Run a test evaluation.
         Note: This might be an accidentally exposed endpoint for the "evaluation" task within a workflow.
@@ -750,9 +749,7 @@ class AppWorkflowEngine:
         }
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/runEvaluationGroup", json=body)
 
-    def run_evaluation_groups(
-            self, evaluation_group: List[Dict[str, Any]], all_true_flag: bool
-    ) -> requests.Response:
+    def run_evaluation_groups(self, evaluation_group: List[Dict[str, Any]], all_true_flag: bool) -> requests.Response:
         """
         Run a test evaluation.
         Note: This might be an accidentally exposed endpoint for the "evaluation" task within a workflow.
@@ -803,14 +800,14 @@ class AppWorkflowEngine:
         return self.client.call(method="POST", url=f"{self.client.url}/workflow_engine/workflows/validate", json=body)
 
     def search_jobs(
-            self,
-            expand: Optional[List[str]] = None,
-            query: Optional[Dict[str, str]] = None,
-            fields: Optional[Dict[str, int]] = None,
-            local: Optional[bool] = True,
-            sort: Optional[Dict[str, int]] = None,
-            limit: int = 0,
-            skip: int = 0,
+        self,
+        expand: Optional[List[str]] = None,
+        query: Optional[Dict[str, str]] = None,
+        fields: Optional[Dict[str, int]] = None,
+        local: Optional[bool] = True,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 0,
+        skip: int = 0,
     ) -> requests.Response:
         """
         TODO: Needs testing to identify what each param actually means. Documentation is very lacking.
@@ -868,15 +865,15 @@ class AppWorkflowEngine:
         return self.client.call(method="POST", url=rf"{self.client.url}/workflow_engine/jobs/search", json=data)
 
     def search_tasks(
-            self,
-            filter: Dict[str, Any],
-            expand: Optional[List[str]] = None,
-            query: Optional[Dict[str, str]] = None,
-            fields: Optional[Dict[str, int]] = None,
-            local: Optional[bool] = True,
-            sort: Optional[Dict[str, int]] = None,
-            limit: int = 0,
-            skip: int = 0,
+        self,
+        filter: Dict[str, Any],
+        expand: Optional[List[str]] = None,
+        query: Optional[Dict[str, str]] = None,
+        fields: Optional[Dict[str, int]] = None,
+        local: Optional[bool] = True,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 0,
+        skip: int = 0,
     ) -> requests.Response:
         """
         TODO: Needs testing to identify what each param actually means. Documentation is very lacking.
@@ -943,12 +940,12 @@ class AppWorkflowEngine:
         return self.client.call(method="POST", url=rf"{self.client.url}/workflow_engine/tasks/search", json=data)
 
     def search_workflows(
-            self,
-            query: Optional[Dict[str, str]] = None,
-            fields: Optional[Dict[str, int]] = None,
-            sort: Optional[Dict[str, int]] = None,
-            limit: int = 0,
-            skip: int = 0,
+        self,
+        query: Optional[Dict[str, str]] = None,
+        fields: Optional[Dict[str, int]] = None,
+        sort: Optional[Dict[str, int]] = None,
+        limit: int = 0,
+        skip: int = 0,
     ) -> requests.Response:
         """
         Search Workflows with Options

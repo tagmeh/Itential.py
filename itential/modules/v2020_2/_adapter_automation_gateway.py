@@ -78,15 +78,16 @@ if TYPE_CHECKING:
 class AdapterAutomationGateway:
     """https://apidocs.itential.com/2020.2/api/adapter-automation_gateway/"""
 
-    @staticmethod
-    def netmiko_send_command(client: "Itential", host: str, commands: List[str],
-                             connection_options: Dict[str, str]) -> requests.Response:
+    def __init__(self, client: "Itential"):
+        self.client = client
+
+    def netmiko_send_command(
+        self, host: str, commands: List[str], connection_options: Dict[str, str]
+    ) -> requests.Response:
         """
         Wrapper of send_command of netmiko.
-
         https://apidocs.itential.com/2020.2/api/adapter-automation_gateway/netmikoSendCommand/
 
-        :param client: The Itential state object
         :param host: Device TID/Name
         :param commands: A List of commands to run.
         :param connection_options: Connection and Authentication information.
@@ -98,20 +99,20 @@ class AdapterAutomationGateway:
             "netmikoSendCommandParameters": {
                 "host": host,
                 "commands": commands,
-                "connection_options": connection_options
+                "connection_options": connection_options,
             }
         }
-        return client.call(method="POST", url=f"{client.url}/automationgateway/netmiko/send_command", json=body)
+        return self.client.call(
+            method="POST", url=f"{self.client.url}/automationgateway/netmiko/send_command", json=body
+        )
 
-    @staticmethod
-    def netmiko_send_config(client: "Itential", host: str, config_commands: List[str],
-                            connection_options: Dict[str, Union[int, str]]) -> requests.Response:
+    def netmiko_send_config(
+        self, host: str, config_commands: List[str], connection_options: Dict[str, Union[int, str]]
+    ) -> requests.Response:
         """
         Wrapper of send_config_set of netmiko.
-
         https://apidocs.itential.com/2020.2/api/adapter-automation_gateway/netmikoSendConfig/
 
-        :param client: The Itential state object
         :param host: Device TID/Name
         :param config_commands: A List of config commands to run.
         :param connection_options: Connection and Authentication information.
@@ -123,7 +124,9 @@ class AdapterAutomationGateway:
             "netmikoSendConfigParameters": {
                 "host": host,
                 "config_commands": config_commands,
-                "connection_options": connection_options
+                "connection_options": connection_options,
             }
         }
-        return client.call(method="POST", url=f"{client.url}/automationgateway/netmiko/send_config", json=body)
+        return self.client.call(
+            method="POST", url=f"{self.client.url}/automationgateway/netmiko/send_config", json=body
+        )
