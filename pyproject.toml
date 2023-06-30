@@ -1,6 +1,6 @@
 [project]
 name = "itential.py"
-version = "0.0.5"
+version = "1.0.0"
 authors = [{ name = "Tagmeh" }]
 description = "A Python wrapper for the Itential API."
 readme = "README.md"
@@ -18,7 +18,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "requests"
+    "requests ~= 2.28"
 ]
 
 [project.urls]

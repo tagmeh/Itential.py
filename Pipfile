@@ -5,13 +5,13 @@ name = "pypi"
 
 [packages]
 requests = "*"
-ipython = "*"
 
 [dev-packages]
 nose = "*"
 mypy = "*"
 types-requests = "*"
 black = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.8"
