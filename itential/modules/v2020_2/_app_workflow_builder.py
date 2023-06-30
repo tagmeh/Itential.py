@@ -27,9 +27,10 @@ class AppWorkflowBuilder:
     """
     https://apidocs.itential.com/2020.2/api/app-workflow_builder/
     """
+    def __init__(self, client: "Itential"):
+        self.client = client
 
-    @staticmethod
-    def delete_workflow(client: "Itential", name: str) -> "requests.Response":
+    def delete_workflow(self, name: str) -> "requests.Response":
         """
         Deletes a single workflow of the given name.
         https://apidocs.itential.com/2020.2/api/app-workflow_builder/deleteWorkflow/
@@ -39,7 +40,7 @@ class AppWorkflowBuilder:
                  A successful delete returns the deleted workflow json.
                  A failed delete returns a 500: "TypeError: Cannot read property '_id' of null"
         """
-        return client.call(method="DELETE", url=f"{client.url}/workflow_builder/workflows/delete/{name}")
+        return self.client.call(method="DELETE", url=f"{self.client.url}/workflow_builder/workflows/delete/{name}")
 
     @staticmethod
     def import_workflow(client: "Itential", data: Dict[str, Any]) -> "requests.Response":
