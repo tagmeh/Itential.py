@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Union
 
 import requests
 from requests.adapters import HTTPAdapter, Retry
@@ -22,7 +22,7 @@ class Itential:
         self.username: str = kwargs.get("username", "admin@pronghorn")
         self.password: str = kwargs.get("password", "admin")
         self.auth_body: Dict[str, Dict[str, str]] = {"user": {"username": self.username, "password": self.password}}
-        self.url: str = self.clean_and_validate_url(kwargs.get("url", "http://localhost:3000"))
+        self.url: str = self.clean_and_validate_url(kwargs.get("url"))
         self.session: requests.Session = kwargs.get('session', requests.Session())
 
         self.max_retries: int = kwargs.get("max_retries", 3)
@@ -39,7 +39,7 @@ class Itential:
 
         self.setup_requests_retry()
 
-    def setup_requests_retry(self):
+    def setup_requests_retry(self) -> None:
         """
         Sets up the retry mechanism for the requests library.
         """
@@ -69,7 +69,7 @@ class Itential:
         log.debug('Retry set for "https://"')
 
     @staticmethod
-    def clean_and_validate_url(value: str) -> str:
+    def clean_and_validate_url(value: Union[None, str]) -> str:
         """Cleans the input URL of any extra whitespace and trailing slashes."""
         log.debug(f'Cleaning/validating user-defined URL: {value}')
         if value:
@@ -78,6 +78,7 @@ class Itential:
                 value = trimmed_value[::-1].replace('/', '', 1)[::-1]
             log.debug(f'Cleaned/validated URL: {value}')
             return value
+        return "http://localhost:3000"
 
     def call(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """
