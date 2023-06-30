@@ -2,6 +2,7 @@ import logging
 from typing import Dict, Any
 
 import requests
+from requests.adapters import HTTPAdapter, Retry
 
 logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
@@ -12,20 +13,56 @@ class Itential:
         """
         :param username: Known defaults include "admin@pronghorn" and "admin@itential"
         :param password: For authenticating with the server. Never stored or printed.
-        :param version: Not in use yet, might help with using the correct methods for authentication in the future.
         :param url: Used to change the server. Default is the local machine.
         :param session: Pass in a previously saved requests.Session object in order to bypass the authentication call.
+        :param max_retries: The maximum number of times to retry a failed request. Default is 3.
+        :param backoff_factor: The factor to multiply the backoff time by. Default is 0.2.
+                               0.2 is a 20% increase per backoff.
+        :param backoff_delay: The initial delay to use. Default is 2.
         """
         self.username: str = kwargs.get("username", "admin@pronghorn")
         self.password: str = kwargs.get("password", "admin")
-        self.version: str = kwargs.get("version", "latest")
         self.auth_body: Dict[str, Dict[str, str]] = {"user": {"username": self.username, "password": self.password}}
-
         self._url: str = "http://localhost:3000"
-        # self._url - Probably a better way to do this.
-        # self.__setattr__('url', kwargs.get('url', "http://localhost:3000"))
-
         self.session: requests.Session = kwargs.get('session', requests.Session())
+
+        self.max_retries: int = kwargs.get("max_retries", 3)
+
+        self.backoff_factor: float = float((kwargs.get("backoff_factor", 0.2)))
+        if self.backoff_factor < 0:
+            log.warning("backoff_factor cannot be less than 0. Setting to 0.1 (10%).")
+            self.backoff_factor = 0.1
+
+        self.backoff_delay: int = kwargs.get("backoff_delay", 2)
+        if self.backoff_delay < 1:
+            log.warning("backoff_delay is less than 1. Setting to 1.")
+            self.backoff_delay = 1
+
+        self.setup_requests_retry()
+
+    def setup_requests_retry(self):
+        """
+        Sets up the retry mechanism for the requests library.
+        """
+        status_forcelist = [
+                408,  # Request Timeout
+                409,  # Conflict
+                429,  # Too Many Requests
+                500,  # Internal Server Error
+                502,  # Bad Gateway
+                503,  # Service Unavailable
+                504   # Gateway Timeout
+            ]
+
+        retry = Retry(
+            total=self.max_retries,
+            backoff_factor=self.backoff_factor,
+            status_forcelist=status_forcelist
+        )
+
+        adapter = HTTPAdapter(max_retries=retry)
+        self.session.mount('http://', adapter)
+        self.session.mount('https://', adapter)
 
     @property
     def url(self) -> str:
@@ -42,15 +79,17 @@ class Itential:
 
     def call(self, method: str, url: str, **kwargs: Any) -> requests.Response:
         """
-        Wrapper for the Requests request method. Designed to have the Itential class authenticate with the server
-        or verify its connection before making the module call.
+        Calls the given endpoint, authenticates with the server if necessary.
         """
-        self.authenticate()
-
         headers = kwargs.get("headers", {"Content-Type": "application/json"})  # Required by some calls.
         verify = kwargs.get("verify", False)
 
-        return self.session.request(method=method, url=url, headers=headers, verify=verify, **kwargs)
+        response = self.session.request(method=method, url=url, headers=headers, verify=verify, **kwargs)
+
+        if response.status_code == 401 and not kwargs.get('retry'):
+            self.authenticate()
+            return self.call(method=method, url=url, retry=True, **kwargs)  # Retry the call after authenticating.
+        return response
 
     def authenticate(self) -> None:
         """
