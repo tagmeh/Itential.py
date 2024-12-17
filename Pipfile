@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 ipython = "*"
+pydantic = "*"
 
 [dev-packages]
 nose = "*"
@@ -14,4 +15,4 @@ types-requests = "*"
 black = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
