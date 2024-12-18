@@ -14,6 +14,7 @@ Implemented  Doc String  Tests
     [x]         [x]       [ ]   updateAutomation
     [x]         [x]       [ ]   updateTemplate
 """
+
 from typing import TYPE_CHECKING, List, Dict, Any
 
 if TYPE_CHECKING:

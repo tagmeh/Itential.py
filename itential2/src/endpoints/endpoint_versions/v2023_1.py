@@ -29,12 +29,7 @@ def get_workflow(itential, workflow_name: str) -> Workflow:
       default, but the get_workflow has to pass in the "expand" option (as seen below).
 
     """
-    payload = {
-        "options": {
-            "name": workflow_name,
-            "type": "automation"
-        }
-    }
+    payload = {"options": {"name": workflow_name, "type": "automation"}}
     response = itential.call(method="POST", endpoint='/workflow_builder/export', json=payload)
     if response.ok:
         print(response.json())
@@ -50,13 +45,8 @@ def get_workflow(itential, workflow_name: str) -> Workflow:
 
 
 def export_workflow(itential, workflow_name: str) -> Workflow:
-    """ Export a single workflow. """
-    payload = {
-        "options": {
-            "name": workflow_name,
-            "type": "automation"
-        }
-    }
+    """Export a single workflow."""
+    payload = {"options": {"name": workflow_name, "type": "automation"}}
     response = itential.call(method="POST", endpoint='/workflow_builder/export', json=payload)
     if response.ok:
         return get_workflow_class(version=itential.version, variant='export')(**response.json())

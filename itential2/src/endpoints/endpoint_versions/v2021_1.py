@@ -29,17 +29,7 @@ def get_workflow(itential, workflow_name: str) -> Workflow:
       default, but the get_workflow has to pass in the "expand" option (as seen below).
 
     """
-    payload = {
-        "options": {
-            "expand": [
-                "last_updated_by",
-                "created_by"
-            ],
-            "query": {
-                "name": workflow_name
-            }
-        }
-    }
+    payload = {"options": {"expand": ["last_updated_by", "created_by"], "query": {"name": workflow_name}}}
     response = itential.call(method="POST", endpoint='/workflow_engine/workflows/search', json=payload)
     if response.ok:
         response_json = response.json()
@@ -54,13 +44,8 @@ def get_workflow(itential, workflow_name: str) -> Workflow:
 
 
 def export_workflow(itential, workflow_name: str) -> Workflow:
-    """ Export a single workflow. """
-    payload = {
-        "options": {
-            "name": workflow_name,
-            "type": "automation"
-        }
-    }
+    """Export a single workflow."""
+    payload = {"options": {"name": workflow_name, "type": "automation"}}
     response = itential.call(method="POST", endpoint='/workflow_builder/export', json=payload)
     if response.ok:
         return get_workflow_class(version=itential.version, variant='export')(**response.json())

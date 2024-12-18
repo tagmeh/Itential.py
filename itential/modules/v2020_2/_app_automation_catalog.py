@@ -12,6 +12,7 @@ Implemented  Doc String  Tests
     [x]         [x]       [ ]   runAutomation
     [x]         [x]       [ ]   updateAutomation
 """
+
 from typing import TYPE_CHECKING, List, Dict, Any
 
 if TYPE_CHECKING:

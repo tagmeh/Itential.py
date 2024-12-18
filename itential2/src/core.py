@@ -14,6 +14,7 @@ class Core:
     Stores the requests session object.
     Responsible for re-authentication if the session is invalid.
     """
+
     def __init__(self, username: str, password: str, url: str, **kwargs) -> None:
         self.username: str = username
         self.password: str = password
@@ -44,8 +45,10 @@ class Core:
         if response.ok:
             log.debug(f"Authenticated with {self.url} server. [{response.status_code}]")
         else:
-            log.error(f"{response.status_code} - Failed to authenticate with {self.url} server. "
-                      f"Reason: '{response.json()['message']}'")
+            log.error(
+                f"{response.status_code} - Failed to authenticate with {self.url} server. "
+                f"Reason: '{response.json()['message']}'"
+            )
 
     def call(self, method: str, endpoint: str, **kwargs: Any) -> requests.Response:
         url = f"{self.url}/{endpoint}"

@@ -11,14 +11,12 @@ class JobParent(BaseModel):
     task: str
     iteration: int
     element: int
-    
+
 
 class JobMetrics(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromtimestamp()
-        }
+        json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
     start_time: datetime
     user: str
@@ -29,9 +27,7 @@ class JobMetrics(BaseModel):
 class JobError(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromtimestamp()
-        }
+        json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
     message: str = None
     task: str = None
@@ -39,12 +35,12 @@ class JobError(BaseModel):
 
 
 class Job2021_1(Job):
-    """ Describes a job in the 2021.1 version of the Itential API """
+    """Describes a job in the 2021.1 version of the Itential API"""
+
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromisoformat()
-        }
+        json_encoders = {datetime: lambda v: v.fromisoformat()}
+
     _version: SupportedVersion = SupportedVersion.V2021_1
     _id: str = None
     name: str = None
@@ -70,7 +66,7 @@ class Job2021_1(Job):
 
     def __repr__(self):
         return f"{self._version.value} ({self.name})"
-    
+
     def __str__(self):
         return f"Name: {self.name} ID: {self._id}"
 
@@ -99,9 +95,7 @@ class WorkflowError(BaseModel):
 class BaseWorkflow2021_1(Workflow):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromisoformat()
-        }
+        json_encoders = {datetime: lambda v: v.fromisoformat()}
 
     name: str = None
     type: str = None

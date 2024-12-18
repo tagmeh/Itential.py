@@ -4,6 +4,7 @@ Link to Itential Docs: https://apidocs.itential.com/2020.2/api/app-admin_essenti
 Implemented  Doc String  Tests
     [x]         [/]       [ ]   getServicesHealth
 """
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

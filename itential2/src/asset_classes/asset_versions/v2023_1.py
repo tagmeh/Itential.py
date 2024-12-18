@@ -9,9 +9,7 @@ from itential2.src.asset_classes.asset_versions.base import Job, Workflow
 class JobMetrics(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromtimestamp()
-        }
+        json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
     start_time: datetime
     user: str
@@ -22,9 +20,7 @@ class JobMetrics(BaseModel):
 class JobError(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromtimestamp()
-        }
+        json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
     message: str = None
     task: str = None
@@ -32,13 +28,11 @@ class JobError(BaseModel):
 
 
 class Job2023_1(Job):
-    """ Describes a job in the 2023.1 version of the Itential API """
+    """Describes a job in the 2023.1 version of the Itential API"""
 
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromisoformat()
-        }
+        json_encoders = {datetime: lambda v: v.fromisoformat()}
 
     _version: SupportedVersion = SupportedVersion.V2023_1
     _id: str = None
@@ -98,9 +92,7 @@ class WorkflowError(BaseModel):
 class BaseWorkflow2023_1(Workflow):
     class Config:
         populate_by_name = True
-        json_encoders = {
-            datetime: lambda v: v.fromisoformat()
-        }
+        json_encoders = {datetime: lambda v: v.fromisoformat()}
 
     name: str = None
     type: str = None

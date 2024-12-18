@@ -12,7 +12,9 @@ log = logging.getLogger(__name__)
 
 
 class Itential(Core):
-    def __init__(self, username: str, password: str, version: SupportedVersion, url: str = "http://localhost:3000", **kwargs):
+    def __init__(
+        self, username: str, password: str, version: SupportedVersion, url: str = "http://localhost:3000", **kwargs
+    ):
         self.version = version
         super().__init__(username=username, password=password, url=url, **kwargs)
 
@@ -34,6 +36,7 @@ if __name__ == '__main__':
     itential = Itential(username=username, password=password, version=SupportedVersion.V2021_1)
 
     from pprint import pprint
+
     #
     # jerb = itential.get_job("3a27928f699e4658b4df5aeb")
     # pprint(jerb.model_dump(mode='python'))
@@ -55,7 +58,6 @@ if __name__ == '__main__':
     exported_werkflow = itential_2023.export_workflow("Color Timer Workflow")
     pprint(exported_werkflow.model_dump(mode='python'))
 
-
     # {'ancestors': ['3a27928f699e4658b4df5aeb'],
     #  'canvas_version': None,
     #  'created': datetime.datetime(2024, 12, 13, 17, 28, 51, 508000, tzinfo=TzInfo(UTC)),
@@ -76,4 +78,3 @@ if __name__ == '__main__':
     #  'status': 'error',
     #  'variables': None,
     #  'watchers': ['675c936a13675f000b815be4']}
-
