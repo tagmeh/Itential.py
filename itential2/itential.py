@@ -1,11 +1,8 @@
 import logging
 
-
-from itential2.src import endpoints
-from itential2.src.asset_classes.asset_versions import Job
+from itential2 import src
 from itential2.src.core import Core
-from itential2.src.versions import SupportedVersion
-
+from itential2.src.versions import ItentialVersion
 
 logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
@@ -13,68 +10,86 @@ log = logging.getLogger(__name__)
 
 class Itential(Core):
     def __init__(
-        self, username: str, password: str, version: SupportedVersion, url: str = "http://localhost:3000", **kwargs
+        self, username: str, password: str, version: ItentialVersion, url: str = "http://localhost:3000", **kwargs
     ):
         self.version = version
         super().__init__(username=username, password=password, url=url, **kwargs)
 
-    def get_job(self, job_id: str) -> Job:
-        return endpoints.get_job(self, job_id=job_id)
+    def get_job(self, job_id: str) -> "Job":
+        return src.get_job(self, job_id=job_id)
 
-    def get_workflow(self, workflow_name: str):
-        return endpoints.get_workflow(self, workflow_name=workflow_name)
+    def get_jobs(self, workflow_name: str, all_jobs: bool = False, limit: int = 10, **kwargs) -> list["Job"]:
+        return src.get_jobs(self, workflow_name=workflow_name, all_jobs=all_jobs, limit=limit, **kwargs)
 
-    def export_workflow(self, workflow_name: str):
-        return endpoints.export_workflow(self, workflow_name=workflow_name)
+    # def get_job_variables(self, job_id: str):
+    #     return src.get_job_variables(self, job_id=job_id)
+    #
+    # def get_detailed_job(self, job_id: str) -> "Job":
+    #     return src.get_detailed_job(self, job_id=job_id)
+
+    def get_workflow(self, workflow_name: str) -> "Workflow":
+        return src.get_workflow(self, workflow_name=workflow_name)
+
+    def export_workflow(self, workflow_name: str) -> "Workflow":
+        return src.export_workflow(self, workflow_name=workflow_name)
 
 
 if __name__ == '__main__':
-    # url = r"https://autopilot-prod.corp.intranet:443"
     username = "admin@pronghorn"
     password = "admin"
 
-    itential = Itential(username=username, password=password, version=SupportedVersion.V2021_1)
+    itential_2021 = Itential(username=username, password=password, version=ItentialVersion.V2021_1)
 
     from pprint import pprint
 
-    #
-    # jerb = itential.get_job("3a27928f699e4658b4df5aeb")
+    # jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
     # pprint(jerb.model_dump(mode='python'))
-    #
-    # werkflow = itential.get_workflow("Test_Rate_Limited_ChildJob_Task")
+
+    werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
     # pprint(werkflow.model_dump(mode='python'))
-    #
-    # exported_werkflow = itential.export_workflow("Test_Rate_Limited_ChildJob_Task")
+
+    # exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
     # pprint(exported_werkflow.model_dump(mode='python'))
 
-    itential_2023 = Itential(username=username, password=password, version=SupportedVersion.V2023_1)
+    # jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
+    #                                fields={"_id": 1, "name": 1, "metrics.start_time": 1})
+    # print(len(jerbs))
 
-    jerb = itential_2023.get_job("2eb6d0afb569405d9b165f20")
-    pprint(jerb.model_dump(mode='python'))
+    jerbs_from_werkflow = werkflow.get_jobs(limit=20)
+    print(len(jerbs_from_werkflow))
 
-    werkflow = itential_2023.get_workflow("Color Timer Workflow")
-    pprint(werkflow.model_dump(mode='python'))
+    # itential_2023 = Itential(username=username, password=password, version=ItentialVersion.V2023_1)
 
-    exported_werkflow = itential_2023.export_workflow("Color Timer Workflow")
-    pprint(exported_werkflow.model_dump(mode='python'))
+    # Query for a specific job given a job_id.
+    # jerb = itential_2023.get_job("2eb6d0afb569405d9b165f20")
+    # print(f"{jerb.name=}")
+    # print(f"{jerb.id=}")
+    # print(f"{type(jerb)=}")
+    #
+    # # Use the job to get it's associated workflow.
+    # jerb_werkflow = jerb.get_workflow()
+    # print(f"{jerb_werkflow.name=}")
+    # print(f"{jerb_werkflow.id=}")
+    # print(f"{type(jerb_werkflow)=}")
 
-    # {'ancestors': ['3a27928f699e4658b4df5aeb'],
-    #  'canvas_version': None,
-    #  'created': datetime.datetime(2024, 12, 13, 17, 28, 51, 508000, tzinfo=TzInfo(UTC)),
-    #  'created_by': '675c9be151810d0032df1c47',
-    #  'created_version': None,
-    #  'decorators': [],
-    #  'description': '',
-    #  'groups': ['default'],
-    #  'last_updated': datetime.datetime(2024, 12, 13, 21, 20, 21, 319000, tzinfo=TzInfo(UTC)),
-    #  'last_updated_by': '675c936a13675f000b815be4',
-    #  'last_updated_version': None,
-    #  'metrics': Metrics(start_time=datetime.datetime(2024, 12, 13, 21, 20, 21, 250000, tzinfo=TzInfo(UTC)),
-    #                     user='675c936a13675f000b815be4', progress=0.75, end_time=None),
-    #  'name': 'Test_Rate_Limited_ChildJob_Task',
-    #  'parent': None,
-    #  'pre_automation_time': None,
-    #  'sla': None,
-    #  'status': 'error',
-    #  'variables': None,
-    #  'watchers': ['675c936a13675f000b815be4']}
+    # jerbs = itential_2023.get_jobs("Color Timer Workflow", all_jobs=False, limit=100, include="_id,name,metrics.start_time")
+    # print(f"{type(jerbs)=}")
+    # print(f"{len(jerbs)=}")
+    # if isinstance(jerbs, str):
+    #     print(f"{jerbs=}")
+    # print(f"{jerbs[0]=}")
+
+    # jerbs_from_werkflow = jerb_werkflow.get_jobs(limit=20)
+    # print(len(jerbs_from_werkflow))
+
+    # werkflow = itential_2023.get_workflow("Color Timer Workflow")
+    # pprint(werkflow.model_dump(mode='python'))
+    # print(werkflow.id)
+
+    # werkflow.run(payload)
+    # werkflow.import()  # Imports into the IAP instance
+    # werkflow.save()
+    # werkflow.get_jobs()
+
+    # exported_werkflow = itential_2023.export_workflow("Color Timer Workflow")
+    # pprint(exported_werkflow.model_dump(mode='python'))
