@@ -21,6 +21,19 @@ I'm open to contributions, just bare with me, I don't have the fancy infrastruct
 
 ***Constructive*** feedback is always appreciated.
 
+### Features
+- Standardizes dates into datetime objects (Itential returns a mix of timestamps and ISO formats)
+- Standardizes asset property formats (Itential returns a mix of camelCase and snake_case)
+- Converts assets and jobs into Pydantic models for type hinting and validation
+- Authentication and token management is handled by the Itential instance. 
+  - You can create multiple instances for different Itential versions at the same time (1 instance per version of course. There's no enforced limit except that the Itential token will change on each authentication, invalidating the previous instances of the same version.).
+- Pydantic models allow access to certain methods. 
+  - Examples:
+    - A job object has a method to query it's associated workflow, returning a workflow object.
+      - Job.get_workflow()
+    - A workflow object can be used to get n number of associated jobs.
+      - Workflow.get_jobs(limit=50)
+
 ### Scope
 **Currently, the only supported versions of Itential are 2021.1.x and 2023.1.x.**
 
