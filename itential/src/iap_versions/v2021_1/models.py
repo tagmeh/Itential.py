@@ -59,13 +59,24 @@ class Job2021_1(Job):
     sla: int | None = None
     groups: list[str] | None = None
     status: str | None = None
-    variables: dict | None = None
+    variables: dict[str, Any] | None = None
     watchers: list[str] | None = None
     ancestors: list[str] | None = None
     parent: JobParent | None = None
     decorators: list[str] | None = None
     metrics: JobMetrics | None = None
     error: list[JobError] | None = None
+
+    def get_output(self) -> None:
+        """
+        Gets the output of the Job if possible.
+        Cannot get output from a job that is not in "complete" status
+        """
+        if self.status not in ["complete"]:
+            print(f"Cannot get job '{self.id}' output for job that is not in 'complete' status. ({self.status})")
+            return
+        from itential.src.iap_versions.endpoint_version_factory import get_job_output
+        self.variables = get_job_output(self._itential, self.id)
 
 
 class WorkflowUser(BaseModel):

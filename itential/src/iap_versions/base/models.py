@@ -26,6 +26,19 @@ class Job(BaseModel):
         workflow: "Workflow" = export_workflow(self._itential, self.name)  # Explicitly for mypy typing.
         return workflow
 
+    def update(self) -> None:
+        """
+        Updates the job object with the latest information from the Itential instance.
+        Also attempts to pull in the job output if the job is complete.
+        """
+        if self.status in ["complete", "canceled", "error"]:
+            print(f"Job '{self.id}' is in a final state ({self.status}) and cannot be updated.")
+            return
+        from itential.src.iap_versions.endpoint_version_factory import get_job
+        job = get_job(self._itential, self.id)
+        self.__dict__.update(job.__dict__)
+        self.get_job_output()
+
     # Todo: Would be nice to have the __repr__ return something like <Job2023_1 (id)> or something better than
     #  the full path to this class when printing type(job)
     #

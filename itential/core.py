@@ -26,12 +26,11 @@ class Itential(AuthBase):
     def get_job(self, job_id: str) -> Job:
         return src.get_job(self, job_id=job_id)
 
-    def get_jobs(self, workflow_name: str, all_jobs: bool = False, limit: int = 10, **kwargs: Any) -> list[
-        Job]:
+    def get_jobs(self, workflow_name: str, all_jobs: bool = False, limit: int = 10, **kwargs: Any) -> list[Job]:
         return src.get_jobs(self, workflow_name=workflow_name, all_jobs=all_jobs, limit=limit, **kwargs)
 
-    # def get_job_variables(self, job_id: str):
-    #     return src.get_job_variables(self, job_id=job_id)
+    def get_job_output(self, job_id: str):
+        return src.get_job_output(self, job_id=job_id)
 
     def get_workflow(self, workflow_name: str) -> Workflow:
         return src.get_workflow(self, workflow_name=workflow_name)
@@ -50,6 +49,29 @@ def main() -> None:
     print(jerb.id)
     print(type(jerb))
     # pprint(jerb.model_dump(mode='python'))
+    print(jerb.status)
+
+    completed_jerb = itential_2021.get_job("a479e9ea13334b6999fc0efb")
+    print(completed_jerb.name)
+    print(completed_jerb.variables)
+    completed_jerb.get_output()
+    print(completed_jerb.variables)
+    print(completed_jerb.status)
+    print(completed_jerb.update())
+
+    completed_jerb_output_only = itential_2021.get_job_output("a479e9ea13334b6999fc0efb")
+    print(completed_jerb_output_only)
+
+    errored_job = itential_2021.get_job("cd9361acfa724ba49f3e808c")
+    print(errored_job.name)
+    print(f"{errored_job.error=}")
+    print(errored_job.status)
+    print(errored_job.get_output())
+    # print(errored_job.model_dump(mode='python'))
+
+    cancelled_job = itential_2021.get_job("3a27928f699e4658b4df5aeb")
+    print(f"{cancelled_job.error=}")
+    print(cancelled_job.get_output())
 
     werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
     print(werkflow.name)

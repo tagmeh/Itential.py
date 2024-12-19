@@ -19,7 +19,7 @@ def inject_itential_instance(func: Callable) -> Callable:
 
         # This is probably an error.
         # Todo: This section will need updating when the standard error handler is created.
-        if isinstance(result, str):
+        if isinstance(result, (str, dict)):
             return result
 
         if isinstance(result, list):
@@ -58,6 +58,20 @@ def get_jobs(itential, workflow_name: str, **kwargs: dict[str, Any]) -> list[Job
             return v2021_1.get_jobs(itential, workflow_name, **kwargs)
         case ItentialVersion.V2023_1:
             return v2023_1.get_jobs(itential, workflow_name, **kwargs)
+        case _:
+            raise NotSupportedError(f'Version {itential.version.value} not supported')
+
+
+@inject_itential_instance
+def get_job_output(itential, job_id: str) -> dict:
+    """
+    Selects the correct version of the get_job_output function based on the Itential version.
+    """
+    match itential.version:
+        case ItentialVersion.V2021_1:
+            return v2021_1.get_job_output(itential, job_id)
+        case ItentialVersion.V2023_1:
+            return v2023_1.get_job_output(itential, job_id)
         case _:
             raise NotSupportedError(f'Version {itential.version.value} not supported')
 
