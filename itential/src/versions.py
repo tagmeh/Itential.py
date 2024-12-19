@@ -1,7 +1,7 @@
 import logging
 from enum import Enum
 
-logging.basicConfig(level=logging.WARNING)
+
 log = logging.getLogger(__name__)
 
 

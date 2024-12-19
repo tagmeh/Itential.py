@@ -3,7 +3,7 @@ from typing import Any
 
 import requests
 
-logging.basicConfig(level=logging.WARNING)
+
 log = logging.getLogger(__name__)
 
 

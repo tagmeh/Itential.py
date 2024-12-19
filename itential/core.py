@@ -7,7 +7,6 @@ from itential.src.iap_versions.base.models import Job, Workflow
 from itential.src.versions import ItentialVersion
 
 
-logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -21,6 +20,7 @@ class Itential(AuthBase):
             **kwargs: Any
     ):
         self.version = version
+        log.debug(f"Creating Itential instance for version {version}")
         super().__init__(username=username, password=password, url=url, **kwargs)
 
     def get_job(self, job_id: str) -> Job:
@@ -40,58 +40,61 @@ class Itential(AuthBase):
 
 
 def main() -> None:
+    urllib3_logger = logging.getLogger("urllib3")
+    urllib3_logger.setLevel(logging.WARNING)
+
     username = "admin@pronghorn"
     password = "admin"
 
     from pprint import pprint
 
     itential_2021 = Itential(username=username, password=password, version=ItentialVersion.V2021_1)
-
-    jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
-    print(jerb.id)
-    print(type(jerb))
-    # pprint(jerb.model_dump(mode='python'))
-    print(jerb.status)
-
-    completed_jerb = itential_2021.get_job("a479e9ea13334b6999fc0efb")
-    print(completed_jerb.name)
-    print(completed_jerb.variables)
-    completed_jerb.get_output()
-    print(completed_jerb.variables)
-    print(completed_jerb.status)
-    print(completed_jerb.update())
-
-    completed_jerb_output_only = itential_2021.get_job_output("a479e9ea13334b6999fc0efb")
-    print(completed_jerb_output_only)
-
-    errored_job = itential_2021.get_job("cd9361acfa724ba49f3e808c")
-    print(errored_job.name)
-    print(f"{errored_job.error=}")
-    print(errored_job.status)
-    print(errored_job.get_output())
-    # print(errored_job.model_dump(mode='python'))
-
-    cancelled_job = itential_2021.get_job("3a27928f699e4658b4df5aeb")
-    print(f"{cancelled_job.error=}")
-    print(cancelled_job.get_output())
-
-    werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
-    print(werkflow.name)
-    print(type(werkflow))
-    # pprint(werkflow.model_dump(mode='python'))
-
-    exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
-    print(exported_werkflow.name)
-    print(type(exported_werkflow))
-    # pprint(exported_werkflow.model_dump(mode='python'))
-
-    jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
-                                   fields={"_id": 1, "name": 1, "metrics.start_time": 1})
-    print(len(jerbs))
-    print(type(jerbs))
-
-    jerbs_from_werkflow = werkflow.get_jobs(limit=20)
-    print(len(jerbs_from_werkflow))
+    #
+    # jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
+    # print(jerb.id)
+    # print(type(jerb))
+    # # pprint(jerb.model_dump(mode='python'))
+    # print(jerb.status)
+    #
+    # completed_jerb = itential_2021.get_job("a479e9ea13334b6999fc0efb")
+    # print(completed_jerb.name)
+    # print(completed_jerb.variables)
+    # completed_jerb.get_output()
+    # print(completed_jerb.variables)
+    # print(completed_jerb.status)
+    # print(completed_jerb.update())
+    #
+    # completed_jerb_output_only = itential_2021.get_job_output("a479e9ea13334b6999fc0efb")
+    # print(completed_jerb_output_only)
+    #
+    # errored_job = itential_2021.get_job("cd9361acfa724ba49f3e808c")
+    # print(errored_job.name)
+    # print(f"{errored_job.error=}")
+    # print(errored_job.status)
+    # print(errored_job.get_output())
+    # # print(errored_job.model_dump(mode='python'))
+    #
+    # cancelled_job = itential_2021.get_job("3a27928f699e4658b4df5aeb")
+    # print(f"{cancelled_job.error=}")
+    # print(cancelled_job.get_output())
+    #
+    # werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
+    # print(werkflow.name)
+    # print(type(werkflow))
+    # # pprint(werkflow.model_dump(mode='python'))
+    #
+    # exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
+    # print(exported_werkflow.name)
+    # print(type(exported_werkflow))
+    # # pprint(exported_werkflow.model_dump(mode='python'))
+    #
+    # jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
+    #                                fields={"_id": 1, "name": 1, "metrics.start_time": 1})
+    # print(len(jerbs))
+    # print(type(jerbs))
+    #
+    # jerbs_from_werkflow = werkflow.get_jobs(limit=20)
+    # print(len(jerbs_from_werkflow))
 
 
     # itential_2023 = Itential(username=username, password=password, version=ItentialVersion.V2023_1)
