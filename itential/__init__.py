@@ -1,3 +1,3 @@
-from itential.itential import *
+from itential.core import *
 
 __all__ = ["Itential"]
