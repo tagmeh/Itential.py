@@ -118,11 +118,11 @@ def get_jobs(
         return response.reason  # Todo Output standardized error object.
 
 
-def get_job_output(itential, job_id: str) -> dict:  # Todo: Should this be a JobOutput model?
+def get_job_output(itential, job_id: str) -> models.Job2021_1:
     """ Gets the output of the Job if the job is completed (but not cancelled) """
     response = itential.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
     if response.ok:
-        return response.json()
+        return models.Job2021_1(id=job_id, variables=response.json())
     else:
         return response.reason
 

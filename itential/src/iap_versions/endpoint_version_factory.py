@@ -1,3 +1,4 @@
+import warnings
 from functools import wraps
 from typing import Callable, Any, Type
 
@@ -71,7 +72,11 @@ def get_job_output(itential, job_id: str) -> dict:
         case ItentialVersion.V2021_1:
             return v2021_1.get_job_output(itential, job_id)
         case ItentialVersion.V2023_1:
-            return v2023_1.get_job_output(itential, job_id)
+            warnings.warn(
+                "get_job_output is not needed for version 2023.1 and beyond. This data is returned with the get_job call.",
+                DeprecationWarning
+            )
+            return v2023_1.get_job(itential, job_id)
         case _:
             raise NotSupportedError(f'Version {itential.version.value} not supported')
 

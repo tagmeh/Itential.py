@@ -37,7 +37,7 @@ class Job(BaseModel):
         from itential.src.iap_versions.endpoint_version_factory import get_job
         job = get_job(self._itential, self.id)
         self.__dict__.update(job.__dict__)
-        self.get_job_output()
+
 
     # Todo: Would be nice to have the __repr__ return something like <Job2023_1 (id)> or something better than
     #  the full path to this class when printing type(job)

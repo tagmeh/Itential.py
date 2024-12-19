@@ -43,6 +43,8 @@ def main() -> None:
     username = "admin@pronghorn"
     password = "admin"
 
+    from pprint import pprint
+
     itential_2021 = Itential(username=username, password=password, version=ItentialVersion.V2021_1)
 
     jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
@@ -94,31 +96,52 @@ def main() -> None:
 
     # itential_2023 = Itential(username=username, password=password, version=ItentialVersion.V2023_1)
 
-    # Query for a specific job given a job_id.
+    # # Query for a specific job given a job_id.
     # jerb = itential_2023.get_job("2eb6d0afb569405d9b165f20")
     # print(f"{jerb.name=}")
     # print(f"{jerb.id=}")
     # print(f"{type(jerb)=}")
     #
-    # Use the job to get it's associated workflow.
+    # # Use the job to get it's associated workflow.
     # jerb_werkflow = jerb.get_workflow()
     # print(f"{jerb_werkflow.name=}")
     # print(f"{jerb_werkflow.id=}")
     # print(f"{type(jerb_werkflow)=}")
-
+    #
     # jerbs = itential_2023.get_jobs("Color Timer Workflow", all_jobs=False, limit=100, include="_id,name,metrics.start_time")
     # print(f"{type(jerbs)=}")
     # print(f"{len(jerbs)=}")
     # if isinstance(jerbs, str):
     #     print(f"{jerbs=}")
     # print(f"{jerbs[0]=}")
-
+    #
     # jerbs_from_werkflow = jerb_werkflow.get_jobs(limit=20)
     # print(len(jerbs_from_werkflow))
-
+    #
     # werkflow = itential_2023.get_workflow("Color Timer Workflow")
     # pprint(werkflow.model_dump(mode='python'))
     # print(werkflow.id)
+
+    # completed_jerb = itential_2023.get_job("5905c7e1d1a242debf713c24")
+    # print(completed_jerb.status)
+    # print(completed_jerb.variables)
+    # completed_jerb.update()
+    #
+    #
+    # cancelled_jerb = itential_2023.get_job("902092e27f8345abb7c1305c")
+    # print(cancelled_jerb.status)
+    # print(completed_jerb.variables)
+    # cancelled_jerb.update()
+    #
+    #
+    # errored_jerb = itential_2023.get_job("5f31f24cf2a441cfa6bcbe04")
+    # print(errored_jerb.status)
+    # print(completed_jerb.variables)
+    # errored_jerb.update()
+    #
+    # completed_jerb2 = itential_2023.get_job_output("5905c7e1d1a242debf713c24")  # Should print warning, doesnt.
+
+
 
     # werkflow.run(payload)
     # werkflow.import()  # Imports into the IAP instance

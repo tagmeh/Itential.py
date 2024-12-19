@@ -76,7 +76,13 @@ class Job2021_1(Job):
             print(f"Cannot get job '{self.id}' output for job that is not in 'complete' status. ({self.status})")
             return
         from itential.src.iap_versions.endpoint_version_factory import get_job_output
-        self.variables = get_job_output(self._itential, self.id)
+        job = get_job_output(self._itential, self.id)
+        self.__dict__.update(job.__dict__)
+
+    def update(self):
+        """ Itential 2021.1 doesn't return the job output by default, so we extend the update method."""
+        super().update()
+        self.get_output()
 
 
 class WorkflowUser(BaseModel):
