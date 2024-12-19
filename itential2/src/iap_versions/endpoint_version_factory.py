@@ -3,7 +3,7 @@ from typing import Callable, Any, Type
 
 from itential2.src.exceptions import NotSupportedError
 from itential2.src.iap_versions import v2021_1, v2023_1
-from itential2.src.iap_versions.core.models import Workflow, Job
+from itential2.src.iap_versions.base.models import Workflow, Job
 from itential2.src.versions import ItentialVersion
 
 

@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
-class Core:
+class AuthBase:
     """
     Accepts a username and password to authenticate with the Itential server.
     Contains the default auth values for the local server.

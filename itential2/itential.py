@@ -2,15 +2,15 @@ import logging
 from typing import Any
 
 from itential2 import src
-from itential2.src.core import Core
-from itential2.src.iap_versions.core.models import Job, Workflow
+from itential2.src.auth import AuthBase
+from itential2.src.iap_versions.base.models import Job, Workflow
 from itential2.src.versions import ItentialVersion
 
 logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
-class Itential(Core):
+class Itential(AuthBase):
     def __init__(
             self,
             username: str,

@@ -4,7 +4,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from itential2.src.versions import ItentialVersion
-from itential2.src.iap_versions.core.models import Job, Workflow
+from itential2.src.iap_versions.base.models import Job, Workflow
 
 
 class JobMetrics(BaseModel):

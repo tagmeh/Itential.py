@@ -1,7 +1,7 @@
 from typing import TypeVar, TYPE_CHECKING
 
 # from itential2 import Itential
-from itential2.src.iap_versions.core.models import Job, Workflow
+from itential2.src.iap_versions.base.models import Job, Workflow
 
 
 J = TypeVar("J", bound=Job)  # Type-hints an object that is a subclass of Job.
