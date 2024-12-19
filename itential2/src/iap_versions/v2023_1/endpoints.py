@@ -1,3 +1,5 @@
+from typing import Any, Type
+
 from itential2.src.iap_versions.v2023_1 import models
 
 
@@ -18,7 +20,7 @@ def get_jobs(
     skip: int = 0,
     order: int = 1,
     sort: str = "metrics.start_time",
-    **kwargs,
+    **kwargs: Any,
 ) -> list[models.Job2023_1]:
     """
     Get all jobs for a workflow.

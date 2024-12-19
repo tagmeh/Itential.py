@@ -15,7 +15,7 @@ class Core:
     Responsible for re-authentication if the session is invalid.
     """
 
-    def __init__(self, username: str, password: str, url: str, **kwargs) -> None:
+    def __init__(self, username: str, password: str, url: str, **kwargs: Any) -> None:
         self.username: str = username
         self.password: str = password
 

@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -7,10 +8,10 @@ from itential2.src.iap_versions.core.models import Job, Workflow
 
 
 class JobParent(BaseModel):
-    job: str = None
-    task: str = None
-    iteration: int = None
-    element: int = None
+    job: str | None = None
+    task: str | None = None
+    iteration: int | None = None
+    element: int | None = None
 
 
 class JobMetrics(BaseModel):
@@ -18,10 +19,10 @@ class JobMetrics(BaseModel):
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
-    start_time: datetime = None
-    user: str = None
-    progress: int | float = None
-    end_time: datetime = None  # A Job that is not yet completed will not have an "end_time" field.
+    start_time: datetime | None = None
+    user: str | None = None
+    progress: int | float | None = None
+    end_time: datetime | None = None  # A Job that is not yet completed will not have an "end_time" field.
 
 
 class JobError(BaseModel):
@@ -29,9 +30,9 @@ class JobError(BaseModel):
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.fromtimestamp()}
 
-    message: str = None
-    task: str = None
-    timestamp: datetime = None
+    message: str | None = None
+    task: str | None = None
+    timestamp: datetime | None = None
 
 
 class Job2021_1(Job):
@@ -42,29 +43,29 @@ class Job2021_1(Job):
         json_encoders = {datetime: lambda v: v.fromisoformat()}
 
     version: ItentialVersion = ItentialVersion.V2021_1
-    id: str = Field(alias="_id", default=None)
-    name: str = None
-    description: str = None
-    tasks: dict = None  # TODO: Define Task eventually
-    transitions: dict = None  # TODO: Define Transition eventually
-    last_updated: datetime = None
-    last_updated_by: str = None
-    last_updated_version: str = Field(alias="lastUpdatedVersion", default=None)
-    created: datetime = None
-    created_by: str = None
-    created_version: str = Field(alias="createdVersion", default=None)
-    canvas_version: int = Field(alias="canvasVersion", default=None)
-    pre_automation_time: int = Field(alias="preAutomationTime", default=None)
-    sla: int = None
-    groups: list[str] = None
-    status: str = None
-    variables: dict = None
-    watchers: list[str] = None
-    ancestors: list[str] = None
-    parent: JobParent = None
-    decorators: list[str] = None
-    metrics: JobMetrics = None
-    error: list[JobError] = None
+    id: str | None = Field(alias="_id", default=None)
+    name: str | None = None
+    description: str | None = None
+    tasks: dict[str, dict[str, Any]] | None = None
+    transitions: dict[str, dict[str, Any]] | None = None
+    last_updated: datetime | None = None
+    last_updated_by: str | None = None
+    last_updated_version: str | None = Field(alias="lastUpdatedVersion", default=None)
+    created: datetime | None = None
+    created_by: str | None = None
+    created_version: str | None = Field(alias="createdVersion", default=None)
+    canvas_version: int | None = Field(alias="canvasVersion", default=None)
+    pre_automation_time: int | None = Field(alias="preAutomationTime", default=None)
+    sla: int | None = None
+    groups: list[str] | None = None
+    status: str | None = None
+    variables: dict | None = None
+    watchers: list[str] | None = None
+    ancestors: list[str] | None = None
+    parent: JobParent | None = None
+    decorators: list[str] | None = None
+    metrics: JobMetrics | None = None
+    error: list[JobError] | None = None
 
 
 class WorkflowUser(BaseModel):
@@ -72,10 +73,10 @@ class WorkflowUser(BaseModel):
     class Config:
         populate_by_name = True
 
-    provenance: str = None
-    username: str = None
-    first_name: str = Field(alias="firstname", default=None)
-    inactive: bool = None
+    provenance: str | None = None
+    username: str | None = None
+    first_name: str | None = Field(alias="firstname", default=None)
+    inactive: bool | None = None
 
 
 class WorkflowError(BaseModel):
@@ -83,9 +84,9 @@ class WorkflowError(BaseModel):
     class Config:
         populate_by_name = True
 
-    task: str = None
-    name: str = None
-    message: str = None
+    task: str | None = None
+    name: str | None = None
+    message: str | None = None
 
 
 class BaseWorkflow2021_1(Workflow):
@@ -94,22 +95,22 @@ class BaseWorkflow2021_1(Workflow):
         json_encoders = {datetime: lambda v: v.fromisoformat()}
 
     version: ItentialVersion = ItentialVersion.V2023_1
-    name: str = None
-    type: str = None
-    tasks: dict = None
-    transitions: dict = None
-    font_size: int = None
-    last_updated: datetime = None
-    last_updated_by: WorkflowUser = None
-    last_updated_version: str = Field(alias="lastUpdatedVersion", default=None)
-    input_schema: dict = Field(alias="inputSchema", default_factory=dict)
-    output_schema: dict = Field(alias="outputSchema", default_factory=dict)
-    created: datetime = None
-    created_by: WorkflowUser = None
-    created_version: str = Field(alias="createdVersion", default=None)
-    canvas_version: int = Field(alias="canvasVersion", default=None)
-    tags: list[str] = None
-    groups: list[str] = None
+    name: str | None = None
+    type: str | None = None
+    tasks: dict[str, dict[str, Any]] | None = None
+    transitions: dict[str, dict[str, Any]] | None = None
+    font_size: int | None = None
+    last_updated: datetime | None = None
+    last_updated_by: WorkflowUser | None = None
+    last_updated_version: str | None = Field(alias="lastUpdatedVersion", default=None)
+    input_schema: dict | None = Field(alias="inputSchema", default={})
+    output_schema: dict | None = Field(alias="outputSchema", default={})
+    created: datetime | None = None
+    created_by: WorkflowUser | None = None
+    created_version: str | None = Field(alias="createdVersion", default=None)
+    canvas_version: int | None = Field(alias="canvasVersion", default=None)
+    tags: list[str] | None = None
+    groups: list[str] | None = None
 
 
 class ExportedWorkflow2021_1(BaseWorkflow2021_1):
@@ -117,5 +118,5 @@ class ExportedWorkflow2021_1(BaseWorkflow2021_1):
 
 
 class Workflow2021_1(BaseWorkflow2021_1):
-    id: str = Field(alias="_id", default=None)
-    errors: list[WorkflowError] = None
+    id: str | None = Field(alias="_id", default=None)
+    errors: list[WorkflowError] | None = None

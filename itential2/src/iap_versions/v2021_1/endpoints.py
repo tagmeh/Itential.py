@@ -22,11 +22,11 @@ def get_job(itential, job_id: str) -> models.Job2021_1:
 
 def get_jobs(
     itential,
-    workflow_name: str = None,
+    workflow_name: str | None = None,
     all_jobs: bool = False,
     limit: int = 10,
     skip: int = 0,
-    sort: dict = None,
+    sort: dict[str, int] = None,
     fields: dict[str, int] = None,
     **kwargs,
 ) -> list[models.Job2021_1]:
@@ -101,7 +101,7 @@ def get_jobs(
         response_json = response.json()
 
         if all_jobs is True:
-            jobs: list = response_json['results']
+            jobs: list[dict] = response_json['results']
 
             while response_json['metadata']['nextPageSkip'] is not None:
                 payload["skip"] = response_json['metadata']['nextPageSkip']

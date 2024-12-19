@@ -1,7 +1,9 @@
 import logging
+from typing import Any
 
 from itential2 import src
 from itential2.src.core import Core
+from itential2.src.iap_versions.core.models import Job, Workflow
 from itential2.src.versions import ItentialVersion
 
 logging.basicConfig(level=logging.WARNING)
@@ -10,50 +12,54 @@ log = logging.getLogger(__name__)
 
 class Itential(Core):
     def __init__(
-        self, username: str, password: str, version: ItentialVersion, url: str = "http://localhost:3000", **kwargs
+            self,
+            username: str,
+            password: str,
+            version: ItentialVersion,
+            url: str = "http://localhost:3000",
+            **kwargs: Any
     ):
         self.version = version
         super().__init__(username=username, password=password, url=url, **kwargs)
 
-    def get_job(self, job_id: str) -> "Job":
+    def get_job(self, job_id: str) -> Job:
         return src.get_job(self, job_id=job_id)
 
-    def get_jobs(self, workflow_name: str, all_jobs: bool = False, limit: int = 10, **kwargs) -> list["Job"]:
+    def get_jobs(self, workflow_name: str, all_jobs: bool = False, limit: int = 10, **kwargs: Any) -> list[
+        Job]:
         return src.get_jobs(self, workflow_name=workflow_name, all_jobs=all_jobs, limit=limit, **kwargs)
 
     # def get_job_variables(self, job_id: str):
     #     return src.get_job_variables(self, job_id=job_id)
-    #
-    # def get_detailed_job(self, job_id: str) -> "Job":
-    #     return src.get_detailed_job(self, job_id=job_id)
 
-    def get_workflow(self, workflow_name: str) -> "Workflow":
+    def get_workflow(self, workflow_name: str) -> Workflow:
         return src.get_workflow(self, workflow_name=workflow_name)
 
-    def export_workflow(self, workflow_name: str) -> "Workflow":
+    def export_workflow(self, workflow_name: str) -> Workflow:
         return src.export_workflow(self, workflow_name=workflow_name)
 
 
-if __name__ == '__main__':
+def main() -> None:
     username = "admin@pronghorn"
     password = "admin"
 
     itential_2021 = Itential(username=username, password=password, version=ItentialVersion.V2021_1)
 
-    from pprint import pprint
-
-    # jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
+    jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
+    print(jerb.id)
     # pprint(jerb.model_dump(mode='python'))
 
     werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
+    print(werkflow.name)
     # pprint(werkflow.model_dump(mode='python'))
 
-    # exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
+    exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
+    print(exported_werkflow.name)
     # pprint(exported_werkflow.model_dump(mode='python'))
 
-    # jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
-    #                                fields={"_id": 1, "name": 1, "metrics.start_time": 1})
-    # print(len(jerbs))
+    jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
+                                   fields={"_id": 1, "name": 1, "metrics.start_time": 1})
+    print(len(jerbs))
 
     jerbs_from_werkflow = werkflow.get_jobs(limit=20)
     print(len(jerbs_from_werkflow))
@@ -66,7 +72,7 @@ if __name__ == '__main__':
     # print(f"{jerb.id=}")
     # print(f"{type(jerb)=}")
     #
-    # # Use the job to get it's associated workflow.
+    # Use the job to get it's associated workflow.
     # jerb_werkflow = jerb.get_workflow()
     # print(f"{jerb_werkflow.name=}")
     # print(f"{jerb_werkflow.id=}")
@@ -93,3 +99,8 @@ if __name__ == '__main__':
 
     # exported_werkflow = itential_2023.export_workflow("Color Timer Workflow")
     # pprint(exported_werkflow.model_dump(mode='python'))
+    # exported_werkflow.get_jobs()
+
+
+if __name__ == '__main__':
+    main()
