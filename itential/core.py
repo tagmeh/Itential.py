@@ -6,6 +6,7 @@ from itential.src.auth import AuthBase
 from itential.src.iap_versions.base.models import Job, Workflow
 from itential.src.versions import ItentialVersion
 
+
 logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
@@ -13,9 +14,9 @@ log = logging.getLogger(__name__)
 class Itential(AuthBase):
     def __init__(
             self,
-            username: str,
-            password: str,
             version: ItentialVersion,
+            username: str = "admin@pronghorn",
+            password: str = "admin",
             url: str = "http://localhost:3000",
             **kwargs: Any
     ):
@@ -47,22 +48,27 @@ def main() -> None:
 
     jerb = itential_2021.get_job("3a27928f699e4658b4df5aeb")
     print(jerb.id)
+    print(type(jerb))
     # pprint(jerb.model_dump(mode='python'))
 
     werkflow = itential_2021.get_workflow("Test_Rate_Limited_ChildJob_Task")
     print(werkflow.name)
+    print(type(werkflow))
     # pprint(werkflow.model_dump(mode='python'))
 
     exported_werkflow = itential_2021.export_workflow("Test_Rate_Limited_ChildJob_Task")
     print(exported_werkflow.name)
+    print(type(exported_werkflow))
     # pprint(exported_werkflow.model_dump(mode='python'))
 
     jerbs = itential_2021.get_jobs("Test_Rate_Limited_ChildJob_Task", all_jobs=False, limit=100,
                                    fields={"_id": 1, "name": 1, "metrics.start_time": 1})
     print(len(jerbs))
+    print(type(jerbs))
 
     jerbs_from_werkflow = werkflow.get_jobs(limit=20)
     print(len(jerbs_from_werkflow))
+
 
     # itential_2023 = Itential(username=username, password=password, version=ItentialVersion.V2023_1)
 

@@ -51,6 +51,8 @@ def get_jobs(itential, workflow_name: str, **kwargs: dict[str, Any]) -> list[Job
     """
     Selects the correct version of the get_jobs function based on the Itential version.
     """
+    # Todo: Add a "max_jobs" parameter to limit the number of jobs returned.
+    #  Allows a middle ground between all_jobs and the 1-call limit (100).
     match itential.version:
         case ItentialVersion.V2021_1:
             return v2021_1.get_jobs(itential, workflow_name, **kwargs)
