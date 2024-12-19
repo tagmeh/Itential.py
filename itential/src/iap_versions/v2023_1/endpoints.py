@@ -3,9 +3,23 @@ from typing import Any, Type
 from itential.src.iap_versions.v2023_1 import models
 
 
-def get_job(itential, job_id: str) -> models.Job2023_1:
+def get_job(itential, job_id: str, includes: list[str] | None = None, excludes: list[str] | None = None,
+            dereference: list[str] | None = None) -> models.Job2023_1:
     """Get a job by job ID."""
-    response = itential.call(method="GET", endpoint=f"/operations-manager/jobs/{job_id}")
+
+
+
+    params = {}
+    if includes:
+        params["include"] = ",".join(includes)
+    elif excludes:
+        params["exclude"] = ",".join(excludes)
+
+    if dereference:
+        params["dereference"] = ",".join(dereference)
+
+
+    response = itential.call(method="GET", endpoint=f"/operations-manager/jobs/{job_id}", params=params)
     if response.ok:
         return models.Job2023_1(**response.json()['data'])
     else:
@@ -86,7 +100,6 @@ def get_jobs(
         return [models.Job2023_1(**job) for job in jobs]
     else:
         return response.reason  # Todo Output standardized error object.
-
 
 
 def get_workflow(itential, workflow_name: str) -> models.Workflow2023_1:

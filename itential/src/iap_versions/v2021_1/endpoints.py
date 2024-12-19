@@ -1,4 +1,8 @@
+import logging
+
 from itential.src.iap_versions.v2021_1 import models
+
+log = logging.getLogger(__name__)
 
 
 def get_job(itential, job_id: str) -> models.Job2021_1:
@@ -20,34 +24,70 @@ def get_job(itential, job_id: str) -> models.Job2021_1:
         return response.reason  # Todo: Add error handling or error class object
 
 
+def get_lean_job(itential, job_id: str, includes: list[str], excludes: list[str], **kwargs) -> models.Job2021_1 | None:
+    """
+    Returns a Job object with only the specified fields filled in. A hard-coded query should limit the number of jobs
+    found to between 0 and 1.
+
+    Args:
+        itential (Itential): The Itential state object
+        job_id (str): The job_id to retrieve
+        includes (list[str]): The fields to include in the job object. Exclusive with excludes.
+        excludes (list[str]): The fields to exclude in the job object. Exclusive with includes.
+        **kwargs (dict): Additional arguments for the workflow_engine/jobs/search endpoint. See get_jobs() for more info.
+
+    Returns (Job): A Job object with only the specified fields filled in.
+    """
+    if includes:
+        filter_dict = {prop: 1 for prop in includes}
+    elif excludes:
+        filter_dict = {prop: 0 for prop in excludes}
+    else:
+        raise ValueError("Either includes or excludes must be provided.")
+
+    jobs: list[models.Job2021_1] = get_jobs(itential, query={"_id": job_id}, limit=1, fields=filter_dict, **kwargs)
+
+    if len(jobs) == 1:
+        return jobs[0]
+    if len(jobs) == 0:
+        log.error(f"No job found with id: {job_id}")
+        return None
+
+
 def get_jobs(
     itential,
     workflow_name: str | None = None,
     all_jobs: bool = False,
+    max_jobs: int | None = None,
     limit: int = 10,
     skip: int = 0,
     sort: dict[str, int] = None,
     fields: dict[str, int] = None,
     **kwargs,
-) -> list[models.Job2021_1]:
+) -> list[models.Job2021_1] | list:
     """
     Get all jobs for a workflow.
     Search jobs with Options. This is similar to search_workflows, but with some additional fields.
 
-    :param itential: The Itential state object
-    :param workflow_name: The name of the workflow to search for. Opinionated and optional.
-    :param all_jobs: If True, will return all jobs for the workflow. If False, will return the first page of jobs.
-    :param limit: Max results to return
-    :param skip: Number to offset the search by
-    :param sort: {"name": -1} or {"name": 1}. "name" field can be any field in the workflow json.
-    :param fields: {"name": 1}. "name" field can be any field in the workflow json. Used to filter out other fields
+    Args:
+        itential: The Itential state object
+        workflow_name: The name of the workflow to search for. Opinionated and optional.
+        all_jobs: If True, will return all jobs for the workflow. If False, will return the first page of jobs.
+        max_jobs:
+        limit: Max results to return
+        skip: Number to offset the search by
+        sort: {"name": -1} or {"name": 1}. "name" field can be any field in the workflow json.
+        fields: {"name": 1}. "name" field can be any field in the workflow json. Used to filter out other fields
 
-    Keyword Arguments:
-    :param expand: {"expand": ["user"]}. Instructs the API to return the full object for the specified field.
-    :param query: {"name": "workflow_name"}. "name" field can be any field in the workflow json.
-    :param local:
+    Keyword Args:
+        expand: {"expand": ["user"]}. Instructs the API to return the full object for the specified field.
+        query: {"name": "workflow_name"}. "name" field can be any field in the workflow json.
+        local:
 
-    Ex: {
+    Examples:
+        get_jobs(itential, workflow_name="abcd", limit=50, sort={"name": -1})
+
+        {
           "options": {
             "expand": [
               "user",
@@ -82,19 +122,19 @@ def get_jobs(
     }
 
     if sort:  # Override the default sort if a sort is passed in.
-        # Todo: Determine if we should match the function arguments with 2023 and build the sort dict with the
-        #   2023 sort string and 2023 order int.
-        #   IE sort_dict = {"sort": {sort: order}}
         payload["options"]["sort"] = sort
 
     if fields:
-        # Todo: Similar to the sort field, should we make the interface for fields into a string like 2023?
-        #   Then parse the "_id,name,etc" field into a dict like {"_id": 1, "name": 1, "etc": 1}
         payload["options"]["fields"] = fields
+    else:
+        # Exclude large fields by default.
+        payload["options"]["fields"] = {"tasks": 0, "transitions": 0}
 
     if workflow_name:
         # If workflow_name, then do a simple "equals" query against the workflow_name.
         payload.update(**{"query": {"name": workflow_name}})
+
+    log.debug(f"'get_jobs' payload: {payload}")
 
     response = itential.call(method="POST", endpoint=f"/workflow_engine/jobs/search", json=payload)
     if response.ok:
@@ -104,6 +144,9 @@ def get_jobs(
             jobs: list[dict] = response_json['results']
 
             while response_json['metadata']['nextPageSkip'] is not None:
+                if max_jobs and len(jobs) >= max_jobs:
+                    break
+
                 payload["skip"] = response_json['metadata']['nextPageSkip']
 
                 response = itential.call(method="POST", endpoint=f"/workflow_engine/jobs/search", json=payload)
@@ -113,13 +156,16 @@ def get_jobs(
         else:
             jobs = response_json['results']
 
+        if max_jobs:
+            jobs = jobs[:max_jobs]
+
         return [models.Job2021_1(**job) for job in jobs]
     else:
         return response.reason  # Todo Output standardized error object.
 
 
 def get_job_output(itential, job_id: str) -> models.Job2021_1:
-    """ Gets the output of the Job if the job is completed (but not cancelled) """
+    """Gets the output of the Job if the job is completed (but not cancelled)"""
     response = itential.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
     if response.ok:
         return models.Job2021_1(id=job_id, variables=response.json())
