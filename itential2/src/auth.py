@@ -15,7 +15,7 @@ class AuthBase:
     Responsible for re-authentication if the session is invalid.
     """
 
-    def __init__(self, username: str = "admin@pronghorn", password: str = "admin", url: str = "http://localhost:3000", **kwargs: Any) -> None:
+    def __init__(self, username: str, password: str, url: str, **kwargs: Any) -> None:
         self.username: str = username
         self.password: str = password
 

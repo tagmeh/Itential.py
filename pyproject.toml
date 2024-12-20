@@ -1,3 +1,31 @@
+[project]
+name = "itential.py"
+version = "2.0.0"
+authors = [{ name = "Tagmeh" }]
+description = "An opinionated Itential API library."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "requests",
+    "pydantic"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tagmeh/Itential.py"
+"Bug Tracker" = "https://github.com/tagmeh/Itential.py/issues"
+
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"

@@ -7,13 +7,14 @@ def get_job(itential, job_id: str, include: list[str] | None = None, exclude: li
             dereference: list[str] | None = None) -> models.Job2023_1:
     """Get a job by job ID.
 
-    Wrap these params in a queryParameters object if you want to test with Postman.
+    { "Wrap these params in a queryParameters object if you want to test with Postman.
         "include": "description", Inclusive projection operator formatted as a comma-delineated list.
                     '_id' will be included implicitly unless excluded with 'exclude=_id'.
                     May only be used in conjunction with 'exclude' when 'exclude=_id'.
         "exclude": "_id,description" Exclusive projection operator formatted as a comma-delineated list.
                     May only be used in conjunction with 'include' when 'exclude=_id',
         "dereference": "Designates foreign key fields to dereference in the API output.",
+    }
     """
 
     if include and exclude:
@@ -27,6 +28,7 @@ def get_job(itential, job_id: str, include: list[str] | None = None, exclude: li
 
     if dereference:
         params["dereference"] = ",".join(dereference)
+
 
     response = itential.call(method="GET", endpoint=f"/operations-manager/jobs/{job_id}", params=params)
     if response.ok:
