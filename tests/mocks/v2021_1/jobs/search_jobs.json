@@ -1,0 +1,1662 @@
+{
+	"results": [
+		{
+			"_id": "0752f4ce283b4fe98314f4f7",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1734755197375,
+						"user": "675c936a13675f000b815be4",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "df40",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"ee7e"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1734755202446,
+						"run_time": 5071
+					}
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "df40",
+					"owner": "Pronghorn",
+					"iterations": [
+						"784a2240-a1e0-47a6-8590-aa2a96765feb"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "1d51",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:37.379Z",
+					"end_time": 1734755197384,
+					"finish_state": "success"
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"df40"
+						],
+						"error": []
+					},
+					"taskId": "1d51",
+					"owner": "Pronghorn",
+					"iterations": [
+						"894e6777-c5c1-4ede-b367-2eac90e69e47"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "d146",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:37.398Z",
+					"end_time": 1734755197404,
+					"finish_state": "success"
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"1d51"
+						],
+						"error": []
+					},
+					"taskId": "d146",
+					"owner": "Pronghorn",
+					"iterations": [
+						"d837739d-8101-49bf-8d56-bbfeed791975"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "ee7e",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:37.420Z",
+					"end_time": 1734755197426,
+					"finish_state": "success"
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"d146"
+						],
+						"error": []
+					},
+					"taskId": "ee7e",
+					"owner": "Pronghorn",
+					"iterations": [
+						"adcd4971-3839-43a5-8d00-967c5cd6039c"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:37.434Z",
+					"end_time": 1734755202440,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:42.444Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"groups": [
+				"default"
+			],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": [],
+			"description": "",
+			"status": "complete",
+			"variables": {
+				"_id": "0752f4ce283b4fe98314f4f7",
+				"initiator": "admin@pronghorn",
+				"coolStrVar": "String Var",
+				"coolArrVar": [
+					"Arr",
+					"a",
+					"var"
+				],
+				"coolObjVar": {
+					"property": "value"
+				}
+			},
+			"watchers": [
+				"675c936a13675f000b815be4"
+			],
+			"ancestors": [
+				"0752f4ce283b4fe98314f4f7"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1734755197375,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755202446
+			}
+		},
+		{
+			"_id": "829a0a0ecc7e4eba9c2e69d5",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1734755185178,
+						"user": "675c936a13675f000b815be4",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "df40",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"ee7e"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1734755190242,
+						"run_time": 5064
+					}
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "df40",
+					"owner": "Pronghorn",
+					"iterations": [
+						"d2635301-e2d3-4481-826f-222b529210a5"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "1d51",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:25.183Z",
+					"end_time": 1734755185189,
+					"finish_state": "success"
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"df40"
+						],
+						"error": []
+					},
+					"taskId": "1d51",
+					"owner": "Pronghorn",
+					"iterations": [
+						"173e3aeb-8189-4f03-bf9c-9acefb2aad72"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "d146",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:25.203Z",
+					"end_time": 1734755185212,
+					"finish_state": "success"
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"1d51"
+						],
+						"error": []
+					},
+					"taskId": "d146",
+					"owner": "Pronghorn",
+					"iterations": [
+						"47929a9c-6831-40d9-b242-f5a6ab021b58"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "ee7e",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:25.219Z",
+					"end_time": 1734755185223,
+					"finish_state": "success"
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"d146"
+						],
+						"error": []
+					},
+					"taskId": "ee7e",
+					"owner": "Pronghorn",
+					"iterations": [
+						"23f1e077-70a2-4c23-95b8-8d7bc0ff8b39"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:25.229Z",
+					"end_time": 1734755190234,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:30.240Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"groups": [
+				"default"
+			],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": [],
+			"description": "",
+			"status": "complete",
+			"variables": {
+				"_id": "829a0a0ecc7e4eba9c2e69d5",
+				"initiator": "admin@pronghorn",
+				"coolStrVar": "String Var",
+				"coolArrVar": [
+					"Arr",
+					"a",
+					"var"
+				],
+				"coolObjVar": {
+					"property": "value"
+				}
+			},
+			"watchers": [
+				"675c936a13675f000b815be4"
+			],
+			"ancestors": [
+				"829a0a0ecc7e4eba9c2e69d5"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1734755185178,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755190242
+			}
+		},
+		{
+			"_id": "6681ea11ef2f4b259c109676",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1734755181791,
+						"user": "675c936a13675f000b815be4",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "df40",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"ee7e"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1734755186864,
+						"run_time": 5073
+					}
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "df40",
+					"owner": "Pronghorn",
+					"iterations": [
+						"446f891f-0316-4f08-b05e-508929a1b396"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "1d51",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:21.801Z",
+					"end_time": 1734755181806,
+					"finish_state": "success"
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"df40"
+						],
+						"error": []
+					},
+					"taskId": "1d51",
+					"owner": "Pronghorn",
+					"iterations": [
+						"735b5276-82ef-4207-96b1-726c5f344388"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "d146",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:21.818Z",
+					"end_time": 1734755181825,
+					"finish_state": "success"
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"1d51"
+						],
+						"error": []
+					},
+					"taskId": "d146",
+					"owner": "Pronghorn",
+					"iterations": [
+						"534f19ad-63c9-4626-8423-0508b90d9aeb"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "ee7e",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:21.839Z",
+					"end_time": 1734755181844,
+					"finish_state": "success"
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"d146"
+						],
+						"error": []
+					},
+					"taskId": "ee7e",
+					"owner": "Pronghorn",
+					"iterations": [
+						"a50e1fb1-c13b-46eb-bf42-27a4df3e8e60"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:21.851Z",
+					"end_time": 1734755186857,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:26.863Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"groups": [
+				"default"
+			],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": [],
+			"description": "",
+			"status": "complete",
+			"variables": {
+				"_id": "6681ea11ef2f4b259c109676",
+				"initiator": "admin@pronghorn",
+				"coolStrVar": "String Var",
+				"coolArrVar": [
+					"Arr",
+					"a",
+					"var"
+				],
+				"coolObjVar": {
+					"property": "value"
+				}
+			},
+			"watchers": [
+				"675c936a13675f000b815be4"
+			],
+			"ancestors": [
+				"6681ea11ef2f4b259c109676"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1734755181791,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755186864
+			}
+		},
+		{
+			"_id": "48120e1b2393438aa58798a0",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1734755178229,
+						"user": "675c936a13675f000b815be4",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "df40",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"ee7e"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1734755183306,
+						"run_time": 5077
+					}
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "df40",
+					"owner": "Pronghorn",
+					"iterations": [
+						"572f7760-8663-465d-bf5e-3433c9947cba"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "1d51",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:18.234Z",
+					"end_time": 1734755178248,
+					"finish_state": "success"
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"df40"
+						],
+						"error": []
+					},
+					"taskId": "1d51",
+					"owner": "Pronghorn",
+					"iterations": [
+						"4aee0793-39b3-4c09-80da-cc797d01ad9e"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "d146",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:18.264Z",
+					"end_time": 1734755178272,
+					"finish_state": "success"
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"1d51"
+						],
+						"error": []
+					},
+					"taskId": "d146",
+					"owner": "Pronghorn",
+					"iterations": [
+						"97cd42c1-ddea-449f-90d1-fcb19c580efc"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "ee7e",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:18.279Z",
+					"end_time": 1734755178284,
+					"finish_state": "success"
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"d146"
+						],
+						"error": []
+					},
+					"taskId": "ee7e",
+					"owner": "Pronghorn",
+					"iterations": [
+						"4a5fc276-eecc-490f-b9ec-657f191caeab"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:18.291Z",
+					"end_time": 1734755183299,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:23.304Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"groups": [
+				"default"
+			],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": [],
+			"description": "",
+			"status": "complete",
+			"variables": {
+				"_id": "48120e1b2393438aa58798a0",
+				"initiator": "admin@pronghorn",
+				"coolStrVar": "String Var",
+				"coolArrVar": [
+					"Arr",
+					"a",
+					"var"
+				],
+				"coolObjVar": {
+					"property": "value"
+				}
+			},
+			"watchers": [
+				"675c936a13675f000b815be4"
+			],
+			"ancestors": [
+				"48120e1b2393438aa58798a0"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1734755178229,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755183306
+			}
+		},
+		{
+			"_id": "bdec683c9d4b4abd879518d9",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1734755165218,
+						"user": "675c936a13675f000b815be4",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "df40",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"ee7e"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1734755170347,
+						"run_time": 5129
+					}
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "df40",
+					"owner": "Pronghorn",
+					"iterations": [
+						"bdd77cb9-ae8b-4ebd-b04a-50ae027472d3"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "1d51",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:05.231Z",
+					"end_time": 1734755165259,
+					"finish_state": "success"
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"df40"
+						],
+						"error": []
+					},
+					"taskId": "1d51",
+					"owner": "Pronghorn",
+					"iterations": [
+						"64f49a30-6138-40ac-9233-0f20ecae0dc3"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "d146",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:05.285Z",
+					"end_time": 1734755165306,
+					"finish_state": "success"
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"1d51"
+						],
+						"error": []
+					},
+					"taskId": "d146",
+					"owner": "Pronghorn",
+					"iterations": [
+						"f73731cf-8c0b-402b-9dc1-cb8bcd117f58"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "ee7e",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:05.321Z",
+					"end_time": 1734755165327,
+					"finish_state": "success"
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"d146"
+						],
+						"error": []
+					},
+					"taskId": "ee7e",
+					"owner": "Pronghorn",
+					"iterations": [
+						"9f26300b-8b5a-4c71-97b9-7ad952bfcba8"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "02:42:ac:13:00:08:3000",
+					"start_time": "2024-12-21T04:26:05.335Z",
+					"end_time": 1734755170341,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:10.345Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"groups": [
+				"default"
+			],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": [],
+			"description": "",
+			"status": "complete",
+			"variables": {
+				"_id": "bdec683c9d4b4abd879518d9",
+				"initiator": "admin@pronghorn",
+				"coolStrVar": "String Var",
+				"coolArrVar": [
+					"Arr",
+					"a",
+					"var"
+				],
+				"coolObjVar": {
+					"property": "value"
+				}
+			},
+			"watchers": [
+				"675c936a13675f000b815be4"
+			],
+			"ancestors": [
+				"bdec683c9d4b4abd879518d9"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1734755165218,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755170347
+			}
+		}
+	],
+	"skip": 0,
+	"limit": 10,
+	"total": 5
+}

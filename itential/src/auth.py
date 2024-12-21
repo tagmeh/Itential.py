@@ -7,7 +7,7 @@ import requests
 log = logging.getLogger(__name__)
 
 
-class AuthBase:
+class Auth:
     """
     Accepts a username and password to authenticate with the Itential server.
     Contains the default auth values for the local server.
@@ -15,7 +15,14 @@ class AuthBase:
     Responsible for re-authentication if the session is invalid.
     """
 
-    def __init__(self, username: str = "admin@pronghorn", password: str = "admin", url: str = "http://localhost:3000", **kwargs: Any) -> None:
+    def __init__(
+        self,
+        username: str = "admin@pronghorn",
+        password: str = "admin",
+        url: str = "http://localhost:3000",
+        **kwargs: Any,
+    ) -> None:
+        log.debug("Initializing Auth class instance.")
         self.username: str = username
         self.password: str = password
 
@@ -40,8 +47,19 @@ class AuthBase:
                 value = trimmed_value[::-1].replace('/', '', 1)[::-1]
             self._url = value
 
+    @staticmethod
+    def get_login_path() -> str:
+        """
+        Returns the login path for the Itential server.
+        Override this method within the version-specific Itential class (ie Itential2021_1)
+          if the login path is different.
+        """
+        return "/login/"
+
     def authenticate(self) -> None:
-        response = self.session.post(f"{self.url}/login/", json=self.auth_body, verify=False)
+        login_path = self.get_login_path()
+        log.debug(f"Authenticating with {self.url} server using {login_path} endpoint.")
+        response = self.session.post(f"{self.url}{login_path}", json=self.auth_body, verify=False)
         if response.ok:
             log.debug(f"Authenticated with {self.url} server. [{response.status_code}]")
         else:

@@ -3,8 +3,13 @@ from typing import Any, Type
 from itential.src.iap_versions.v2023_1 import models
 
 
-def get_job(itential, job_id: str, include: list[str] | None = None, exclude: list[str] | None = None,
-            dereference: list[str] | None = None) -> models.Job2023_1:
+def get_job(
+    itential,
+    job_id: str,
+    include: list[str] | None = None,
+    exclude: list[str] | None = None,
+    dereference: list[str] | None = None,
+) -> models.Job2023_1:
     """Get a job by job ID.
 
     Wrap these params in a queryParameters object if you want to test with Postman.

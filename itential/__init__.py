@@ -1,4 +1,5 @@
-from itential.core import *
+import logging
+from itential.core import Itential
 from itential.src.versions import ItentialVersion
 
 console_handler = logging.StreamHandler()

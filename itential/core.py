@@ -1,8 +1,8 @@
 import logging
 from abc import ABC, abstractmethod
+from typing import Any
 
-from itential.src.iap_versions import Job
-from itential.src.iap_versions.base.models import Workflow
+from itential.src.iap_versions.base import Job, Workflow
 from itential.src.versions import ItentialVersion
 
 log = logging.getLogger(__name__)
@@ -10,174 +10,48 @@ log = logging.getLogger(__name__)
 
 class Itential(ABC):
     _version_map = {
-        ItentialVersion.V2021_1: "itential.src.iap_versions.v2021_1.class.Itential2021_1",
-        ItentialVersion.V2023_1: "itential.src.iap_versions.v2023_1.class.Itential2023_1"
+        ItentialVersion.V2021_1: "itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1",
+        ItentialVersion.V2023_1: "itential.src.iap_versions.v2023_1.itential2023_1.Itential2023_1",
     }
 
     @classmethod
-    def create(cls, version: ItentialVersion, username: str = "admin@pronghorn", password: str = "admin",
-               url: str = "http://localhost:3000"):
+    def create(
+        cls,
+        version: ItentialVersion,
+        username: str = "admin@pronghorn",
+        password: str = "admin",
+        url: str = "http://localhost:3000",
+    ):
         if cls.__name__ != 'Itential':
-            raise NotImplementedError("Do not call .create() from the subclass.")
+            raise NotImplementedError(".create() is not available from the subclass.")
 
         log.debug(f'Creating version-specific Itential instance with version: {version.value}')
         module_path, class_name = Itential._version_map[version].rsplit(".", 1)
-        print(module_path, class_name)
+        log.debug(f"Preparing to import '{class_name}' from '{module_path}'")
+
         module = __import__(module_path, fromlist=[class_name])
-        print(module)
+
+        log.debug(f"Imported '{class_name}'")
         versioned_class = getattr(module, class_name)
-        print(versioned_class)
-        return versioned_class()
+        return versioned_class(username=username, password=password, url=url)
 
     @abstractmethod
-    def get_job(self) -> Job:
-        ...
+    def get_job(self, job_id: str) -> Job: ...
 
     @abstractmethod
-    def get_lean_job(self) -> Job:
-        ...
+    def get_jobs(self, **kwargs: dict[str, Any]) -> list[Job]: ...
 
     @abstractmethod
-    def get_jobs(self) -> list[Job]:
-        ...
+    def get_job_output(self, **kwargs: dict[str, Any]) -> Job: ...
 
     @abstractmethod
-    def get_job_output(self, job_id: str) -> Job:
-        ...
+    def get_workflow(self, **kwargs: dict[str, Any]) -> Workflow: ...
 
     @abstractmethod
-    def get_workflow(self) -> Workflow:
-        ...
+    def get_workflows(self, **kwargs: dict[str, Any]) -> list[Workflow]: ...
 
     @abstractmethod
-    def get_workflows(self) -> list[Workflow]:
-        ...
-
-    @abstractmethod
-    def export_workflow(self, workflow_name: str) -> Workflow:
-        ...
-
-
-# class Itential(AuthBase):
-#     def __init__(
-#             self,
-#             version: ItentialVersion,
-#             username: str = "admin@pronghorn",
-#             password: str = "admin",
-#             url: str = "http://localhost:3000",
-#             **kwargs: Any,
-#     ):
-#         self.version = version
-#         log.debug(f"Creating Itential instance for version {version}")
-#         super().__init__(username=username, password=password, url=url, **kwargs)
-#
-#     def get_job(self, job_id: str) -> Job:
-#         return src.get_job(self, job_id=job_id)
-#
-#     def get_lean_job(
-#             self, job_id: str, includes: list[str] | None = None, excludes: list[str] | None = None, **kwargs
-#     ) -> Job | None:
-#         """
-#         Returns a Job object with only the specified fields filled in.
-#         A hard-coded query should limit the number of jobs found to between 0 and 1.
-#         """
-#
-#         if not includes and not excludes:
-#             raise ValueError("Either includes or excludes must be provided.")
-#
-#         return src.get_lean_job(self, job_id=job_id, includes=includes, excludes=excludes, **kwargs)
-#
-#     def get_jobs_by_workflow_name(self, workflow_name: str, **kwargs: Any) -> list[Job]:
-#         query = {"name": workflow_name}
-#         return self.get_jobs(query=query, **kwargs)
-#
-#     def get_jobs(
-#             self,
-#             query: dict[str, Any],
-#             all_jobs: bool = False,
-#             max_jobs: int | None = None,
-#             limit: int = 100,
-#             includes: list[str] | None = None,
-#             excludes: list[str] | None = None,
-#             skip: int = 0,
-#             sort: str | None = None,
-#             order: Literal[1, -1] = None,
-#             expand: list[str] | None = None,
-#     ) -> list[Job]:
-#         """
-#         Returns a list of Job objects based on the provided search criteria.
-#
-#         Args:
-#             query (dict[str, Any]): A dictionary of fields and values to search for. Ignored if 'workflow_name' is provided.
-#             all_jobs (bool): If True, will return all jobs for the workflow. If False, will return the first page of jobs.
-#             max_jobs (bool): Allows for a partial list of jobs to be returned. 'all_jobs' will override this.
-#             limit (int): Max results to return per page. Server limit is 100.
-#             includes (list[str]): Translates into {"field": {"include": 1, "fields": 1}}. Mutually exclusive with 'excludes'
-#             excludes (list[str]): Translates into {"field": {"include": 0, "fields": 0}}. Mutually exclusive with 'includes'
-#             skip (int): Number to offset the search by.
-#             sort (str): The field to sort by. Required if 'order' is provided.
-#             order (Literal[1, -1]): The order to sort by. 1 for ascending, -1 for descending. Required if 'sort' is provided.
-#             expand (list[str]): A list of fields to return the full object for. Useful for user objects.
-#
-#         Notes:
-#             'workflow_name' is an opinionated search field. It generates an exact string match query.
-#             Use 'query' if you need a more complex search. (And don't pass in 'workflow_name').
-#             'includes' and 'excludes' are mutually exclusive.
-#             'sort' and 'order' are both required if either are provided.
-#
-#         Returns: list[Job]: A list of Job objects based on the provided search criteria.
-#
-#         """
-#
-#         if includes and excludes:
-#             raise ValueError("'includes' and 'excludes' are mutually exclusive.")
-#
-#         if any([sort, order]) and not all([sort, order]):
-#             raise ValueError("'sort' and 'order' must both be provided if either is provided.")
-#
-#         if all_jobs and max_jobs:
-#             log.warning("'all_jobs' and 'max_jobs' provided. 'all_jobs' will override 'max_jobs'.")
-#
-#         return src.get_jobs(
-#             self,
-#             all_jobs=all_jobs,
-#             max_jobs=max_jobs,
-#             limit=limit,
-#             includes=includes,
-#             excludes=excludes,
-#             skip=skip,
-#             sort=sort,
-#             order=order,
-#             expand=expand,
-#             query=query,
-#         )
-#
-#     def get_lean_jobs(
-#             self,
-#             query: dict[str, Any],
-#             includes: list[str] | None = None,
-#             excludes: list[str] | None = None,
-#             **kwargs,
-#     ) -> list[Job]:
-#         """
-#         An opinionated wrapper around the "get_jobs" method.
-#         Enforces the usage of 'includes' or 'excludes' to limit the fields returned for each job.
-#         Returns a list of Job objects with only the specified fields filled in.
-#         """
-#
-#         if not includes and not excludes:
-#             raise ValueError("Either includes or excludes must be provided.")
-#
-#         return self.get_jobs(query=query, includes=includes, excludes=excludes, **kwargs)
-#
-#     def get_job_output(self, job_id: str):
-#         return src.get_job_output(self, job_id=job_id)
-#
-#     def get_workflow(self, workflow_name: str) -> Workflow:
-#         return src.get_workflow(self, workflow_name=workflow_name)
-#
-#     def export_workflow(self, workflow_name: str) -> Workflow:
-#         return src.export_workflow(self, workflow_name=workflow_name)
+    def export_workflow(self, **kwargs: dict[str, Any]) -> Workflow: ...
 
 
 def main() -> None:
@@ -190,7 +64,7 @@ def main() -> None:
     i = Itential.create(version=ItentialVersion.V2021_1)
     print(i)
     print(type(i))
-    #
+
     # itential_2021 = Itential(username=username, password=password, version=ItentialVersion.V2021_1)
     #
     # jobs = itential_2021.get_jobs()
