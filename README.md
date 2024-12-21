@@ -13,7 +13,7 @@ Hopefully, others will find it useful as well. Assuming there isn't already some
 I personally only plan on supporting the versions of Itential I have access to and use regularly.
 I don't plan on implementing every endpoint or feature of every Itential version.
 
-Itential versions are separated by the Year.Major (2021.1, 2022.2, etc). As of this writing, 
+Itential versions are separated by the Year.Major (2021.1, 2022.2, etc.). As of this writing, 
 the minors are not considered (2021.1.1). That may change in the future, as we have had breaking changes 
 come about in a minor release before. Though, the expectation is that it shouldn't happen going forward.
 
@@ -100,7 +100,7 @@ single_job = iap_2023_1.get_job(job_id="3a27928f699e4658b4df5aeb")
 ```
 
 ### Potential/Planned Features/Goals
-- [ ] Easier export/import of repository assets (workflows, JSTs, catalogs, etc)
+- [ ] Easier export/import of repository assets (workflows, JSTs, catalogs, etc.)
 - [ ] Easier Job querying and parsing.
 - [ ] Conversion tools from one version to another? (2021.1 workflow into a 2023.1 workflow)
 - [ ] Validation tools for an app/adapter's repo in the local, or a remote instance?
