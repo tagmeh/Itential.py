@@ -4,7 +4,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from itential.src.versions import ItentialVersion
-from itential.src.iap_versions.base.models import Job, Workflow
+from itential.src.iap_versions.base.models import Job
 
 
 class JobParent(BaseModel):
@@ -17,7 +17,7 @@ class JobParent(BaseModel):
 class JobMetrics(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {datetime: lambda v: v.fromtimestamp()}
+        json_encoders = {datetime: lambda v: v.timestamp() * 1000}
 
     start_time: datetime | None = None
     user: str | None = None
@@ -28,7 +28,7 @@ class JobMetrics(BaseModel):
 class JobError(BaseModel):
     class Config:
         populate_by_name = True
-        json_encoders = {datetime: lambda v: v.fromtimestamp()}
+        json_encoders = {datetime: lambda v: v.timestamp() * 1000}
 
     message: str | None = None
     task: str | None = None
@@ -40,7 +40,7 @@ class Job2021_1(Job):
 
     class Config:
         populate_by_name = True
-        json_encoders = {datetime: lambda v: v.fromisoformat()}
+        json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}
 
     version: ItentialVersion = ItentialVersion.V2021_1
     id: str | None = Field(alias="_id", default=None)
@@ -76,9 +76,8 @@ class Job2021_1(Job):
         if self.status not in ["complete"]:
             print(f"Cannot get job '{self.id}' output for job that is not in 'complete' status. ({self.status})")
             return self
-        from itential.src.iap_versions.v2021_1.cl import get_job_output
 
-        job = get_job_output(self._itential, self.id)
+        job = self._itential.get_job_output(job_id=self.id)
         self.__dict__.update(job.__dict__)
         return self
 

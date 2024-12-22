@@ -23,7 +23,11 @@ class TestItential2021_1(unittest.TestCase):
     """
 
     @classmethod
-    def setUpClass(cls):
+    @patch('itential.src.auth.Auth.authenticate')
+    def setUpClass(cls, mock_call):
+        # Mock response
+        mock_call.return_value = None
+
         base_path = Path(__file__).parents[4]  # tests/
 
         cls.itential2021_1 = Itential.create(version=ItentialVersion.V2021_1)
@@ -711,7 +715,7 @@ class TestItential2021_1(unittest.TestCase):
         job = Job2021_1(**{"_itential": self.itential2021_1}, **self.get_job_by_id_response_json)
 
         # Call get_workflow method
-        workflow = self.itential2021_1.get_workflow_by_job(job=job)
+        workflow = self.itential2021_1.get_workflow(job=job)
         _, kwargs = mock_call.call_args
 
         # Test Request

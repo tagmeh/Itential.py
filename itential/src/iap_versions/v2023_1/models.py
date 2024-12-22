@@ -125,10 +125,3 @@ class Workflow2023_1(BaseWorkflow2023_1):
 
     id: str | None = Field(alias="_id", default=None)
     errors: list[WorkflowError] | None = None
-
-
-if __name__ == '__main__':
-    print(Job2023_1)
-    job = Job2023_1()
-    print(type(job))
-    print(job)

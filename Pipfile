@@ -20,8 +20,9 @@ typing-extensions = "*"
 python_version = "3.10"
 
 [scripts]
-test = "coverage run -m unittest discover"  # Runs the tests and collects coverage data
+test = "coverage run -m unittest"  # Runs the tests and collects coverage data
 report = "coverage report"  # Prints the coverage report to the terminal
 html = "coverage html"  # Updates the htmlcov directory with the coverage report
 open = "start htmlcov/index.html"  # Opens the coverage report in the browser
 format = "black ."  # Formats the code using black.
+freeze = "pipenv requirements "  # "> requirements.txt" to update the requirements.txt file.

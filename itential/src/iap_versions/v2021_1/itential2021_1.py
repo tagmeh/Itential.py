@@ -74,40 +74,6 @@ class Itential2021_1(Auth):
             return None  # Todo: Add error handling or error class object
 
     @overload
-    def get_job_output(self, job: Job2021_1) -> Job2021_1: ...
-
-    @overload
-    def get_job_output(self, job_id: str) -> Job2021_1: ...
-
-    @inject_itential_instance
-    def get_job_output(self, **kwargs) -> Job2021_1:
-        """
-        Gets the output of the Job if the job is completed (but not cancelled).
-        The platform endpoint only returns a dictionary of job-level variables.
-
-        Args:
-            job_id (str): The unique job ID. Usually labeled as "_id" in the platform.
-
-        Returns:
-            Job2021_1: A Job object with only the "id" and "variables" fields filled in.
-
-        Notes:
-            Use Job.update() to get the full job details.
-        """
-
-        # Overload resolution for Job
-        job_id = kwargs.get('job_id')
-        job = kwargs.get('job')
-        if isinstance(job, Job2021_1):
-            job_id = job.id
-
-        response = self.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
-        if response.ok:
-            return Job2021_1(id=job_id, variables=response.json())
-        else:
-            return response.reason  # Todo: Add error handling or error class object
-
-    @overload
     def get_jobs(
         self,
         workflow_name: str,
@@ -265,6 +231,40 @@ class Itential2021_1(Auth):
             return response.reason  # Todo Output standardized error object.
 
     @overload
+    def get_job_output(self, job: Job2021_1) -> Job2021_1: ...
+
+    @overload
+    def get_job_output(self, job_id: str) -> Job2021_1: ...
+
+    @inject_itential_instance
+    def get_job_output(self, **kwargs) -> Job2021_1:
+        """
+        Gets the output of the Job if the job is completed (but not cancelled).
+        The platform endpoint only returns a dictionary of job-level variables.
+
+        Args:
+            job_id (str): The unique job ID. Usually labeled as "_id" in the platform.
+
+        Returns:
+            Job2021_1: A Job object with only the "id" and "variables" fields filled in.
+
+        Notes:
+            Use Job.update() to get the full job details.
+        """
+
+        # Overload resolution for Job
+        job_id = kwargs.get('job_id')
+        job = kwargs.get('job')
+        if isinstance(job, Job2021_1):
+            job_id = job.id
+
+        response = self.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
+        if response.ok:
+            return Job2021_1(id=job_id, variables=response.json())
+        else:
+            return response.reason  # Todo: Add error handling or error class object
+
+    @overload
     def get_lean_jobs(
         self,
         workflow_name: str,
@@ -349,6 +349,24 @@ class Itential2021_1(Auth):
     @overload
     def get_workflow(self, query: dict[str, Any], expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
 
+    @overload
+    def get_workflow(self, job: Job2021_1, expand: list[str] = None, **kwargs) -> Workflow2021_1:
+        """
+        Get the workflow associated with a job.
+
+        Args:
+            job (Job2021_1): The job object used to retrieve the associated workflow.
+            expand (list[str]): The fields to expand in the workflow object.
+            kwargs (dict): Additional query parameters to pass to get_workflows_by_query
+
+        Returns:
+            Workflow2021_1: A Workflow object with the workflow details.
+        """
+        ...
+
+    @overload
+    def get_workflow(self, job_id: int, expand: list[str] = None, **kwargs): ...
+
     @inject_itential_instance
     def get_workflow(self, **kwargs) -> Workflow2021_1:
         """
@@ -366,6 +384,10 @@ class Itential2021_1(Auth):
         # overload resolution
         if workflow_name := kwargs.get('workflow_name'):
             query = {"name": workflow_name}
+        elif job := kwargs.get('job'):
+            query = {"name": job.name}
+        elif job_id := kwargs.get('job_id'):
+            query = {"name": job_id}
         else:
             query = kwargs.get('query')
             del kwargs['query']
@@ -579,21 +601,6 @@ class Itential2021_1(Auth):
             return Workflow2021_1(**response.json())
         else:
             return response.reason  # Todo Output standardized error object.
-
-    @inject_itential_instance
-    def get_workflow_by_job(self, job: Job2021_1, **kwargs) -> Workflow2021_1:
-        """
-        Get the workflow associated with a job.
-
-        Args:
-            job (Job2021_1): The job object used to retrieve the associated workflow.
-            **kwargs (dict): Additional query parameters to pass to get_workflow_by_query
-
-        Returns:
-            Workflow2021_1: A Workflow object with the workflow details.
-        """
-        query = {"name": job.name}
-        return self.get_workflow(query=query, **kwargs)
 
     @overload
     def import_workflow(self, workflow: dict) -> dict | str: ...

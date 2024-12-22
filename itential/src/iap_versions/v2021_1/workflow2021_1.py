@@ -4,7 +4,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from itential.src.versions import ItentialVersion
-from itential.src.iap_versions.base.models import Job, Workflow
+from itential.src.iap_versions.base.models import Workflow
 
 
 class WorkflowUser(BaseModel):
@@ -31,10 +31,10 @@ class WorkflowError(BaseModel):
 class Workflow2021_1(Workflow):
     class Config:
         populate_by_name = True
-        json_encoders = {datetime: lambda v: v.fromisoformat()}
+        json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}
 
+    version: ItentialVersion = ItentialVersion.V2021_1
     id: str | None = Field(alias="_id", default=None)
-    version: ItentialVersion = ItentialVersion.V2023_1
     name: str | None = None
     type: str | None = None
     tasks: dict[str, dict[str, Any]] | None = None
@@ -52,3 +52,11 @@ class Workflow2021_1(Workflow):
     tags: list[str] | None = None
     groups: list[str] | None = None
     errors: list[WorkflowError] | None = None
+
+    def for_import(self):
+        """
+        Outputs the version required for Itential to import the workflow.
+        aka, no '_id' and 'errors' property.
+        """
+        exclude_fields = {'_id', '_itential', 'version', 'errors'}
+        return self.model_dump(mode='json', by_alias=True, exclude=exclude_fields)

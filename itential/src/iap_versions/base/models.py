@@ -14,16 +14,14 @@ class Job(BaseModel):
     def get_workflow(self) -> "Workflow":
         """Returns the workflow object associated with this job"""
         #  Lazy loading to avoid circular dependencies on load. Unsure if this is a bad idea atm.
-        from itential.src.iap_versions.endpoint_version_factory import get_workflow
 
-        workflow: "Workflow" = get_workflow(self._itential, self.name)  # Explicitly for mypy typing.
+        workflow: "Workflow" = self._itential.get_workflow(workflow_name=self.name)
         return workflow
 
     def export_workflow(self) -> "Workflow":
         """Returns the workflow object associated with this job"""
-        from itential.src.iap_versions.endpoint_version_factory import export_workflow
 
-        workflow: "Workflow" = export_workflow(self._itential, self.name)  # Explicitly for mypy typing.
+        workflow: "Workflow" = self._itential.export_workflow(workflow_name=self.name)
         return workflow
 
     def update(self) -> None:
@@ -34,9 +32,8 @@ class Job(BaseModel):
         if self.status in ["complete", "canceled", "error"]:
             print(f"Job '{self.id}' is in a final state ({self.status}) and cannot be updated.")
             return
-        from itential.src.iap_versions.endpoint_version_factory import get_job
 
-        job = get_job(self._itential, self.id)
+        job = self._itential.get_job(job_id=self.id)
         self.__dict__.update(job.__dict__)
 
     # Todo: Would be nice to have the __repr__ return something like <Job2023_1 (id)> or something better than
@@ -53,13 +50,9 @@ class Workflow(BaseModel):
     _itential: Optional["Itential"] = None  # Itential state instance.
     name: str | None  # Name of the workflow, unique to the IAP platform.
 
-    def get_jobs(self, all_jobs: bool = False, limit: int = 10, **kwargs: Any) -> list[Job]:
+    def get_jobs(self, get_all: bool = False, limit: int = 10, **kwargs: Any) -> list[Job]:
         """Returns a list of jobs associated with this workflow"""
-        from itential.src.iap_versions.endpoint_version_factory import get_jobs
-
-        jobs: list[Job] = get_jobs(  # Explicitly for mypy typing.
-            itential=self._itential, workflow_name=self.name, all_jobs=all_jobs, limit=limit, **kwargs
-        )
+        jobs: list[Job] = self._itential.get_jobs(workflow_name=self.name, get_all=get_all, limit=limit, **kwargs)
         return jobs
 
     def __str__(self) -> str:
