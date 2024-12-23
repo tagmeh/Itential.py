@@ -14,8 +14,7 @@ def inject_itential_instance(func: funcT) -> funcT:
     def wrapper(itential, *args, **kwargs):
         result = func(itential, *args, **kwargs)
 
-        # This is probably an error.
-        # Todo: This section will need updating when the standard error handler is created.
+        # Not sure if this should ever run now that the API endpoint methods raise an ApiError on non-response.ok calls.
         if isinstance(result, (str, dict)):
             return result
 
