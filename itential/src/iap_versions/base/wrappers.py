@@ -1,8 +1,10 @@
 from functools import wraps
-from typing import Callable
+from typing import TypeVar
+
+funcT = TypeVar("funcT")
 
 
-def inject_itential_instance(func: Callable) -> Callable:
+def inject_itential_instance(func: funcT) -> funcT:
     """
     Injects the 'itential' instance into the returned asset object.
     This allows the asset instance to make further calls to the Itential platform.

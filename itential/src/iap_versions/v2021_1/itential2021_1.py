@@ -2,6 +2,7 @@ import logging
 from typing import Any, Literal, overload
 
 from itential.src.auth import Auth
+from itential.src.exceptions import ApiError
 from itential.src.iap_versions.base.wrappers import inject_itential_instance
 from itential.src.iap_versions.v2021_1.job2021_1 import Job2021_1
 from itential.src.iap_versions.v2021_1.workflow2021_1 import Workflow2021_1
@@ -13,8 +14,8 @@ log = logging.getLogger(__name__)
 class Itential2021_1(Auth):
     version = ItentialVersion.V2021_1
 
-    def __init__(self, **kwargs):
-        log.debug('Initializing Itential 2021.1 class instance.')
+    def __init__(self, **kwargs: Any):
+        log.debug("Initializing Itential 2021.1 class instance.")
         Auth.__init__(self, **kwargs)  # Authentication for the Itential server
 
     @inject_itential_instance
@@ -37,7 +38,7 @@ class Itential2021_1(Auth):
         if response.ok:
             return Job2021_1(**response.json())
         else:
-            return response.reason  # Todo: Add error handling or error class object
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json())
 
     @inject_itential_instance
     def get_lean_job(self, job_id: str, include: list[str] = None, exclude: list[str] = None, **kwargs) -> Job2021_1:
@@ -71,7 +72,7 @@ class Itential2021_1(Auth):
             return job_list[0]
         if len(job_list) == 0:
             log.error(f"No job found with id: {job_id}")
-            return None  # Todo: Add error handling or error class object
+            raise ApiError(404, f"Api Error: No job found with id: {job_id} - {job_list}", None)
 
     @overload
     def get_jobs(
@@ -142,19 +143,19 @@ class Itential2021_1(Auth):
         """
 
         # Overload section
-        query = kwargs.get('query')
-        if workflow_name := kwargs.get('workflow_name'):
+        query = kwargs.get("query")
+        if workflow_name := kwargs.get("workflow_name"):
             query = {"name": workflow_name}
 
         # Defaults
-        get_all = kwargs.get('get_all', False)
-        max_amt = kwargs.get('max_amt', 0)
-        expand = kwargs.get('expand', ["last_updated_by", "created_by"])
-        limit = kwargs.get('limit', 100)
-        skip = kwargs.get('skip', 0)
-        sort = kwargs.get('sort', {"metrics.start_time": -1})
+        get_all = kwargs.get("get_all", False)
+        max_amt = kwargs.get("max_amt", 0)
+        expand = kwargs.get("expand", ["last_updated_by", "created_by"])
+        limit = kwargs.get("limit", 100)
+        skip = kwargs.get("skip", 0)
+        sort = kwargs.get("sort", {"metrics.start_time": -1})
         fields = kwargs.get(
-            'fields',
+            "fields",
             {
                 "tasks": 0,
                 "transitions": 0,
@@ -177,12 +178,12 @@ class Itential2021_1(Auth):
         # Only add the default exclusions if the user is using the fields param to exclude fields.
         # Checking for 0s, since the 'include'/'exclude' args don't make it to this level.
         if not all([value for value in fields.values()]):  # Values have to be all 0 or all 1. No mixing.
-            log.debug(f'Payload only contains exclude fields, adding default exclusions.')
-            if 'tasks' not in fields:
+            log.debug(f"Payload only contains exclude fields, adding default exclusions.")
+            if "tasks" not in fields:
                 options["fields"]["tasks"] = 0
-            if 'transitions' not in fields:
+            if "transitions" not in fields:
                 options["fields"]["transitions"] = 0
-            if 'last_updated_by' in expand:  # Trim down the excessive response when expanding this field.
+            if "last_updated_by" in expand:  # Trim down the excessive response when expanding this field.
                 options["fields"].update(
                     {
                         "last_updated_by.memberOf": 0,  # Required because of default expand fields.
@@ -190,7 +191,7 @@ class Itential2021_1(Auth):
                         "last_updated_by._meta": 0,  # Required because of default expand fields.
                     }
                 )
-            if 'created_by' in expand:  # Trim down the excessive response when expanding this field.
+            if "created_by" in expand:  # Trim down the excessive response when expanding this field.
                 options["fields"].update(
                     {
                         "created_by.memberOf": 0,  # Required because of default expand fields.
@@ -208,27 +209,27 @@ class Itential2021_1(Auth):
             response_json = response.json()
 
             if get_all is True:
-                jobs: list[dict] = response_json['results']
+                jobs: list[dict] = response_json["results"]
 
-                while response_json['metadata']['nextPageSkip'] is not None:
+                while response_json["metadata"]["nextPageSkip"] is not None:
                     if max_amt and len(jobs) >= max_amt:
                         break
 
-                    payload["skip"] = response_json['metadata']['nextPageSkip']
+                    payload["skip"] = response_json["metadata"]["nextPageSkip"]
 
                     response = self.call(method="POST", endpoint=f"/workflow_engine/jobs/search", json=payload)
                     response_json = response.json()
-                    jobs.extend(response_json['results'])
+                    jobs.extend(response_json["results"])
 
             else:
-                jobs = response_json['results']
+                jobs = response_json["results"]
 
             if max_amt:
                 jobs = jobs[:max_amt]
 
             return [Job2021_1(**job) for job in jobs]
         else:
-            return response.reason  # Todo Output standardized error object.
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
     @overload
     def get_job_output(self, job: Job2021_1) -> Job2021_1: ...
@@ -253,8 +254,8 @@ class Itential2021_1(Auth):
         """
 
         # Overload resolution for Job
-        job_id = kwargs.get('job_id')
-        job = kwargs.get('job')
+        job_id = kwargs.get("job_id")
+        job = kwargs.get("job")
         if isinstance(job, Job2021_1):
             job_id = job.id
 
@@ -262,7 +263,7 @@ class Itential2021_1(Auth):
         if response.ok:
             return Job2021_1(id=job_id, variables=response.json())
         else:
-            return response.reason  # Todo: Add error handling or error class object
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
     @overload
     def get_lean_jobs(
@@ -280,16 +281,9 @@ class Itential2021_1(Auth):
 
     @overload
     def get_lean_jobs(
-        self,
-        query: dict[str, Any],
-        include: list[str] = None,
-        exclude: list[str] = None,
-        get_all: bool = False,
-        max_amt: int = 0,
-        expand: list[str] = None,
-        limit: int = 100,
-        skip: int = 0,
-        sort: dict[str, Literal[1, -1]] = None,
+        self, query: dict[str, Any], include: list[str] = None, exclude: list[str] = None, get_all: bool = False,
+            max_amt: int = 0, expand: list[str] = None, limit: int = 100, skip: int = 0,
+            sort: dict[str, Literal[1, -1]] = None,
     ) -> list[Job2021_1]: ...
 
     @inject_itential_instance
@@ -308,13 +302,13 @@ class Itential2021_1(Auth):
         """
 
         # overload resolution
-        if workflow_name := kwargs.get('workflow_name'):
+        if workflow_name := kwargs.get("workflow_name"):
             query = {"name": workflow_name}
         else:
-            query = kwargs.get('query')
+            query = kwargs.get("query")
 
-        include = kwargs.get('include')
-        exclude = kwargs.get('exclude')
+        include = kwargs.get("include")
+        exclude = kwargs.get("exclude")
 
         if include and exclude:
             raise ValueError("Either 'include' OR 'exclude' arg must be provided, not both.")
@@ -382,15 +376,15 @@ class Itential2021_1(Auth):
         """
 
         # overload resolution
-        if workflow_name := kwargs.get('workflow_name'):
+        if workflow_name := kwargs.get("workflow_name"):
             query = {"name": workflow_name}
-        elif job := kwargs.get('job'):
+        elif job := kwargs.get("job"):
             query = {"name": job.name}
-        elif job_id := kwargs.get('job_id'):
+        elif job_id := kwargs.get("job_id"):
             query = {"name": job_id}
         else:
-            query = kwargs.get('query')
-            del kwargs['query']
+            query = kwargs.get("query")
+            del kwargs["query"]
 
         workflow_list = self.get_workflows(query=query, limit=1, **kwargs)
         if len(workflow_list) == 1:
@@ -501,20 +495,20 @@ class Itential2021_1(Auth):
         """
 
         # Overload resolution
-        if workflow_name := kwargs.get('workflow_name'):
+        if workflow_name := kwargs.get("workflow_name"):
             query = {"name": workflow_name}
         else:
-            query = kwargs.get('query')
+            query = kwargs.get("query")
 
         # Defaults
-        get_all = kwargs.get('get_all', False)
-        max_amt = kwargs.get('max_amt', 0)
-        expand = kwargs.get('expand', ["last_updated_by", "created_by"])
-        limit = kwargs.get('limit', 100)
-        skip = kwargs.get('skip', 0)
-        sort = kwargs.get('sort', {"metrics.start_time": -1})
+        get_all = kwargs.get("get_all", False)
+        max_amt = kwargs.get("max_amt", 0)
+        expand = kwargs.get("expand", ["last_updated_by", "created_by"])
+        limit = kwargs.get("limit", 100)
+        skip = kwargs.get("skip", 0)
+        sort = kwargs.get("sort", {"metrics.start_time": -1})
         fields = kwargs.get(
-            'fields',
+            "fields",
             {"tasks": 0, "transitions": 0},
         )
 
@@ -534,12 +528,12 @@ class Itential2021_1(Auth):
         # Only add the default exclusions if the user is using the fields param to exclude fields.
         # Checking for 0s, since the 'include'/'exclude' args don't make it to this level.
         if not all([value for value in fields.values()]):  # Values have to be all 0 or all 1. No mixing.
-            log.debug(f'Payload only contains exclude fields, adding default exclusions.')
-            if 'tasks' not in fields:
+            log.debug(f"Payload only contains exclude fields, adding default exclusions.")
+            if "tasks" not in fields:
                 options["fields"]["tasks"] = 0
-            if 'transitions' not in fields:
+            if "transitions" not in fields:
                 options["fields"]["transitions"] = 0
-            if 'last_updated_by' in expand:  # Trim down the excessive response when expanding this field.
+            if "last_updated_by" in expand:  # Trim down the excessive response when expanding this field.
                 options["fields"].update(
                     {
                         "last_updated_by.memberOf": 0,  # Required because of default expand fields.
@@ -547,7 +541,7 @@ class Itential2021_1(Auth):
                         "last_updated_by._meta": 0,  # Required because of default expand fields.
                     }
                 )
-            if 'created_by' in expand:  # Trim down the excessive response when expanding this field.
+            if "created_by" in expand:  # Trim down the excessive response when expanding this field.
                 options["fields"].update(
                     {
                         "created_by.memberOf": 0,  # Required because of default expand fields.
@@ -558,31 +552,31 @@ class Itential2021_1(Auth):
 
         payload = {"options": options}
 
-        response = self.call(method="POST", endpoint='/workflow_engine/workflows/search', json=payload)
+        response = self.call(method="POST", endpoint="/workflow_engine/workflows/search", json=payload)
         if response.ok:
             response_json = response.json()
 
             if get_all is True:
-                workflows = response_json['results']
+                workflows = response_json["results"]
 
-                while response_json['metadata']['nextPageSkip'] is not None:
+                while response_json["metadata"]["nextPageSkip"] is not None:
                     if max_amt and len(workflows) >= max_amt:
                         break
 
-                    payload["skip"] = response_json['metadata']['nextPageSkip']
-                    response = self.call(method="POST", endpoint='/workflow_engine/workflows/search', json=payload)
+                    payload["skip"] = response_json["metadata"]["nextPageSkip"]
+                    response = self.call(method="POST", endpoint="/workflow_engine/workflows/search", json=payload)
                     response_json = response.json()
-                    workflows.extend(response_json['results'])
+                    workflows.extend(response_json["results"])
 
             else:
-                workflows = response_json['results']
+                workflows = response_json["results"]
 
             if max_amt:
                 workflows = workflows[:max_amt]
 
             return [Workflow2021_1(**workflow) for workflow in workflows]
         else:
-            return response.reason  # Todo Output standardized error object.
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
     @inject_itential_instance
     def export_workflow(self, workflow_name: str) -> Workflow2021_1:
@@ -596,21 +590,21 @@ class Itential2021_1(Auth):
             Workflow2021_1: A Workflow object with the workflow details.
         """
         payload = {"options": {"name": workflow_name, "type": "automation"}}
-        response = self.call(method="POST", endpoint='/workflow_builder/export', json=payload)
+        response = self.call(method="POST", endpoint="/workflow_builder/export", json=payload)
         if response.ok:
             return Workflow2021_1(**response.json())
         else:
-            return response.reason  # Todo Output standardized error object.
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
     @overload
     def import_workflow(self, workflow: dict) -> dict | str: ...
 
     def import_workflow(self, workflow: Workflow2021_1) -> dict | str:
         # Step 1: Get workflow object to import.
-        exclude_fields = {'_itential', 'version', 'id', 'errors'}
+        exclude_fields = {"_itential", "version", "id", "errors"}
 
         if isinstance(workflow, Workflow2021_1):
-            workflow_obj = workflow.model_dump(mode='python', exclude=exclude_fields, by_alias=True)
+            workflow_obj = workflow.model_dump(mode="python", exclude=exclude_fields, by_alias=True)
 
         elif isinstance(workflow, dict):
             workflow_obj = workflow
@@ -625,20 +619,20 @@ class Itential2021_1(Auth):
         # Step 2: Verify the workflow doesn't already exist on the platform
         exported_workflow = self.export_workflow(workflow_name="nothing")
         if isinstance(exported_workflow, Workflow2021_1):
-            log.debug('Workflow already exists on the platform. Deleting the existing workflow.')
+            log.debug("Workflow already exists on the platform. Deleting the existing workflow.")
             response = self.delete_workflow(workflow_name=exported_workflow.name)
             if response == "success":
-                log.debug('Existing workflow deleted.')
+                log.debug("Existing workflow deleted.")
             else:
                 log.error(f"Failed to delete existing workflow: '{response}' before importing the new workflow.")
                 return
 
         # Step 3: Import the workflow
-        response = self.call(method="POST", endpoint='/workflow_builder/import', json=payload)
+        response = self.call(method="POST", endpoint="/workflow_builder/import", json=payload)
         if response.ok:
             return response.json()
         else:
-            return response.reason
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
     @overload
     def delete_workflow(self, workflow_name: str) -> str: ...
@@ -649,15 +643,15 @@ class Itential2021_1(Auth):
         else:
             workflow_name = workflow
 
-        response = self.call(method="DELETE", endpoint=f'/workflow_builder/delete/{workflow_name}')
+        response = self.call(method="DELETE", endpoint=f"/workflow_builder/delete/{workflow_name}")
         if response.ok:
             return "success"
         else:
-            return response.reason
+            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     itential = Itential2021_1()
-    workflow = itential.export_workflow(workflow_name='TDG_DataValidation')
-    response = itential.import_workflow(workflow)
+    workflow = itential.export_workflow(workflow_name="TDG_DataValidation")
+    response = itential.import_workflow(workflow=workflow)
     print(response)

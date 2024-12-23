@@ -58,5 +58,5 @@ class Workflow2021_1(Workflow):
         Outputs the version required for Itential to import the workflow.
         aka, no '_id' and 'errors' property.
         """
-        exclude_fields = {'_id', '_itential', 'version', 'errors'}
-        return self.model_dump(mode='json', by_alias=True, exclude=exclude_fields)
+        exclude_fields = {"_id", "_itential", "version", "errors"}
+        return self.model_dump(mode="json", by_alias=True, exclude=exclude_fields)

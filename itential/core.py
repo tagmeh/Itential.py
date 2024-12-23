@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, overload
+from typing import Any, overload, Type
 
 from itential.src.iap_versions.base import Job, Workflow
 from itential.src.versions import ItentialVersion
@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 
 class Itential(ABC):
-    _version_map = {
+    _version_map: dict[ItentialVersion, str] = {
         ItentialVersion.V2021_1: "itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1",
         ItentialVersion.V2023_1: "itential.src.iap_versions.v2023_1.itential2023_1.Itential2023_1",
     }
@@ -21,11 +21,11 @@ class Itential(ABC):
         username: str = "admin@pronghorn",
         password: str = "admin",
         url: str = "http://localhost:3000",
-    ):
-        if cls.__name__ != 'Itential':
+    ) -> Type["Itential"]:
+        if cls.__name__ != "Itential":
             raise NotImplementedError(".create() is not available from the subclass.")
 
-        log.debug(f'Creating version-specific Itential instance with version: {version.value}')
+        log.debug(f"Creating version-specific Itential instance with version: {version.value}")
         module_path, class_name = Itential._version_map[version].rsplit(".", 1)
         log.debug(f"Preparing to import '{class_name}' from '{module_path}'")
 
@@ -143,5 +143,5 @@ def main() -> None:
     # i = Itential.create(version=ItentialVersion.V2021_1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

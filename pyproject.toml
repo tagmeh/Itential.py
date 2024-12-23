@@ -32,14 +32,13 @@ build-backend = "setuptools.build_meta"
 
 [tool.black]
 line_length = 120
-skip-string-normalization = true
 
 [tool.mypy]
 python_version = "3.10"
 disallow_untyped_defs = true
 ignore_missing_imports = true
 strict = true
-exclude = ["tests"]
+exclude = ["tests", "build", "dist", "itential.py.egg-info"]
 plugins = ['pydantic.mypy']
 
 [tool.pytest.ini_options]

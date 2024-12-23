@@ -3,6 +3,7 @@ from typing import Any
 
 import requests
 
+from itential.src.exceptions import ApiError
 
 log = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ class Auth:
         # self._url - Probably a better way to do this.
         # self.__setattr__('url', kwargs.get('url', "http://localhost:3000"))
 
-        self.session: requests.Session = kwargs.get('session', requests.Session())
+        self.session: requests.Session = kwargs.get("session", requests.Session())
         self.auth_body: dict[str, dict[str, str]] = {"user": {"username": self.username, "password": self.password}}
         self.authenticate()
 
@@ -43,8 +44,8 @@ class Auth:
         """Cleans the input URL of any extra whitespace and trailing slashes."""
         if value:
             trimmed_value = value.strip()
-            if trimmed_value.endswith('/'):
-                value = trimmed_value[::-1].replace('/', '', 1)[::-1]
+            if trimmed_value.endswith("/"):
+                value = trimmed_value[::-1].replace("/", "", 1)[::-1]
             self._url = value
 
     @staticmethod
@@ -72,8 +73,12 @@ class Auth:
         url = f"{self.url}/{endpoint}"
         headers = kwargs.get("headers", {"Content-Type": "application/json"})
         verify = kwargs.get("verify", False)
-        response = self.session.request(method=method, url=url, headers=headers, verify=verify, **kwargs)
-        if response.status_code == 401:  # Unauthorized, re-authenticate and retry
-            self.authenticate()
+        try:
             response = self.session.request(method=method, url=url, headers=headers, verify=verify, **kwargs)
-        return response
+            if response.status_code == 401:  # Unauthorized, re-authenticate and retry
+                self.authenticate()
+                response = self.session.request(method=method, url=url, headers=headers, verify=verify, **kwargs)
+            return response
+        except requests.RequestException as e:
+            log.error(f"API connection error: {e}")
+            raise ApiError(500, "Connection error", str(e))

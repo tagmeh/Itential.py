@@ -35,7 +35,7 @@ def get_job(
 
     response = itential.call(method="GET", endpoint=f"/operations-manager/jobs/{job_id}", params=params)
     if response.ok:
-        return models.Job2023_1(**response.json()['data'])
+        return models.Job2023_1(**response.json()["data"])
     else:
         return response.reason  # Todo: Add error handling
 
@@ -99,17 +99,17 @@ def get_jobs(
         response_json = response.json()
 
         if all_jobs is True:
-            jobs: list = response_json['data']
+            jobs: list = response_json["data"]
 
-            while response_json['metadata']['nextPageSkip'] is not None:
-                query["skip"] = response_json['metadata']['nextPageSkip']
+            while response_json["metadata"]["nextPageSkip"] is not None:
+                query["skip"] = response_json["metadata"]["nextPageSkip"]
 
                 response = itential.call(method="GET", endpoint=f"/operations-manager/jobs", params=query)
                 response_json = response.json()
-                jobs.extend(response_json['data'])
+                jobs.extend(response_json["data"])
 
         else:
-            jobs = response_json['data']
+            jobs = response_json["data"]
 
         return [models.Job2023_1(**job) for job in jobs]
     else:
@@ -135,17 +135,17 @@ def get_workflow(itential, workflow_name: str) -> models.Workflow2023_1:
             "equals": {"name": workflow_name},
         }
     }
-    response = itential.call(method="GET", endpoint='/automation-studio/workflows', json=payload)
+    response = itential.call(method="GET", endpoint="/automation-studio/workflows", json=payload)
     if response.ok:
         response_json = response.json()
-        if response_json['total'] == 0:
-            raise ValueError(f'No workflows found with name: {workflow_name}')
+        if response_json["total"] == 0:
+            raise ValueError(f"No workflows found with name: {workflow_name}")
 
-        elif response_json['total'] > 1:
-            raise ValueError(f'Multiple workflows found with name: {workflow_name}')
+        elif response_json["total"] > 1:
+            raise ValueError(f"Multiple workflows found with name: {workflow_name}")
 
-        elif response_json['total'] == 1:
-            return models.Workflow2023_1(**response.json()['items'][0])
+        elif response_json["total"] == 1:
+            return models.Workflow2023_1(**response.json()["items"][0])
     else:
         return response.reason
 
@@ -153,7 +153,7 @@ def get_workflow(itential, workflow_name: str) -> models.Workflow2023_1:
 def export_workflow(itential, workflow_name: str) -> models.ExportedWorkflow2023_1:
     """Export a single workflow."""
     payload = {"options": {"name": workflow_name, "type": "automation"}}
-    response = itential.call(method="POST", endpoint='/workflow_builder/export', json=payload)
+    response = itential.call(method="POST", endpoint="/workflow_builder/export", json=payload)
     if response.ok:
         return models.ExportedWorkflow2023_1(**response.json())
     else:
