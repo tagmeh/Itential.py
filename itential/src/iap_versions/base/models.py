@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Type, TYPE_CHECKING, Any, Optional
 
 from pydantic import BaseModel
@@ -7,6 +8,16 @@ if TYPE_CHECKING:
 
 
 class Job(BaseModel):
+    """
+    Pydantic model to represent the Job object.
+    Includes related methods to act upon the job object via the _itential instance.
+
+    model.dict() - Same as model.model_dump(model='python')
+    model.model_dump(mode='json') - Outputs the object with resolved fields (like datetime > string)
+    model.model_dump(mode='python') - Outputs the object with unresolved fields (like datetime > datetime object)
+    model.model_dump_json() - Outputs a json string representation of the object. (string, nulls, true/false, "quotes")
+    """
+
     _itential: Optional["Itential"] = None  # Itential state instance.
     name: str | None  # Name of the Job's workflow
     id: str | None  # ID of the job instance
@@ -16,12 +27,6 @@ class Job(BaseModel):
         #  Lazy loading to avoid circular dependencies on load. Unsure if this is a bad idea atm.
 
         workflow: "Workflow" = self._itential.get_workflow(workflow_name=self.name)
-        return workflow
-
-    def export_workflow(self) -> "Workflow":
-        """Returns the workflow object associated with this job"""
-
-        workflow: "Workflow" = self._itential.export_workflow(workflow_name=self.name)
         return workflow
 
     def update(self) -> None:
@@ -54,6 +59,10 @@ class Workflow(BaseModel):
         """Returns a list of jobs associated with this workflow"""
         jobs: list[Job] = self._itential.get_jobs(workflow_name=self.name, get_all=get_all, limit=limit, **kwargs)
         return jobs
+
+    @abstractmethod
+    def import_to_server(self):
+        ...
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__} ({self.name})"

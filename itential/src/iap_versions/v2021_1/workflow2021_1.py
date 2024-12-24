@@ -53,7 +53,7 @@ class Workflow2021_1(Workflow):
     groups: list[str] | None = None
     errors: list[WorkflowError] | None = None
 
-    def for_import(self):
+    def import_to_server(self):
         """
         Outputs the version required for Itential to import the workflow.
         aka, no '_id' and 'errors' property.

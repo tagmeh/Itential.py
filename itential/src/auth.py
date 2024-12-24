@@ -42,11 +42,10 @@ class Auth:
     @url.setter
     def url(self, value: str) -> None:
         """Cleans the input URL of any extra whitespace and trailing slashes."""
-        if value:
-            trimmed_value = value.strip()
-            if trimmed_value.endswith("/"):
-                value = trimmed_value[::-1].replace("/", "", 1)[::-1]
-            self._url = value
+        value = value.strip()
+        while value.endswith("/"):
+            value = value[::-1].replace("/", "", 1)[::-1]
+        self._url = value
 
     @staticmethod
     def get_login_path() -> str:
@@ -68,6 +67,7 @@ class Auth:
                 f"{response.status_code} - Failed to authenticate with {self.url} server. "
                 f"Reason: '{response.json()['message']}'"
             )
+            raise ApiError(response.status_code, f'Failed to authenticate with {self.url} server.', response_data=response.json())
 
     def call(self, method: str, endpoint: str, **kwargs: Any) -> requests.Response:
         url = f"{self.url}/{endpoint}"

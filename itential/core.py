@@ -131,17 +131,3 @@ class Itential(ABC):
 
     @abstractmethod
     def export_workflow(self, workflow_name: str) -> Workflow: ...
-
-
-def main() -> None:
-    urllib3_logger = logging.getLogger("urllib3")
-    urllib3_logger.setLevel(logging.WARNING)
-
-    username = "admin@pronghorn"
-    password = "admin"
-
-    # i = Itential.create(version=ItentialVersion.V2021_1)
-
-
-if __name__ == "__main__":
-    main()

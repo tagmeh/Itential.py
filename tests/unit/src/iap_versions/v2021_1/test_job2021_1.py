@@ -15,6 +15,12 @@ class Testjob2021_1(unittest.TestCase):
         with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json", "r") as f:
             cls.job_response_json = json.load(f)
 
+    def test_model_creation(self):
+        """ Simple tests to make sure there are no errors when creating a pydantic job instance. """
+        job_instance = Job2021_1(**self.job_response_json)
+
+        self.assertIsInstance(job_instance, Job2021_1)
+
     def test_datetime_formats(self):
         """
         Tests that the pydantic model Job2021_1 outputs the correctly formatted ISO string.

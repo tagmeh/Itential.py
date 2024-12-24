@@ -625,6 +625,8 @@ class TestItential2021_1(unittest.TestCase):
         # Call get_workflows method
         workflows = self.itential2021_1.get_workflows(
             query={"name": "Test Workflow"},
+            get_all=False,
+            max_amt=0,
             limit=50,
             skip=0,
             sort={"metrics.start_time": 1},

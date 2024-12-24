@@ -12,5 +12,5 @@ class ApiError(Exception):
         self.status_code = status_code
         self.message = message
         self.response_data = response_data
-        super().__init__(f"API Error {status_code}: {message}")
+        super().__init__(f"API Error {status_code}: {message} Error: {self.response_data}")
 
