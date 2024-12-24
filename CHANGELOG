@@ -7,6 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2023-06-30
+Changing how modules are used, which is a breaking change.
+
+### Added
+- Retry with backoff feature added to the main api call function. Args in the Itential class to edit Retry params.
+  Retries on status codes: 408, 409, 429, 500, 502, 503, 504
+- Auto-re-auth to main api call function when the response is a 401 or 403.
+
+### Updated
+- Readme.md is now more clear with a bit more instructions
+- Modules are now imported via the version folder (same as before), but now you must instantiate the class and pass in the client Itential object, generating an instance.
+
+
+## [0.0.6] - 2022-11-10
+### Fixed
+- Issue where a requests call wasn't set to skip ssl validation
+- Minor spelling and grammar issues
+
+## [0.0.5] - 2022-08-20
+### Updated
+- pyproject.toml with a [dependencies] section for deployment
+
+## [0.0.4] - 2022-08-17
+### Added
+- Completed (sans tests) the app_workflow_engine endpoints for version 2020.2.x
+- Completed (sans tests) the adapter_automation_gateway endpoints for version 2020.2.x
+
+### Updated
+- Updated the requirements file.
+- pyproject.toml with configs for publishing to pypi (and then published to pypi)
+
 ## [0.0.2] - 2022-06-30
 ### Added
 - LICENSE file
