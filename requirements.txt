@@ -1,26 +1,10 @@
 -i https://pypi.org/simple
 annotated-types==0.7.0; python_version >= '3.8'
-asttokens==3.0.0; python_version >= '3.8'
-backcall==0.2.0
 certifi==2024.12.14; python_version >= '3.6'
 charset-normalizer==3.4.0; python_full_version >= '3.7.0'
-colorama==0.4.6; sys_platform == 'win32'
-decorator==5.1.1; python_version >= '3.5'
-executing==2.1.0; python_version >= '3.8'
 idna==3.10; python_version >= '3.6'
-ipython==8.12.3
-jedi==0.19.2; python_version >= '3.6'
-matplotlib-inline==0.1.7; python_version >= '3.8'
-parso==0.8.4; python_version >= '3.6'
-pickleshare==0.7.5
-prompt-toolkit==3.0.48; python_full_version >= '3.7.0'
-pure-eval==0.2.3
-pydantic==2.10.4
+pydantic==2.10.4; python_version >= '3.8'
 pydantic-core==2.27.2; python_version >= '3.8'
-pygments==2.18.0; python_version >= '3.8'
-requests==2.32.3
-stack-data==0.6.3
-traitlets==5.14.3; python_version >= '3.8'
-typing-extensions==4.12.2; python_version < '3.10'
-urllib3==2.2.3; python_version >= '3.8'
-wcwidth==0.2.13
+requests==2.32.3; python_version >= '3.8'
+typing-extensions==4.12.2; python_version >= '3.8'
+urllib3==2.3.0; python_version >= '3.9'
