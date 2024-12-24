@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any
 
 from itential.src.iap_versions.v2023_1 import models
 
@@ -94,7 +94,7 @@ def get_jobs(
         query["sort"] = sort
         query["order"] = order
 
-    response = itential.call(method="GET", endpoint=f"/operations-manager/jobs", params=query)
+    response = itential.call(method="GET", endpoint="/operations-manager/jobs", params=query)
     if response.ok:
         response_json = response.json()
 
@@ -104,7 +104,7 @@ def get_jobs(
             while response_json["metadata"]["nextPageSkip"] is not None:
                 query["skip"] = response_json["metadata"]["nextPageSkip"]
 
-                response = itential.call(method="GET", endpoint=f"/operations-manager/jobs", params=query)
+                response = itential.call(method="GET", endpoint="/operations-manager/jobs", params=query)
                 response_json = response.json()
                 jobs.extend(response_json["data"])
 

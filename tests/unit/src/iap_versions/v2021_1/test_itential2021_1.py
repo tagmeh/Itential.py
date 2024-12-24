@@ -1,7 +1,7 @@
 import json
 import unittest
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 from itential import Itential
 from itential.src.iap_versions.v2021_1 import Itential2021_1, Job2021_1, Workflow2021_1
@@ -33,35 +33,35 @@ class TestItential2021_1(unittest.TestCase):
         cls.itential2021_1 = Itential.create(version=ItentialVersion.V2021_1)
 
         # 1 Job dict, a full job object
-        with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json") as f:
             cls.get_job_by_id_response_json = json.load(f)
 
         # 1 dict, a job's job-level variables
-        with open(base_path / "mocks/v2021_1/jobs/get_job_output.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/get_job_output.json") as f:
             cls.get_job_output_response_json = json.load(f)
 
         # 1 Job dict wrapped in a list, intentionally lacking fields  ('exclude' arg)
-        with open(base_path / "mocks/v2021_1/jobs/search_lean_job.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/search_lean_job.json") as f:
             cls.get_lean_job_response_json = json.load(f)
 
         # Multiple Job dicts wrapped in a list, intentionally lacking fields  ('exclude' arg)
-        with open(base_path / "mocks/v2021_1/jobs/search_lean_jobs.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/search_lean_jobs.json") as f:
             cls.search_lean_jobs_response_json = json.load(f)
 
         # Multiple job dicts wrapped in a list, full job objects
-        with open(base_path / "mocks/v2021_1/jobs/search_jobs.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/search_jobs.json") as f:
             cls.search_jobs_response_json = json.load(f)
 
         # 1 Workflow dict, missing _id by design
-        with open(base_path / "mocks/v2021_1/workflows/export_workflow.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/workflows/export_workflow.json") as f:
             cls.export_workflow_response_json = json.load(f)
 
         # 1 Workflow dict wrapped in a list, full workflow object
-        with open(base_path / "mocks/v2021_1/workflows/search_workflow.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/workflows/search_workflow.json") as f:
             cls.search_workflow_response_json = json.load(f)
 
         # Multiple Workflow dicts wrapped in a list, full workflow objects
-        with open(base_path / "mocks/v2021_1/workflows/search_workflows.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/workflows/search_workflows.json") as f:
             cls.search_workflows_response_json = json.load(f)
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")

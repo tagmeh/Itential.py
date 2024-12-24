@@ -1,4 +1,5 @@
 import logging
+
 from itential.core import Itential
 from itential.src.versions import ItentialVersion
 

@@ -15,7 +15,7 @@ def inject_itential_instance(func: funcT) -> funcT:
         result = func(itential, *args, **kwargs)
 
         # Not sure if this should ever run now that the API endpoint methods raise an ApiError on non-response.ok calls.
-        if isinstance(result, (str, dict)):
+        if isinstance(result, str | dict):
             return result
 
         if isinstance(result, list):

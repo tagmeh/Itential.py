@@ -1,7 +1,6 @@
 import logging
 from enum import Enum
 
-
 log = logging.getLogger(__name__)
 
 

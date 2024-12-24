@@ -13,7 +13,7 @@ class TestWorkflow2021_1(unittest.TestCase):
         base_path = Path(__file__).parents[4]  # tests/
 
         # 1 Workflow dict wrapped in a list, full workflow object
-        with open(base_path / "mocks/v2021_1/workflows/search_workflow.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/workflows/search_workflow.json") as f:
             cls.search_workflow_response_json = json.load(f)
 
     def test_datetime_format_iso(self):

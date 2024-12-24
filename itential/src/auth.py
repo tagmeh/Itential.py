@@ -67,7 +67,9 @@ class Auth:
                 f"{response.status_code} - Failed to authenticate with {self.url} server. "
                 f"Reason: '{response.json()['message']}'"
             )
-            raise ApiError(response.status_code, f'Failed to authenticate with {self.url} server.', response_data=response.json())
+            raise ApiError(
+                response.status_code, f"Failed to authenticate with {self.url} server.", response_data=response.json()
+            )
 
     def call(self, method: str, endpoint: str, **kwargs: Any) -> requests.Response:
         url = f"{self.url}/{endpoint}"
@@ -81,4 +83,4 @@ class Auth:
             return response
         except requests.RequestException as e:
             log.error(f"API connection error: {e}")
-            raise ApiError(500, "Connection error", str(e))
+            raise ApiError(500, "Connection error", str(e)) from e

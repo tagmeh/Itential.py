@@ -12,11 +12,11 @@ class Testjob2021_1(unittest.TestCase):
     def setUpClass(cls):
         base_path = Path(__file__).parents[4]  # tests/
 
-        with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json", "r") as f:
+        with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json") as f:
             cls.job_response_json = json.load(f)
 
     def test_model_creation(self):
-        """ Simple tests to make sure there are no errors when creating a pydantic job instance. """
+        """Simple tests to make sure there are no errors when creating a pydantic job instance."""
         job_instance = Job2021_1(**self.job_response_json)
 
         self.assertIsInstance(job_instance, Job2021_1)

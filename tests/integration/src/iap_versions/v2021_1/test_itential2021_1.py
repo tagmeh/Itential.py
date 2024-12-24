@@ -1,12 +1,11 @@
 import unittest
-from pathlib import Path
 
 from itential import Itential
 from itential.src.versions import ItentialVersion
 
-username = ''
-password = ''
-url = ''
+username = ""
+password = ""
+url = ""
 
 
 class TestItential2021_1(unittest.TestCase):
@@ -18,8 +17,6 @@ class TestItential2021_1(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        base_path = Path(__file__).parents[4]  # tests/
-
         cls.itential2021_1 = Itential.create(version=ItentialVersion.V2021_1)
 
         # open the test workflow(s)/etc and import them into the platform.

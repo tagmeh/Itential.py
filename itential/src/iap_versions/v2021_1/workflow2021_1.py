@@ -3,8 +3,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from itential.src.versions import ItentialVersion
 from itential.src.iap_versions.base.models import Workflow
+from itential.src.versions import ItentialVersion
 
 
 class WorkflowUser(BaseModel):

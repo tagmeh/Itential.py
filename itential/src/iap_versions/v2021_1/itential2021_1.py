@@ -38,7 +38,9 @@ class Itential2021_1(Auth):
         if response.ok:
             return Job2021_1(**response.json())
         else:
-            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json())
+            raise ApiError(
+                response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
+            )
 
     @inject_itential_instance
     def get_lean_job(self, job_id: str, include: list[str] = None, exclude: list[str] = None, **kwargs) -> Job2021_1:
@@ -178,7 +180,7 @@ class Itential2021_1(Auth):
         # Only add the default exclusions if the user is using the fields param to exclude fields.
         # Checking for 0s, since the 'include'/'exclude' args don't make it to this level.
         if not all([value for value in fields.values()]):  # Values have to be all 0 or all 1. No mixing.
-            log.debug(f"Payload only contains exclude fields, adding default exclusions.")
+            log.debug("Payload only contains exclude fields, adding default exclusions.")
             if "tasks" not in fields:
                 options["fields"]["tasks"] = 0
             if "transitions" not in fields:
@@ -204,7 +206,7 @@ class Itential2021_1(Auth):
         payload = {"options": options}
 
         log.debug(f"'get_jobs' payload: {payload}")
-        response = self.call(method="POST", endpoint=f"/workflow_engine/jobs/search", json=payload)
+        response = self.call(method="POST", endpoint="/workflow_engine/jobs/search", json=payload)
         if response.ok:
             response_json = response.json()
 
@@ -217,7 +219,7 @@ class Itential2021_1(Auth):
 
                     payload["skip"] = response_json["metadata"]["nextPageSkip"]
 
-                    response = self.call(method="POST", endpoint=f"/workflow_engine/jobs/search", json=payload)
+                    response = self.call(method="POST", endpoint="/workflow_engine/jobs/search", json=payload)
                     response_json = response.json()
                     jobs.extend(response_json["results"])
 
@@ -281,9 +283,16 @@ class Itential2021_1(Auth):
 
     @overload
     def get_lean_jobs(
-        self, query: dict[str, Any], include: list[str] = None, exclude: list[str] = None, get_all: bool = False,
-            max_amt: int = 0, expand: list[str] = None, limit: int = 100, skip: int = 0,
-            sort: dict[str, Literal[1, -1]] = None,
+        self,
+        query: dict[str, Any],
+        include: list[str] = None,
+        exclude: list[str] = None,
+        get_all: bool = False,
+        max_amt: int = 0,
+        expand: list[str] = None,
+        limit: int = 100,
+        skip: int = 0,
+        sort: dict[str, Literal[1, -1]] = None,
     ) -> list[Job2021_1]: ...
 
     @inject_itential_instance
@@ -528,7 +537,7 @@ class Itential2021_1(Auth):
         # Only add the default exclusions if the user is using the fields param to exclude fields.
         # Checking for 0s, since the 'include'/'exclude' args don't make it to this level.
         if not all([value for value in fields.values()]):  # Values have to be all 0 or all 1. No mixing.
-            log.debug(f"Payload only contains exclude fields, adding default exclusions.")
+            log.debug("Payload only contains exclude fields, adding default exclusions.")
             if "tasks" not in fields:
                 options["fields"]["tasks"] = 0
             if "transitions" not in fields:

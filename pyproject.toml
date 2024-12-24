@@ -43,10 +43,10 @@ plugins = ['pydantic.mypy']
 
 [tool.coverage.run]
 branch = true  # Show branch coverage.
-omit = ['tests']  # Don't run against these directories.
+include = ["itential/**"]  # We only care to test and view the main package.
 
 [tool.coverage.report]
-include = ["itential/**"]  # We only care about the coverage within the main package.
+# Don't need to use 'include' here due to the 'include' in the tool.coverage.run section.
 # Regexes for lines to exclude from consideration.
 exclude_also = [
     # Don't complain about missing debug-only code:
@@ -64,10 +64,80 @@ exclude_also = [
     # Don't complain about abstract methods, they aren't run:
     "@(abc\\.)?abstractmethod",
     ]
-
+skip_covered = true
 ignore_errors = true
+fail_under = 90
 
 [tool.coverage.html]
 directory = "coverage_html_report"
 
 [tool.pytest.ini_options]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py310"
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+ignore = [
+    "E501",  # Avoid enforcing line-length violations (`E501`)
+    "SIM108",  # Avoid ternaries at all costs.
+]
+
+# Avoid trying to fix flake8-bugbear (`B`) violations.
+unfixable = ["B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore `E402` (import violations) in all `__init__.py` files, and in selected subdirectories.
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[tool.ruff.format]
+# For now, we use Black

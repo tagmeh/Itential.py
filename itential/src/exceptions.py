@@ -13,4 +13,3 @@ class ApiError(Exception):
         self.message = message
         self.response_data = response_data
         super().__init__(f"API Error {status_code}: {message} Error: {self.response_data}")
-

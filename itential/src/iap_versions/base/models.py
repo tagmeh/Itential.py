@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Type, TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from pydantic import BaseModel
 
@@ -26,7 +26,7 @@ class Job(BaseModel):
         """Returns the workflow object associated with this job"""
         #  Lazy loading to avoid circular dependencies on load. Unsure if this is a bad idea atm.
 
-        workflow: "Workflow" = self._itential.get_workflow(workflow_name=self.name)
+        workflow: Workflow = self._itential.get_workflow(workflow_name=self.name)
         return workflow
 
     def update(self) -> None:
@@ -61,8 +61,7 @@ class Workflow(BaseModel):
         return jobs
 
     @abstractmethod
-    def import_to_server(self):
-        ...
+    def import_to_server(self): ...
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__} ({self.name})"

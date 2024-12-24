@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, overload, Type
+from typing import Any, overload
 
 from itential.src.iap_versions.base import Job, Workflow
 from itential.src.versions import ItentialVersion
@@ -21,7 +21,7 @@ class Itential(ABC):
         username: str = "admin@pronghorn",
         password: str = "admin",
         url: str = "http://localhost:3000",
-    ) -> Type["Itential"]:
+    ) -> type["Itential"]:
         if cls.__name__ != "Itential":
             raise NotImplementedError(".create() is not available from the subclass.")
 
