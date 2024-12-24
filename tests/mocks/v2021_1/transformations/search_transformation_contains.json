@@ -1,0 +1,395 @@
+{
+	"results": [
+		{
+			"_id": "676ae307bab01e005641c801",
+			"name": "test_transformation",
+			"description": "Transformation for use with the itential.py python library testing.",
+			"incoming": [
+				{
+					"$id": "userDict",
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer",
+							"examples": [
+								209
+							]
+						},
+						"firstName": {
+							"type": "string",
+							"examples": [
+								"Muhammad"
+							]
+						},
+						"lastName": {
+							"type": "string",
+							"examples": [
+								"Ovi"
+							]
+						},
+						"age": {
+							"type": "integer",
+							"examples": [
+								250
+							]
+						}
+					},
+					"required": []
+				}
+			],
+			"outgoing": [
+				{
+					"$id": "outputDict",
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "integer",
+							"examples": [
+								209
+							]
+						},
+						"firstName": {
+							"type": "string",
+							"examples": [
+								"Muhammad"
+							]
+						},
+						"lastName": {
+							"type": "string",
+							"examples": [
+								"Ovi"
+							]
+						},
+						"age": {
+							"type": "string",
+							"examples": [
+								"250"
+							]
+						}
+					},
+					"required": []
+				}
+			],
+			"steps": [
+				{
+					"id": 1,
+					"type": "method",
+					"library": "String",
+					"method": "toUpperCase",
+					"args": [
+						null
+					],
+					"view": {
+						"row": 1,
+						"col": 2
+					}
+				},
+				{
+					"id": 3,
+					"type": "assign",
+					"from": {
+						"location": "incoming",
+						"name": "userDict",
+						"ptr": "/firstName"
+					},
+					"to": {
+						"location": "method",
+						"name": 1,
+						"ptr": "/args/0/value"
+					}
+				},
+				{
+					"id": 4,
+					"type": "method",
+					"library": "String",
+					"method": "toLowerCase",
+					"args": [
+						null
+					],
+					"view": {
+						"row": 2,
+						"col": 2
+					}
+				},
+				{
+					"id": 5,
+					"type": "assign",
+					"from": {
+						"location": "incoming",
+						"name": "userDict",
+						"ptr": "/lastName"
+					},
+					"to": {
+						"location": "method",
+						"name": 4,
+						"ptr": "/args/0/value"
+					}
+				},
+				{
+					"id": 6,
+					"type": "method",
+					"library": "Number",
+					"method": "toString",
+					"args": [
+						null,
+						null
+					],
+					"view": {
+						"row": 3,
+						"col": 2
+					}
+				},
+				{
+					"id": 7,
+					"type": "assign",
+					"from": {
+						"location": "incoming",
+						"name": "userDict",
+						"ptr": "/age"
+					},
+					"to": {
+						"location": "method",
+						"name": 6,
+						"ptr": "/args/0/value"
+					}
+				},
+				{
+					"id": 8,
+					"type": "assign",
+					"from": {
+						"location": "method",
+						"name": 1,
+						"ptr": "/return"
+					},
+					"to": {
+						"location": "outgoing",
+						"name": "outputDict",
+						"ptr": "/firstName"
+					}
+				},
+				{
+					"id": 9,
+					"type": "assign",
+					"from": {
+						"location": "method",
+						"name": 4,
+						"ptr": "/return"
+					},
+					"to": {
+						"location": "outgoing",
+						"name": "outputDict",
+						"ptr": "/lastName"
+					}
+				},
+				{
+					"id": 10,
+					"type": "assign",
+					"from": {
+						"location": "method",
+						"name": 6,
+						"ptr": "/return"
+					},
+					"to": {
+						"location": "outgoing",
+						"name": "outputDict",
+						"ptr": "/age"
+					}
+				},
+				{
+					"id": 11,
+					"type": "assign",
+					"from": {
+						"location": "incoming",
+						"name": "userDict",
+						"ptr": "/id"
+					},
+					"to": {
+						"location": "outgoing",
+						"name": "outputDict",
+						"ptr": "/id"
+					}
+				}
+			],
+			"functions": [],
+			"comments": [],
+			"view": {
+				"col": 4,
+				"row": 5
+			},
+			"created": "2024-12-24T16:36:23.731Z",
+			"createdBy": "675c936a13675f000b815be4",
+			"lastUpdated": "2024-12-24T16:49:04.397Z",
+			"lastUpdatedBy": "675c936a13675f000b815be4",
+			"version": "3.17.7-2021.1.22",
+			"tags": []
+		},
+		{
+			"_id": "676aeac5bab01e005641c802",
+			"name": "test_transformation_2",
+			"description": "A simple JST to be found with a search 'contains'. Also has a simple function.",
+			"incoming": [
+				{
+					"$id": "name",
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"examples": [
+								"Jeff"
+							]
+						}
+					},
+					"required": []
+				}
+			],
+			"outgoing": [
+				{
+					"$id": "outputName",
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string",
+							"examples": [
+								"JEFF"
+							]
+						}
+					},
+					"required": []
+				}
+			],
+			"steps": [
+				{
+					"id": 1,
+					"type": "function",
+					"function": "string_to_scream_case",
+					"args": [
+						""
+					],
+					"view": {
+						"row": 1,
+						"col": 1
+					}
+				},
+				{
+					"id": 2,
+					"type": "assign",
+					"from": {
+						"location": "incoming",
+						"name": "name",
+						"ptr": "/name"
+					},
+					"to": {
+						"location": "function",
+						"name": 1,
+						"ptr": "/args/0/value"
+					}
+				},
+				{
+					"id": 3,
+					"type": "assign",
+					"from": {
+						"location": "function",
+						"name": 1,
+						"ptr": "/return/screamCaseString"
+					},
+					"to": {
+						"location": "outgoing",
+						"name": "outputName",
+						"ptr": "/name"
+					}
+				}
+			],
+			"functions": [
+				{
+					"incoming": [
+						{
+							"$id": "string",
+							"type": "string"
+						}
+					],
+					"outgoing": [
+						{
+							"$id": "screamCaseString",
+							"type": "string"
+						}
+					],
+					"functions": [],
+					"name": "string_to_scream_case",
+					"steps": [
+						{
+							"id": 1,
+							"type": "method",
+							"library": "String",
+							"method": "toUpperCase",
+							"args": [
+								null
+							],
+							"view": {
+								"row": 1,
+								"col": 1
+							}
+						},
+						{
+							"id": 2,
+							"type": "assign",
+							"from": {
+								"location": "incoming",
+								"name": "string",
+								"ptr": ""
+							},
+							"to": {
+								"location": "method",
+								"name": 1,
+								"ptr": "/args/0/value"
+							}
+						},
+						{
+							"id": 3,
+							"type": "assign",
+							"from": {
+								"location": "method",
+								"name": 1,
+								"ptr": "/return"
+							},
+							"to": {
+								"location": "outgoing",
+								"name": "screamCaseString",
+								"ptr": ""
+							}
+						}
+					],
+					"view": {
+						"col": 1,
+						"row": 4
+					},
+					"id": "string_to_scream_case",
+					"comments": []
+				}
+			],
+			"comments": [
+				{
+					"id": "comment_1",
+					"content": "This is a comment! Huzzah",
+					"color": "blue",
+					"position": {
+						"top": 273,
+						"left": 336
+					},
+					"created": "11/24/2024",
+					"edited": ""
+				}
+			],
+			"view": {
+				"col": 1,
+				"row": 5
+			},
+			"created": "2024-12-24T17:09:25.310Z",
+			"createdBy": "675c936a13675f000b815be4",
+			"lastUpdated": "2024-12-24T17:12:26.084Z",
+			"lastUpdatedBy": "675c936a13675f000b815be4",
+			"version": "3.17.7-2021.1.22",
+			"tags": []
+		}
+	],
+	"total": 2
+}

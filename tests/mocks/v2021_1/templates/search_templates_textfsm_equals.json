@@ -1,0 +1,36 @@
+{
+	"items": [
+		{
+			"_id": "676af1ff1963af066f7acf34",
+			"command": "",
+			"template": "Value Filldown Interface (\\S+)\nValue Filldown IP_Address (\\S+)\nValue Filldown OK (\\S+)\nValue Filldown Method (\\S+)\nValue Filldown Status (\\S+)\nValue Filldown Protocol (\\S+)\n\nStart\n  ^Interface\\s+IP-Address\\s+OK\\?\\s+Method\\s+Status\\s+Protocol -> Interfaces\n\nInterfaces\n  ^${Interface}\\s+${IP_Address}\\s+${OK}\\s+${Method}\\s+${Status}\\s+${Protocol} -> Record\n  ^\\s*$$",
+			"data": "Interface              IP-Address      OK? Method Status                Protocol\nFastEthernet0/0        192.168.1.1     YES manual up                    up      \nFastEthernet0/1        unassigned      YES unset  administratively down down   ",
+			"type": "textfsm",
+			"name": "Test TextFSM",
+			"description": "Test TextFSM for the Itential.py library. All data came from https://www.geeksforgeeks.org/introduction-to-textfsm-in-python/#",
+			"group": "TestGroup",
+			"created": "2024-12-24T17:41:28.330Z",
+			"lastUpdated": "2024-12-24T17:41:28.330Z",
+			"createdBy": {
+				"_id": "675c936a13675f000b815be4",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"inactive": false
+			},
+			"lastUpdatedBy": {
+				"_id": "675c936a13675f000b815be4",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"inactive": false
+			}
+		}
+	],
+	"total": 1,
+	"skip": 0,
+	"limit": null,
+	"count": 1,
+	"next": null,
+	"previous": null
+}

@@ -67,6 +67,28 @@ class Workflow(BaseModel):
         return f"{self.__class__.__name__} ({self.name})"
 
 
+class Transformation(BaseModel):
+    _itential: Optional["Itential"] = None  # Itential state instance.
+    name: str | None  # Name of the asset, NOT unique to the platform. Unique-ness based on id field.
+    id: str | None
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__} ({self.name}) - {self.id}"
+
+
+class Template(BaseModel):
+    _itential: Optional["Itential"] = None  # Itential state instance.
+    name: str | None
+    id: str | None
+    type: str | None
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__} ({self.name}) - {self.type}"
+
+
 class Catalog(BaseModel):
     _itential: Optional["Itential"] = None
-    pass
+    name: str | None
+
+    def __str__(self) -> str:
+        return f"{self.__class__.__name__} ({self.name})"

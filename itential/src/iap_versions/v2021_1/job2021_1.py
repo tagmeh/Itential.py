@@ -42,7 +42,7 @@ class Job2021_1(Job):
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}
 
-    version: ItentialVersion = ItentialVersion.V2021_1
+    _version: ItentialVersion = ItentialVersion.V2021_1
     id: str | None = Field(alias="_id", default=None)
     name: str | None = None
     description: str | None = None

@@ -1,0 +1,231 @@
+{
+	"_id": "676ae307bab01e005641c801",
+	"name": "test_transformation",
+	"description": "Transformation for use with the itential.py python library testing.",
+	"incoming": [
+		{
+			"$id": "userDict",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"examples": [
+						209
+					]
+				},
+				"firstName": {
+					"type": "string",
+					"examples": [
+						"Muhammad"
+					]
+				},
+				"lastName": {
+					"type": "string",
+					"examples": [
+						"Ovi"
+					]
+				},
+				"age": {
+					"type": "integer",
+					"examples": [
+						250
+					]
+				}
+			},
+			"required": []
+		}
+	],
+	"outgoing": [
+		{
+			"$id": "outputDict",
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer",
+					"examples": [
+						209
+					]
+				},
+				"firstName": {
+					"type": "string",
+					"examples": [
+						"Muhammad"
+					]
+				},
+				"lastName": {
+					"type": "string",
+					"examples": [
+						"Ovi"
+					]
+				},
+				"age": {
+					"type": "string",
+					"examples": [
+						"250"
+					]
+				}
+			},
+			"required": []
+		}
+	],
+	"steps": [
+		{
+			"id": 1,
+			"type": "method",
+			"library": "String",
+			"method": "toUpperCase",
+			"args": [
+				null
+			],
+			"view": {
+				"row": 1,
+				"col": 2
+			}
+		},
+		{
+			"id": 3,
+			"type": "assign",
+			"from": {
+				"location": "incoming",
+				"name": "userDict",
+				"ptr": "/firstName"
+			},
+			"to": {
+				"location": "method",
+				"name": 1,
+				"ptr": "/args/0/value"
+			}
+		},
+		{
+			"id": 4,
+			"type": "method",
+			"library": "String",
+			"method": "toLowerCase",
+			"args": [
+				null
+			],
+			"view": {
+				"row": 2,
+				"col": 2
+			}
+		},
+		{
+			"id": 5,
+			"type": "assign",
+			"from": {
+				"location": "incoming",
+				"name": "userDict",
+				"ptr": "/lastName"
+			},
+			"to": {
+				"location": "method",
+				"name": 4,
+				"ptr": "/args/0/value"
+			}
+		},
+		{
+			"id": 6,
+			"type": "method",
+			"library": "Number",
+			"method": "toString",
+			"args": [
+				null,
+				null
+			],
+			"view": {
+				"row": 3,
+				"col": 2
+			}
+		},
+		{
+			"id": 7,
+			"type": "assign",
+			"from": {
+				"location": "incoming",
+				"name": "userDict",
+				"ptr": "/age"
+			},
+			"to": {
+				"location": "method",
+				"name": 6,
+				"ptr": "/args/0/value"
+			}
+		},
+		{
+			"id": 8,
+			"type": "assign",
+			"from": {
+				"location": "method",
+				"name": 1,
+				"ptr": "/return"
+			},
+			"to": {
+				"location": "outgoing",
+				"name": "outputDict",
+				"ptr": "/firstName"
+			}
+		},
+		{
+			"id": 9,
+			"type": "assign",
+			"from": {
+				"location": "method",
+				"name": 4,
+				"ptr": "/return"
+			},
+			"to": {
+				"location": "outgoing",
+				"name": "outputDict",
+				"ptr": "/lastName"
+			}
+		},
+		{
+			"id": 10,
+			"type": "assign",
+			"from": {
+				"location": "method",
+				"name": 6,
+				"ptr": "/return"
+			},
+			"to": {
+				"location": "outgoing",
+				"name": "outputDict",
+				"ptr": "/age"
+			}
+		},
+		{
+			"id": 11,
+			"type": "assign",
+			"from": {
+				"location": "incoming",
+				"name": "userDict",
+				"ptr": "/id"
+			},
+			"to": {
+				"location": "outgoing",
+				"name": "outputDict",
+				"ptr": "/id"
+			}
+		}
+	],
+	"functions": [],
+	"comments": [],
+	"view": {
+		"col": 4,
+		"row": 5
+	},
+	"created": "2024-12-24T16:36:23.731Z",
+	"createdBy": {
+		"_id": "675c936a13675f000b815be4",
+		"provenance": "Local AAA",
+		"username": "admin@pronghorn"
+	},
+	"lastUpdated": "2024-12-24T16:49:04.397Z",
+	"lastUpdatedBy": {
+		"_id": "675c936a13675f000b815be4",
+		"provenance": "Local AAA",
+		"username": "admin@pronghorn"
+	},
+	"version": "3.17.7-2021.1.22",
+	"tags": []
+}

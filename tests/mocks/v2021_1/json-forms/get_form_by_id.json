@@ -1,0 +1,181 @@
+{
+	"id": "676b006548a3f709020cf785",
+	"created": "2024-12-24T18:41:41.060Z",
+	"createdBy": "admin@pronghorn",
+	"lastUpdated": "2024-12-24T18:53:42.043Z",
+	"lastUpdatedBy": "admin@pronghorn",
+	"name": "TestJsonForm",
+	"description": null,
+	"struct": {
+		"type": "object",
+		"description": "",
+		"items": [
+			{
+				"nodeId": "8d4d3262-6258-4d16-be88-dee2db8e2814",
+				"type": "object",
+				"description": "",
+				"items": [
+					{
+						"nodeId": "e7306440-5f01-4ba7-95ea-4677ed0b9a63",
+						"type": "string",
+						"title": "Do you wish to cross the Bridge of Death?",
+						"description": "",
+						"placeholder": "Yes",
+						"required": true,
+						"enum": [
+							{
+								"id": "d5101402-22c0-4691-9360-75a0b77097ec",
+								"label": "Yes",
+								"value": "Yes"
+							},
+							{
+								"id": "76b0c5d1-edfa-427a-88ac-3f93524aa28f",
+								"label": "No",
+								"value": "No"
+							}
+						],
+						"binding": false,
+						"rel": "collection",
+						"targetPointer": "/enum"
+					},
+					{
+						"nodeId": "ce27d2cb-888d-4c1b-b1e2-412be8519533",
+						"type": "object",
+						"description": "",
+						"items": [
+							{
+								"nodeId": "b4b082fd-a907-4643-a30b-16b91c53ed5b",
+								"type": "string",
+								"title": "What is your name?",
+								"description": "Must answer truthfully.",
+								"placeholder": "Sir Lancelot of Camelot",
+								"required": true,
+								"readOnly": false,
+								"binding": false,
+								"rel": "item",
+								"targetPointer": "/default"
+							},
+							{
+								"nodeId": "d8e51a78-c6d1-48a1-a8b6-694e3397b31d",
+								"type": "string",
+								"title": "What is your Quest?",
+								"description": "Must answer truthfully.",
+								"placeholder": "To find the Holy Grail!",
+								"required": true,
+								"readOnly": false,
+								"binding": false,
+								"rel": "item",
+								"targetPointer": "/default"
+							},
+							{
+								"nodeId": "9a04771d-a775-4bfe-8fea-7ee8b6b474a1",
+								"type": "string",
+								"widget": "textarea",
+								"title": "What is the capital of Assyria?",
+								"description": "",
+								"placeholder": "I don't know that! Auuuuuuuugh!",
+								"required": true,
+								"default": ""
+							}
+						],
+						"title": "If Yes"
+					}
+				],
+				"title": "Five... Three Questions to Cross the Bridge of Death!"
+			}
+		]
+	},
+	"schema": {
+		"title": "TestJsonForm",
+		"description": "",
+		"type": "object",
+		"required": [],
+		"properties": {
+			"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
+				"type": "object",
+				"title": "Five... Three Questions to Cross the Bridge of Death!",
+				"description": "",
+				"required": [
+					"doYouWishToCrossTheBridgeOfDeath"
+				],
+				"properties": {
+					"doYouWishToCrossTheBridgeOfDeath": {
+						"type": "string",
+						"title": "Do you wish to cross the Bridge of Death?",
+						"description": "",
+						"enum": [
+							"Yes",
+							"No"
+						]
+					},
+					"ifYes": {
+						"type": "object",
+						"title": "If Yes",
+						"description": "",
+						"required": [
+							"whatIsYourName",
+							"whatIsYourQuest",
+							"whatIsTheCapitalOfAssyria"
+						],
+						"properties": {
+							"whatIsYourName": {
+								"type": "string",
+								"title": "What is your name?",
+								"description": "Must answer truthfully."
+							},
+							"whatIsYourQuest": {
+								"type": "string",
+								"title": "What is your Quest?",
+								"description": "Must answer truthfully."
+							},
+							"whatIsTheCapitalOfAssyria": {
+								"type": "string",
+								"title": "What is the capital of Assyria?",
+								"description": "",
+								"default": ""
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"uiSchema": {
+		"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
+			"ui:collapseByDefault": false,
+			"doYouWishToCrossTheBridgeOfDeath": {
+				"ui:placeholder": "Yes"
+			},
+			"ifYes": {
+				"ui:collapseByDefault": false,
+				"whatIsYourName": {
+					"ui:placeholder": "Sir Lancelot of Camelot"
+				},
+				"whatIsYourQuest": {
+					"ui:placeholder": "To find the Holy Grail!"
+				},
+				"whatIsTheCapitalOfAssyria": {
+					"ui:placeholder": "I don't know that! Auuuuuuuugh!",
+					"ui:widget": "textarea"
+				}
+			}
+		}
+	},
+	"bindingSchema": {
+		"properties": {
+			"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
+				"properties": {
+					"ifYes": {
+						"properties": {}
+					}
+				}
+			}
+		}
+	},
+	"validationSchema": {
+		"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
+			"ifYes": {}
+		}
+	},
+	"version": "2020.1"
+}
