@@ -14,7 +14,7 @@ def lint(session):
     session.install("pipenv")
     session.run("pipenv", "install")
     session.run("black", "--check", ".")
-    session.run("ruff", ".")
+    session.run("ruff", "check")
 
 
 @nox.session
