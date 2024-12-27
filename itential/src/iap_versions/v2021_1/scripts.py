@@ -1,5 +1,3 @@
-
-
 def import_repo():
     """
     WIP
@@ -18,4 +16,3 @@ def scan_for_disallowed_names():
     Scan the server for assets with disallowed naming schemes.
     Things that may be disallowed: Spaces, slashes, parenthesis, symbols.
     """
-    
