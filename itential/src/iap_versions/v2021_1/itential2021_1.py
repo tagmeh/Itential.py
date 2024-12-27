@@ -4,8 +4,8 @@ from typing import Any, Literal, overload
 from itential.src.auth import Auth
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.base.wrappers import inject_itential_instance
-from itential.src.iap_versions.v2021_1.job2021_1 import Job2021_1
-from itential.src.iap_versions.v2021_1.workflow2021_1 import Workflow2021_1
+from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
+from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 from itential.src.versions import ItentialVersion
 
 log = logging.getLogger(__name__)
@@ -619,6 +619,9 @@ class Itential2021_1(Auth):
             workflow_obj = workflow
             for field in exclude_fields:
                 del workflow_obj[field]
+
+        else:
+            raise ValueError(f"Invalid workflow object type: {type(workflow)}")
 
         payload = {"workflow": workflow_obj}
         from pprint import pprint

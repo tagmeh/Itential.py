@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 if TYPE_CHECKING:
     from itential import Itential
+    from itential.src.iap_versions.base import Workflow
 
 
 class Job(BaseModel):
@@ -26,7 +27,7 @@ class Job(BaseModel):
         """Returns the workflow object associated with this job"""
         #  Lazy loading to avoid circular dependencies on load. Unsure if this is a bad idea atm.
 
-        workflow: Workflow = self._itential.get_workflow(workflow_name=self.name)
+        workflow: "Workflow" = self._itential.get_workflow(workflow_name=self.name)
         return workflow
 
     def update(self) -> None:

@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
-from itential.src.iap_versions.base.models import JsonForm
+from itential.src.iap_versions.base import JsonForm
 from itential.src.versions import ItentialVersion
 
 

@@ -3,7 +3,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from itential.src.iap_versions.base.models import Transformation
+from itential.src.iap_versions.base import Transformation
 from itential.src.versions import ItentialVersion
 
 
