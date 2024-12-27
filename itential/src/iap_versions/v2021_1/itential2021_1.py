@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Literal, overload
+from typing import Any, Literal, overload, Union
 
 from itential.src.auth import Auth
 from itential.src.exceptions import ApiError
@@ -371,7 +371,7 @@ class Itential2021_1(Auth):
     def get_workflow(self, job_id: int, expand: list[str] = None, **kwargs): ...
 
     @inject_itential_instance
-    def get_workflow(self, **kwargs) -> Workflow2021_1:
+    def get_workflow(self, **kwargs) -> Workflow2021_1 | None:
         """
         Opinionated workflows/search endpoint query method that only returns one workflow.
 
@@ -405,7 +405,7 @@ class Itential2021_1(Auth):
     @inject_itential_instance
     def get_lean_workflow(
         self, workflow_name: str, include: list[str] = None, exclude: list[str] = None
-    ) -> Workflow2021_1:
+    ) -> Workflow2021_1 | None:
         """
         An opinionated method that requires either an 'include' or 'exclude' to limit the response size.
 
@@ -605,65 +605,84 @@ class Itential2021_1(Auth):
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
-    @overload
-    def import_workflow(self, workflow: dict) -> dict | str: ...
+    def import_workflow(self, workflow: dict | Workflow2021_1, canvas_version: Literal[1, 2] = 1) -> dict | str:
+        """
+        Import a workflow into the Itential platform. Due to how the 2021.1 platform works, the workflow cannot be
+            updated in-place, but instead must be deleted and re-imported.
 
-    def import_workflow(self, workflow: Workflow2021_1) -> dict | str:
+        An imported workflow must contain a canvasVersion value of 1 or 2. The default is 1 as it's the most
+            pushed/documented workflow version.
+
+        The exported/searched workflows do not contain the canvasVersion field for some reason, so it must be
+            added to the workflow object before importing.
+
+        Args:
+            workflow: Dict or Workflow2021_1 object to import.
+            canvas_version: Literal[1, 2]: The canvas version of the workflow. Default is 1.
+
+        Returns:
+            str: The name of the workflow that was imported.
+
+        """
         # Step 1: Get workflow object to import.
-        exclude_fields = {"_itential", "version", "id", "errors"}
-
         if isinstance(workflow, Workflow2021_1):
-            workflow_obj = workflow.model_dump(mode="python", exclude=exclude_fields, by_alias=True)
+            workflow_obj = workflow.model_dump_to_import()
 
         elif isinstance(workflow, dict):
-            workflow_obj = workflow
-            for field in exclude_fields:
-                del workflow_obj[field]
+            # Convert to the pydantic model, then output the json for Itential import.
+            # Removes fields that can't be imported.
+            workflow_obj = Workflow2021_1(**workflow).model_dump_to_import()
 
         else:
             raise ValueError(f"Invalid workflow object type: {type(workflow)}")
 
-        payload = {"workflow": workflow_obj}
-        from pprint import pprint
+        if workflow_obj.get("canvasVersion") is None:
+            workflow_obj["canvasVersion"] = canvas_version
 
-        pprint(payload)
+        payload = {"workflow": workflow_obj}
 
         # Step 2: Verify the workflow doesn't already exist on the platform
-        exported_workflow = self.export_workflow(workflow_name="nothing")
+        exported_workflow = self.export_workflow(workflow_name=workflow_obj["name"])
         if isinstance(exported_workflow, Workflow2021_1):
             log.debug("Workflow already exists on the platform. Deleting the existing workflow.")
-            response = self.delete_workflow(workflow_name=exported_workflow.name)
-            if response == "success":
-                log.debug("Existing workflow deleted.")
+            self.delete_workflow(workflow=exported_workflow.name)
+
+        try:
+            # Step 3: Import the workflow
+            response = self.call(method="POST", endpoint="/workflow_builder/import", json=payload)
+            if response.ok:
+                return response.json()["name"]
             else:
-                log.error(f"Failed to delete existing workflow: '{response}' before importing the new workflow.")
-                return
+                raise ApiError(
+                    response.status_code, f"Api Error: {response.reason} - {response.content}", response.json()
+                )
+        except ApiError as e:
+            # Step 4: If the import fails, attempt to re-import the original workflow.
+            log.error(f"Failed to import workflow. Attempting to re-import the original workflow.")
+            if exported_workflow.canvas_version is None:
+                exported_workflow.canvas_version = canvas_version
+            self.import_workflow(workflow=exported_workflow.model_dump_to_import())
 
-        # Step 3: Import the workflow
-        response = self.call(method="POST", endpoint="/workflow_builder/import", json=payload)
-        if response.ok:
-            return response.json()
-        else:
-            raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
+    def delete_workflow(self, workflow: str | Workflow2021_1) -> str:
+        """
+        Delete a workflow from the Itential platform.
 
-    @overload
-    def delete_workflow(self, workflow_name: str) -> str: ...
+        Args:
+            workflow (str | Workflow2021_1): The name of the workflow to delete or the Workflow object to delete.
 
-    def delete_workflow(self, workflow: Workflow2021_1) -> str:
+        Returns:
+            str: The name of the deleted workflow.
+        """
         if isinstance(workflow, Workflow2021_1):
             workflow_name = workflow.name
-        else:
+        elif isinstance(workflow, str):
             workflow_name = workflow
+        else:
+            raise ValueError(f"Invalid workflow object type: '{type(workflow)}' Requires: 'str' or 'Workflow2021_1'")
 
-        response = self.call(method="DELETE", endpoint=f"/workflow_builder/delete/{workflow_name}")
+        log.debug(f"Existing workflow '{workflow_name}'deleted.")
+        response = self.call(method="DELETE", endpoint=f"/workflow_builder/workflows/delete/{workflow_name}")
         if response.ok:
-            return "success"
+            return response.json()["name"]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
-
-
-if __name__ == "__main__":
-    itential = Itential2021_1()
-    workflow = itential.export_workflow(workflow_name="TDG_DataValidation")
-    response = itential.import_workflow(workflow=workflow)
-    print(response)

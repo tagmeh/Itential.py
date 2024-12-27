@@ -19,7 +19,14 @@ class Workflow(BaseModel):
         return jobs
 
     @abstractmethod
-    def import_to_server(self): ...
+    def model_dump_to_import(self):
+        """
+        Outputs a cleaned up json object that can be imported into the Itential platform.
+
+        Returns:
+            dict: The cleaned up json object.
+        """
+        ...
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__} ({self.name})"
