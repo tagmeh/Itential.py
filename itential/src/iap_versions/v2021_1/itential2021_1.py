@@ -233,14 +233,8 @@ class Itential2021_1(Auth):
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
-    @overload
-    def get_job_output(self, job: Job2021_1) -> Job2021_1: ...
-
-    @overload
-    def get_job_output(self, job_id: str) -> Job2021_1: ...
-
     @inject_itential_instance
-    def get_job_output(self, **kwargs) -> Job2021_1:
+    def get_job_output(self, job: Job2021_1 | str) -> Job2021_1:
         """
         Gets the output of the Job if the job is completed (but not cancelled).
         The platform endpoint only returns a dictionary of job-level variables.
@@ -255,11 +249,12 @@ class Itential2021_1(Auth):
             Use Job.update() to get the full job details.
         """
 
-        # Overload resolution for Job
-        job_id = kwargs.get("job_id")
-        job = kwargs.get("job")
         if isinstance(job, Job2021_1):
             job_id = job.id
+        elif isinstance(job, str):
+            job_id = job
+        else:
+            raise ValueError(f"Invalid job object type: '{type(job)}' Requires: 'str' or 'Job2021_1'")
 
         response = self.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
         if response.ok:

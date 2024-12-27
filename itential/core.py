@@ -53,15 +53,7 @@ class Itential(ABC):
     def get_jobs(self, **kwargs: dict[str, Any]) -> list[Job]: ...
 
     @abstractmethod
-    @overload
-    def get_job_output(self, job: Job) -> Job: ...
-
-    @abstractmethod
-    @overload
-    def get_job_output(self, job_id: str) -> Job: ...
-
-    @abstractmethod
-    def get_job_output(self, **kwargs: dict[str, Any]) -> Job: ...
+    def get_job_output(self, job: Job | str) -> Job: ...
 
     @abstractmethod
     @overload

@@ -243,7 +243,7 @@ class TestItential2021_1(unittest.TestCase):
         dynamic_job_id: str = self.get_job_output_response_json["_id"]
 
         # Call get_job_output method
-        job = self.itential2021_1.get_job_output(job_id=dynamic_job_id)
+        job = self.itential2021_1.get_job_output(job=dynamic_job_id)
 
         # Validate the job output is correctly applied to the variables attribute.
         self.assertEqual(job.variables, self.get_job_output_response_json)
