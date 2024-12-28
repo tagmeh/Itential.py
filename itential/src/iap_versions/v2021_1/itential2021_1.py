@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Literal, overload, Union
+from typing import Any, Literal, overload
 
 from itential.src.auth import Auth
 from itential.src.exceptions import ApiError
@@ -651,9 +651,9 @@ class Itential2021_1(Auth):
                 raise ApiError(
                     response.status_code, f"Api Error: {response.reason} - {response.content}", response.json()
                 )
-        except ApiError as e:
+        except ApiError:
             # Step 4: If the import fails, attempt to re-import the original workflow.
-            log.error(f"Failed to import workflow. Attempting to re-import the original workflow.")
+            log.error("Failed to import workflow. Attempting to re-import the original workflow.")
             if exported_workflow.canvas_version is None:
                 exported_workflow.canvas_version = canvas_version
             self.import_workflow(workflow=exported_workflow.model_dump_to_import())

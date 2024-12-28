@@ -27,3 +27,4 @@ html = "coverage html"  # Updates the htmlcov directory with the coverage report
 open = "start coverage_html_report/index.html"  # Opens the coverage report in the browser
 format = "black ."  # Formats the code using black.
 freeze = "pipenv requirements "  # "> requirements.txt" to update the requirements.txt file.
+lint = "ruff check"
