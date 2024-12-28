@@ -29,17 +29,23 @@ class JsonForm2021_1(JsonForm):
     validation_schema: dict[str, Any] | None = Field(alias="validationSchema", default=None)
     version: str | None = None
 
+    def model_dump_import(self):
+        """
+        Outputs the version required for Itential to import the asset.
+        """
+        exclude_fields = {"_id", "id", "_itential", "_version"}
+        return self.model_dump(mode="json", by_alias=True, exclude=exclude_fields)
+
+    def update_server(self):
+        """ Using the current instance, update the connected server."""
+        ...
+
+    def import_server(self):
+        """ Import the asset instance to the connected server. """
+        ...
 
 # Notes:
 """
-GET by ID
-GET /json-forms/forms/:id
-
-id *
-string
-(path)
-Unique name of the form
-
 Update by ID
 PUT /json-forms/forms/:id
 

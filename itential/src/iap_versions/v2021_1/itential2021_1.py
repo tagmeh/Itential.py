@@ -5,6 +5,7 @@ from itential.src.auth import Auth
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.base.wrappers import inject_itential_instance
 from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
+from itential.src.iap_versions.v2021_1.models.jsonform2021_1 import JsonForm2021_1
 from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 from itential.src.versions import ItentialVersion
 
@@ -240,7 +241,7 @@ class Itential2021_1(Auth):
         The platform endpoint only returns a dictionary of job-level variables.
 
         Args:
-            job_id (str): The unique job ID. Usually labeled as "_id" in the platform.
+            job (Job2021_1 | str): The unique job ID. Usually labeled as "_id" in the platform.
 
         Returns:
             Job2021_1: A Job object with only the "id" and "variables" fields filled in.
@@ -379,16 +380,22 @@ class Itential2021_1(Auth):
             Workflow2021_1: A Workflow object with the workflow details.
         """
 
+        job = kwargs.get('job')
+        job_id = kwargs.get('job_id')
+        workflow_name = kwargs.get('workflow_name')
+        query = kwargs.get('query')
+
         # overload resolution
-        if workflow_name := kwargs.get("workflow_name"):
+        if isinstance(workflow_name, str):
             query = {"name": workflow_name}
-        elif job := kwargs.get("job"):
-            query = {"name": job.name}
-        elif job_id := kwargs.get("job_id"):
+        elif isinstance(job_id, str):
             query = {"name": job_id}
-        else:
-            query = kwargs.get("query")
+        elif isinstance(job, Job2021_1):
+            query = {"name": job.name}
+        elif isinstance(query, dict):
             del kwargs["query"]
+        else:
+            raise ValueError('Missing required query-related input.')
 
         workflow_list = self.get_workflows(query=query, limit=1, **kwargs)
         if len(workflow_list) == 1:
@@ -681,3 +688,66 @@ class Itential2021_1(Auth):
             return response.json()["name"]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
+
+    def get_jsonform(self, jsonform_id: str) -> JsonForm2021_1:
+        response = self.call(method="GET", endpoint=f"/json-forms/forms/{jsonform_id}")
+        if response.ok:
+            return JsonForm2021_1(**response.json())
+        else:
+            raise ApiError(
+                response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
+            )
+
+    def update_jsonform(self, jsonform: dict | JsonForm2021_1) -> JsonForm2021_1:
+        """
+        The JSON form asset has the ability to update in-place (unlike the workflow asset).
+        Requires the '_id' param and the JSON form parameters to update.
+        Capable of a partial update.
+        """
+
+        payload = {"options": None}
+
+        if isinstance(jsonform, dict):
+            jsonform_id = jsonform['_id']
+            payload['options'] = jsonform
+        elif isinstance(jsonform, JsonForm2021_1):
+            jsonform_id = jsonform.id
+            payload['options'] = jsonform.model_dump_import()
+        else:
+            raise ValueError("'jsonform' must be a json-form dict or JsonForm2021_1 instance.")
+
+        response = self.call(method="PUT", endpoint=f"/json-forms/forms/{jsonform_id}", json=payload)
+        print(f"{response.json()=}")
+        # if response.ok:
+        #     return JsonForm2021_1(**response.json())
+        # else:
+        #     raise ApiError(
+        #         response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
+        #     )
+
+    def import_jsonform(self, jsonforms: list[dict] | list[JsonForm2021_1]) -> list[str]:
+        """
+        Capable of importing more than one json form at the same time.
+        """
+
+        payload = {"forms": []}
+
+        if len(jsonforms) == 0:
+            raise ValueError("Must pass in at least one json form object.")
+
+        if isinstance(jsonforms[1], dict):
+            payload['forms'] = jsonforms
+        elif isinstance(jsonforms[1], JsonForm2021_1):
+            payload['forms'] = [jsonform.model_dump_import() for jsonform in jsonforms]
+        else:
+            raise ValueError("Indexes must be of type dict or JsonForm2021_1")
+
+        response = self.call(method="POST", endpoint="/json-forms/forms/import", json=payload)
+        print(f"{response.json()=}")
+        # if response.ok:
+        #     return JsonForm2021_1(**response.json())
+        # else:
+        #     raise ApiError(
+        #         response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
+        #     )
+        # Return a list of the imported strings, or the objects. Depending on response.
