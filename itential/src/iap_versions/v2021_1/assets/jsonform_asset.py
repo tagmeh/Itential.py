@@ -1,14 +1,18 @@
 import logging
+from typing import TYPE_CHECKING
 
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.base.wrappers import inject_itential_instance
-from itential.src.iap_versions.v2021_1 import JsonForm2021_1
+from itential.src.iap_versions.v2021_1.models import JsonForm2021_1
+
+if TYPE_CHECKING:
+    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
 
 log = logging.getLogger(__name__)
 
 
 class JsonFormAsset:
-    def __init__(self, parent: "Itential"):
+    def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 
     @inject_itential_instance

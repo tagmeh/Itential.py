@@ -1,15 +1,18 @@
 import logging
-from typing import overload, Literal, Any, TypedDict
+from typing import TYPE_CHECKING, Any, Literal, overload
 
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.base.wrappers import inject_itential_instance
-from itential.src.iap_versions.v2021_1 import Workflow2021_1, Job2021_1
+from itential.src.iap_versions.v2021_1.models import Job2021_1, Workflow2021_1
+
+if TYPE_CHECKING:
+    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
 
 log = logging.getLogger(__name__)
 
 
 class WorkflowAsset:
-    def __init__(self, parent: "Itential"):
+    def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 
     @overload
@@ -59,7 +62,7 @@ class WorkflowAsset:
         else:
             raise ValueError("Missing required query-related input.")
 
-        workflow_list = self.get_workflows(query=query, limit=1, **kwargs)
+        workflow_list = self.search(query=query, limit=1, **kwargs)
         if len(workflow_list) == 1:
             return workflow_list[0]
         if len(workflow_list) == 0:

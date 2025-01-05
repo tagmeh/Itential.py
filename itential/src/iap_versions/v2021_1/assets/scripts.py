@@ -1,8 +1,15 @@
+import logging
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
+
+log = logging.getLogger(__name__)
 
 
 class Scripts:
-    def __init__(self, parent: "Itential"):
+    def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 
     def import_repo(self, repo_path: str | Path, path_to_assets: str = "resources/itential/"):
@@ -46,6 +53,6 @@ def scan_for_disallowed_names():
     """
 
 
-if __name__ == "__main__":
-    repo_path = Path(r"\\wsl$\Debian\home\ac08997\IAP-Docker\apps_and_adapters\v2021.1\ctl\app-oaas")
-    import_repo(repo_path)
+# if __name__ == "__main__":
+#     repo_path = Path(r"\\wsl$\Debian\home\ac08997\IAP-Docker\apps_and_adapters\v2021.1\ctl\app-oaas")
+#     import_repo(repo_path)

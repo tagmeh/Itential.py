@@ -2,7 +2,7 @@ import logging
 from typing import Any
 
 from itential.src.auth import Auth
-from itential.src.iap_versions.v2021_1.assets import JobAsset, JsonFormAsset, WorkflowAsset, Scripts
+from itential.src.iap_versions.v2021_1.assets import JobAsset, JsonFormAsset, Scripts, WorkflowAsset
 from itential.src.versions import ItentialVersion
 
 log = logging.getLogger(__name__)
@@ -16,6 +16,7 @@ class Itential2021_1(Auth):
         # Imported like this to allow automatic authentication and session handling via the call() method.
         Auth.__init__(self, **kwargs)
         # Import subclasses
+        log.debug("Initializing Itential 2021.1 subclasses.")
         self.scripts = Scripts(self)
         self.job = JobAsset(self)
         self.workflow = WorkflowAsset(self)
