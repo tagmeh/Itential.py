@@ -37,12 +37,13 @@ class JsonForm2021_1(JsonForm):
         return self.model_dump(mode="json", by_alias=True, exclude=exclude_fields)
 
     def update_server(self):
-        """ Using the current instance, update the connected server."""
+        """Using the current instance, update the connected server."""
         ...
 
     def import_server(self):
-        """ Import the asset instance to the connected server. """
+        """Import the asset instance to the connected server."""
         ...
+
 
 # Notes:
 """
