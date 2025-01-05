@@ -3,14 +3,14 @@ import unittest
 from datetime import datetime
 from pathlib import Path
 
-from itential.src.iap_versions.v2021_1 import Job2021_1
+from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
 
 
 class Testjob2021_1(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        base_path = Path(__file__).parents[4]  # tests/
+        base_path = Path(__file__).parents[5]  # tests/
 
         with open(base_path / "mocks/v2021_1/jobs/get_job_by_id.json") as f:
             cls.job_response_json = json.load(f)

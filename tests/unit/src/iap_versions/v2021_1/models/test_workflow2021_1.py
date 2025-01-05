@@ -3,14 +3,14 @@ import unittest
 from datetime import datetime
 from pathlib import Path
 
-from itential.src.iap_versions.v2021_1 import Workflow2021_1
+from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 
 
 class TestWorkflow2021_1(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        base_path = Path(__file__).parents[4]  # tests/
+        base_path = Path(__file__).parents[5]  # tests/
 
         # 1 Workflow dict wrapped in a list, full workflow object
         with open(base_path / "mocks/v2021_1/workflows/search_workflow.json") as f:

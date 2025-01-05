@@ -4,7 +4,9 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from itential import Itential
-from itential.src.iap_versions.v2021_1 import Itential2021_1, Job2021_1, Workflow2021_1
+from itential.src.iap_versions.v2021_1 import Itential2021_1
+from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
+from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 from itential.src.versions import ItentialVersion
 
 
@@ -75,7 +77,7 @@ class TestItential2021_1(unittest.TestCase):
         expected_endpoint = "/workflow_engine/getJob/bdec683c9d4b4abd879518d9"
 
         # Call get_job method
-        job = self.itential2021_1.get_job(job_id="bdec683c9d4b4abd879518d9")
+        job = self.itential2021_1.job.retrieve(job_id="bdec683c9d4b4abd879518d9")
         _, kwargs = mock_call.call_args  # Get the arguments passed to the call
 
         # Test Request
@@ -112,7 +114,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_lean_job method
-        lean_job = self.itential2021_1.get_lean_job(
+        lean_job = self.itential2021_1.job.retrieve_lean(
             job_id="0752f4ce283b4fe98314f4f7", include=["status", "createdVersion", "metrics"]
         )
         _, kwargs = mock_call.call_args  # Get the arguments passed to the call
@@ -160,7 +162,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_lean_job method
-        lean_job = self.itential2021_1.get_lean_job(
+        lean_job = self.itential2021_1.job.retrieve_lean(
             job_id="0752f4ce283b4fe98314f4f7", exclude=["status", "createdVersion", "metrics"]
         )
         _, kwargs = mock_call.call_args  # Get the arguments passed to the call
@@ -185,7 +187,7 @@ class TestItential2021_1(unittest.TestCase):
         mock_call.return_value = mock_response
 
         with self.assertRaises(ValueError) as error:
-            _ = self.itential2021_1.get_lean_job(job_id="0752f4ce283b4fe98314f4f7")
+            _ = self.itential2021_1.job.retrieve_lean(job_id="0752f4ce283b4fe98314f4f7")
 
         self.assertEqual(str(error.exception), "Either 'include' or 'exclude' arg must be provided.")
 
@@ -201,7 +203,7 @@ class TestItential2021_1(unittest.TestCase):
         mock_call.return_value = mock_response
 
         with self.assertRaises(ValueError) as error:
-            _ = self.itential2021_1.get_lean_job(
+            _ = self.itential2021_1.job.retrieve_lean(
                 job_id="0752f4ce283b4fe98314f4f7", include=["status"], exclude=["not_status"]
             )
 
@@ -222,7 +224,7 @@ class TestItential2021_1(unittest.TestCase):
         job = Job2021_1(**{"_itential": self.itential2021_1}, **self.get_job_by_id_response_json)
 
         # Call get_job_output method
-        job = self.itential2021_1.get_job_output(job=job)
+        job = self.itential2021_1.job.output(job=job)
 
         # Validate the job output is correctly applied to the variables attribute.
         self.assertEqual(job.variables, self.get_job_output_response_json)
@@ -243,7 +245,7 @@ class TestItential2021_1(unittest.TestCase):
         dynamic_job_id: str = self.get_job_output_response_json["_id"]
 
         # Call get_job_output method
-        job = self.itential2021_1.get_job_output(job=dynamic_job_id)
+        job = self.itential2021_1.job.output(job=dynamic_job_id)
 
         # Validate the job output is correctly applied to the variables attribute.
         self.assertEqual(job.variables, self.get_job_output_response_json)
@@ -280,7 +282,12 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_jobs method
-        jobs = self.itential2021_1.get_jobs(workflow_name="Test Workflow")
+        jobs = self.itential2021_1.job.search(workflow_name="Test Workflow")
+        print("TYPE", type(jobs[0]))
+        print("TYPE", type(jobs[0]))
+        print("TYPE", type(jobs[0]))
+        print("TYPE", type(jobs[0]))
+        print("TYPE", type(jobs[0]))
         _, kwargs = mock_call.call_args
 
         # Test Request
@@ -312,7 +319,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_jobs method
-        jobs = self.itential2021_1.get_jobs(
+        jobs = self.itential2021_1.job.search(
             query={"name": "Test Workflow", "status": "complete"},
             limit=50,
             skip=1,
@@ -349,7 +356,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_lean_jobs method
-        lean_jobs = self.itential2021_1.get_lean_jobs(
+        lean_jobs = self.itential2021_1.job.search_lean(
             workflow_name="Test Workflow", include=["status", "createdVersion", "metrics"]
         )
         _, kwargs = mock_call.call_args
@@ -391,7 +398,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_lean_jobs method
-        lean_jobs = self.itential2021_1.get_lean_jobs(
+        lean_jobs = self.itential2021_1.job.search_lean(
             workflow_name="Test Workflow", exclude=["description", "decorators", "ancestors"]
         )
         _, kwargs = mock_call.call_args
@@ -417,7 +424,7 @@ class TestItential2021_1(unittest.TestCase):
         mock_call.return_value = mock_response
 
         with self.assertRaises(ValueError) as error:
-            _ = self.itential2021_1.get_lean_jobs(workflow_name="Test Workflow")
+            _ = self.itential2021_1.job.search_lean(workflow_name="Test Workflow")
 
         self.assertEqual(str(error.exception), "Either 'include' or 'exclude' arg must be provided.")
 
@@ -430,7 +437,7 @@ class TestItential2021_1(unittest.TestCase):
         mock_call.return_value = mock_response
 
         with self.assertRaises(ValueError) as error:
-            _ = self.itential2021_1.get_lean_jobs(
+            _ = self.itential2021_1.job.search_lean(
                 workflow_name="Test Workflow", include=["status"], exclude=["not_status"]
             )
 
@@ -465,7 +472,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_workflow method
-        workflow = self.itential2021_1.get_workflow(workflow_name="Test Workflow")
+        workflow = self.itential2021_1.workflow.search(workflow_name="Test Workflow")
         _, kwargs = mock_call.call_args
 
         # Test Request
@@ -505,7 +512,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_workflow method
-        workflow = self.itential2021_1.get_workflow(query={"name": "Test Workflow", "status": "complete"})
+        workflow = self.itential2021_1.workflow.search(query={"name": "Test Workflow", "status": "complete"})
         _, kwargs = mock_call.call_args
 
         # Test Request
@@ -533,13 +540,14 @@ class TestItential2021_1(unittest.TestCase):
                     "type": 1,
                     "last_updated_by": 1,
                     "inputSchema": 1,
-                    "name": 1,  # This field is auto-injected if using 'include' when calling get_lean_workflow(workflow_name=)
+                    "name": 1,  # This field is auto-injected if using 'include' when calling
+                    # workflow.retrieve_lean(workflow_name=)
                 },
             }
         }
 
         # Call get_lean_workflow method
-        lean_workflow = self.itential2021_1.get_lean_workflow(
+        lean_workflow = self.itential2021_1.workflow.retrieve_lean(
             workflow_name="Test Workflow", include=["type", "last_updated_by", "inputSchema"]
         )
         _, kwargs = mock_call.call_args
@@ -582,7 +590,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_workflows method
-        workflows = self.itential2021_1.get_workflows(workflow_name="Test Workflow")
+        workflows = self.itential2021_1.workflow.search(workflow_name="Test Workflow")
         _, kwargs = mock_call.call_args
 
         # Test Request
@@ -592,7 +600,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(workflows, list)
         self.assertIsInstance(workflows[0], Workflow2021_1)
         self.assertEqual(workflows[0].name, "Test Workflow")
-        self.assertIsInstance(workflows[0]._itential, Itential2021_1)
+        self.assertIsInstance(workflows[0]._itential, Itential2021_1, type(workflows[0]._itential))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_workflows_by_query(self, mock_call):
@@ -623,7 +631,7 @@ class TestItential2021_1(unittest.TestCase):
         }
 
         # Call get_workflows method
-        workflows = self.itential2021_1.get_workflows(
+        workflows = self.itential2021_1.workflow.search(
             query={"name": "Test Workflow"},
             get_all=False,
             max_amt=0,
@@ -658,7 +666,8 @@ class TestItential2021_1(unittest.TestCase):
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_export_workflow(self, mock_call):
         """
-        Itential.export_workflow is only called by "workflow_name", since the workflow name is unique within the platform.
+        Itential.export_workflow is only called by "workflow_name", since the workflow name is unique within the
+        platform.
         """
 
         # Mock response
@@ -670,7 +679,7 @@ class TestItential2021_1(unittest.TestCase):
         expected_payload = {"options": {"name": "Test Workflow", "type": "automation"}}
 
         # Call export_workflow method
-        workflow = self.itential2021_1.export_workflow(workflow_name="Test Workflow")
+        workflow = self.itential2021_1.workflow.export(workflow_name="Test Workflow")
         _, kwargs = mock_call.call_args
 
         # Test Request
@@ -713,7 +722,7 @@ class TestItential2021_1(unittest.TestCase):
         job = Job2021_1(**{"_itential": self.itential2021_1}, **self.get_job_by_id_response_json)
 
         # Call get_workflow method
-        workflow = self.itential2021_1.get_workflow(job=job)
+        workflow = self.itential2021_1.workflow.search(job=job)
         _, kwargs = mock_call.call_args
 
         # Test Request
