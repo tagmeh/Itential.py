@@ -166,3 +166,5 @@ cython_debug/
 
 # Linting
 .ruff_cache
+
+secrets*
