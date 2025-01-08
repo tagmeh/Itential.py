@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 
 class Template(BaseModel):
-    _itential: Optional["Itential"] = None  # Itential state instance.
+    itential: Optional["Itential"] = None  # Itential state instance.
     name: str | None
     id: str | None
     type: str | None

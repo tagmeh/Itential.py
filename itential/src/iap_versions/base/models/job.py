@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 class Job(BaseModel):
     """
     Pydantic model to represent the Job object.
-    Includes related methods to act upon the job object via the _itential instance.
+    Includes related methods to act upon the job object via the itential instance.
 
     model.dict() - Same as model.model_dump(model='python')
     model.model_dump(mode='json') - Outputs the object with resolved fields (like datetime > string)
@@ -18,7 +18,7 @@ class Job(BaseModel):
     model.model_dump_json() - Outputs a json string representation of the object. (string, nulls, true/false, "quotes")
     """
 
-    _itential: Optional["Itential"] = None  # Itential state instance.
+    itential: Optional["Itential"] = None  # Itential state instance.
     name: str | None  # Name of the Job's workflow
     id: str | None  # ID of the job instance
 
@@ -26,7 +26,7 @@ class Job(BaseModel):
         """Returns the workflow object associated with this job"""
         #  Lazy loading to avoid circular dependencies on load. Unsure if this is a bad idea atm.
 
-        workflow: Workflow = self._itential.get_workflow(workflow_name=self.name)
+        workflow: Workflow = self.itential.workflow.retrieve(workflow_name=self.name)
         return workflow
 
     def update(self) -> None:
@@ -38,7 +38,7 @@ class Job(BaseModel):
             print(f"Job '{self.id}' is in a final state ({self.status}) and cannot be updated.")
             return
 
-        job = self._itential.get_job(job_id=self.id)
+        job = self.itential.job.retrieve(job_id=self.id)
         self.__dict__.update(job.__dict__)
 
     # Todo: Would be nice to have the __repr__ return something like <Job2023_1 (id)> or something better than

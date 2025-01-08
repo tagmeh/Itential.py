@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 
 class JsonForm(BaseModel):
-    _itential: Optional["Itential"] = None  # Itential state instance.
+    itential: Optional["Itential"] = None  # Itential state instance.
     name: str | None  # Name of the asset, NOT unique to the platform. Unique-ness based on id field.
     id: str | None
 

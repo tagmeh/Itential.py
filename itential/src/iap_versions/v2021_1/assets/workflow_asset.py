@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING, Any, Literal, overload
 
 from itential.core import WorkflowAssetBase
 from itential.src.exceptions import ApiError
-from itential.src.iap_versions.base.wrappers import inject_itential_instance
 from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
 from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 
@@ -17,6 +16,7 @@ log = logging.getLogger(__name__)
 class WorkflowAsset(WorkflowAssetBase):
     def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
+        print(f"{type(self.parent)=}")
 
     @overload
     def retrieve(self, workflow_name: str, expand: list[str] = None) -> Workflow2021_1: ...
@@ -30,7 +30,6 @@ class WorkflowAsset(WorkflowAssetBase):
     @overload
     def retrieve(self, job_id: int, expand: list[str] = None, **kwargs): ...
 
-    @inject_itential_instance
     def retrieve(self, **kwargs) -> Workflow2021_1 | None:
         """
         Opinionated workflows/search endpoint query method that only returns one workflow.
@@ -72,7 +71,6 @@ class WorkflowAsset(WorkflowAssetBase):
             log.error(f"No workflow found with query: {query}")
             return None
 
-    @inject_itential_instance
     def retrieve_lean(
         self, workflow_name: str, include: list[str] = None, exclude: list[str] = None
     ) -> Workflow2021_1 | None:
@@ -137,7 +135,6 @@ class WorkflowAsset(WorkflowAssetBase):
         fields: dict[str, Literal[0, 1]] = None,
     ) -> list[Workflow2021_1]: ...
 
-    @inject_itential_instance
     def search(self, **kwargs) -> list[Workflow2021_1]:
         """
         Get a list of workflows.
@@ -171,10 +168,7 @@ class WorkflowAsset(WorkflowAssetBase):
         limit = kwargs.get("limit", 100)
         skip = kwargs.get("skip", 0)
         sort = kwargs.get("sort", {"metrics.start_time": -1})
-        fields = kwargs.get(
-            "fields",
-            {"tasks": 0, "transitions": 0},
-        )
+        fields = kwargs.get("fields", {"tasks": 0, "transitions": 0})
 
         options = {"query": query, "limit": limit, "skip": skip}
         if expand:
@@ -240,11 +234,10 @@ class WorkflowAsset(WorkflowAssetBase):
             if max_amt:
                 workflows = workflows[:max_amt]
 
-            return [Workflow2021_1(**workflow) for workflow in workflows]
+            return [Workflow2021_1(itential=self.parent, **workflow) for workflow in workflows]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
-    @inject_itential_instance
     def download(self, workflow_name: str) -> Workflow2021_1:
         """
         Export/download a single workflow from the Itential server.
@@ -258,7 +251,7 @@ class WorkflowAsset(WorkflowAssetBase):
         payload = {"options": {"name": workflow_name, "type": "automation"}}
         response = self.parent.call(method="POST", endpoint="/workflow_builder/export", json=payload)
         if response.ok:
-            return Workflow2021_1(**response.json())
+            return Workflow2021_1(itential=self.parent, **response.json())
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
@@ -300,7 +293,7 @@ class WorkflowAsset(WorkflowAssetBase):
         elif isinstance(workflow, dict):
             # Convert to the pydantic model, then output the json for Itential import.
             # Removes fields that can't be imported.
-            workflow_obj = Workflow2021_1(**workflow).model_dump_to_import()
+            workflow_obj = Workflow2021_1(itential=self.parent, **workflow).model_dump_to_import()
 
         else:
             raise ValueError(f"Invalid workflow object type: {type(workflow)}")

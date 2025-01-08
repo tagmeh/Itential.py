@@ -14,10 +14,10 @@ log = logging.getLogger(__name__)
 class Itential2021_1(Auth):
     version = ItentialVersion.V2021_1
 
-    def __init__(self, **kwargs: Any):
+    def __init__(self, username: str = None, password: str = None, url: str = None, **kwargs: Any):
         log.debug("Initializing Itential 2021.1 class instance.")
         # Imported like this to allow automatic authentication and session handling via the call() method.
-        Auth.__init__(self, **kwargs)
+        Auth.__init__(self, username=username, password=password, url=url, **kwargs)
         # Import subclasses
         log.debug("Initializing Itential 2021.1 subclasses.")
         self.scripts = Scripts(self)
@@ -25,12 +25,3 @@ class Itential2021_1(Auth):
         self.workflow = WorkflowAsset(self)
         self.jsonform = JsonFormAsset(self)
 
-
-if __name__ == "__main__":
-    itential = Itential2021_1()
-
-    from pathlib import Path
-
-    repo_path = Path(r"\\wsl$\Debian\home\ac08997\IAP-Docker\apps_and_adapters\v2021.1\ctl\app-oaas")
-
-    itential.scripts.import_repo(repo_path=repo_path)

@@ -33,7 +33,7 @@ class JsonForm2021_1(JsonForm):
         """
         Outputs the version required for Itential to import the asset.
         """
-        exclude_fields = {"_id", "id", "_itential", "_version"}
+        exclude_fields = {"_id", "id", "itential", "_version"}
         return self.model_dump(mode="json", by_alias=True, exclude=exclude_fields)
 
     def update_server(self):

@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 
 class Catalog(BaseModel):
-    _itential: Optional["Itential"] = None
+    itential: Optional["Itential"] = None
     name: str | None
 
     def __str__(self) -> str:

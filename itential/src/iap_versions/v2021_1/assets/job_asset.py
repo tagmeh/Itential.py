@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING, Any, Literal, overload
 
 from itential.core import JobAssetBase
 from itential.src.exceptions import ApiError
-from itential.src.iap_versions.base.wrappers import inject_itential_instance
 from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
 
 if TYPE_CHECKING:
@@ -16,7 +15,6 @@ class JobAsset(JobAssetBase):
     def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 
-    @inject_itential_instance
     def retrieve(self, job_id: str) -> Job2021_1:
         """
         Get a job by job ID.
@@ -34,13 +32,13 @@ class JobAsset(JobAssetBase):
         """
         response = self.parent.call(method="GET", endpoint=f"/workflow_engine/getJob/{job_id}")
         if response.ok:
-            return Job2021_1(**response.json())
+            print(f"here {type(self.parent)=}")
+            return Job2021_1(itential=self.parent, **response.json())
         else:
             raise ApiError(
                 response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
             )
 
-    @inject_itential_instance
     def retrieve_lean(self, job_id: str, include: list[str] = None, exclude: list[str] = None, **kwargs) -> Job2021_1:
         """
         An opinionated method that requires either an 'include' or 'exclude' to limit the response size.
@@ -100,7 +98,6 @@ class JobAsset(JobAssetBase):
         fields: dict[str, Literal[0, 1]] = None,
     ) -> list[Job2021_1]: ...
 
-    @inject_itential_instance
     def search(self, **kwargs) -> list[Job2021_1]:
         """
         Get a list of jobs.
@@ -227,7 +224,7 @@ class JobAsset(JobAssetBase):
             if max_amt:
                 jobs = jobs[:max_amt]
 
-            return [Job2021_1(**job) for job in jobs]
+            return [Job2021_1(itential=self.parent, **job) for job in jobs]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
@@ -259,7 +256,6 @@ class JobAsset(JobAssetBase):
         sort: dict[str, Literal[1, -1]] = None,
     ) -> list[Job2021_1]: ...
 
-    @inject_itential_instance
     def search_lean(self, **kwargs) -> list[Job2021_1]:
         """
         An opinionated method that requires either an 'include' or 'exclude' to limit the response size.
@@ -299,7 +295,6 @@ class JobAsset(JobAssetBase):
         job_list = self.search(query=query, expand=expand, fields=fields, **kwargs)
         return job_list
 
-    @inject_itential_instance
     def output(self, job: Job2021_1 | str) -> Job2021_1:
         """
         Gets the output of the Job if the job is completed (but not cancelled).
@@ -324,6 +319,6 @@ class JobAsset(JobAssetBase):
 
         response = self.parent.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
         if response.ok:
-            return Job2021_1(id=job_id, variables=response.json())
+            return Job2021_1(itential=self.parent, id=job_id, variables=response.json())
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
