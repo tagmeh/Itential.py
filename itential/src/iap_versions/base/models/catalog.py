@@ -1,13 +1,7 @@
-from typing import TYPE_CHECKING, Optional
-
-from pydantic import BaseModel
-
-if TYPE_CHECKING:
-    from itential import Itential
+from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 
-class Catalog(BaseModel):
-    itential: Optional["Itential"] = None
+class Catalog(CustomBaseModel):
     name: str | None
 
     def __str__(self) -> str:

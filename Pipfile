@@ -14,7 +14,7 @@ types-requests = "*"
 black = "*"
 ipython = "*"
 typing-extensions = "*"
-coverage = {extras = ["toml"], version = "*"}
+coverage = {extras = ["toml"] }
 ruff = "*"
 
 [requires]

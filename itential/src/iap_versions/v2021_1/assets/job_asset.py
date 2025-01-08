@@ -33,7 +33,7 @@ class JobAsset(JobAssetBase):
         response = self.parent.call(method="GET", endpoint=f"/workflow_engine/getJob/{job_id}")
         if response.ok:
             print(f"here {type(self.parent)=}")
-            return Job2021_1(itential=self.parent, **response.json())
+            return Job2021_1(itential_instance=self.parent, **response.json())
         else:
             raise ApiError(
                 response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
@@ -224,7 +224,7 @@ class JobAsset(JobAssetBase):
             if max_amt:
                 jobs = jobs[:max_amt]
 
-            return [Job2021_1(itential=self.parent, **job) for job in jobs]
+            return [Job2021_1(itential_instance=self.parent, **job) for job in jobs]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
@@ -319,6 +319,6 @@ class JobAsset(JobAssetBase):
 
         response = self.parent.call(method="GET", endpoint=f"/workflow_engine/job/{job_id}/output")
         if response.ok:
-            return Job2021_1(itential=self.parent, id=job_id, variables=response.json())
+            return Job2021_1(itential_instance=self.parent, id=job_id, variables=response.json())
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())

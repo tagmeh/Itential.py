@@ -4,20 +4,21 @@ from typing import TYPE_CHECKING
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.v2021_1.models.jsonform2021_1 import JsonForm2021_1
 
-if TYPE_CHECKING:
-    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
+# if TYPE_CHECKING:
+#     from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
 
 log = logging.getLogger(__name__)
 
 
 class JsonFormAsset:
-    def __init__(self, parent: "Itential2021_1"):
+    # def __init__(self, parent: "Itential2021_1"):
+    def __init__(self, parent):
         self.parent = parent
 
     def retrieve(self, jsonform_id: str) -> JsonForm2021_1:
         response = self.parent.call(method="GET", endpoint=f"/json-forms/forms/{jsonform_id}")
         if response.ok:
-            return JsonForm2021_1(itential=self.parent, **response.json())
+            return JsonForm2021_1(itential_instance=self.parent, **response.json())
         else:
             raise ApiError(
                 response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
@@ -44,7 +45,7 @@ class JsonFormAsset:
         response = self.parent.call(method="PUT", endpoint=f"/json-forms/forms/{jsonform_id}", json=payload)
         print(f"{response.json()=}")
         # if response.ok:
-        #     return JsonForm2021_1(itential=self.parent, **response.json())
+        #     return JsonForm2021_1(itential_instance=self.parent, **response.json())
         # else:
         #     raise ApiError(
         #         response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()
@@ -70,7 +71,7 @@ class JsonFormAsset:
         response = self.parent.call(method="POST", endpoint="/json-forms/forms/import", json=payload)
         print(f"{response.json()=}")
         # if response.ok:
-        #     return JsonForm2021_1(itential=self.parent, **response.json())
+        #     return JsonForm2021_1(itential_instance=self.parent, **response.json())
         # else:
         #     raise ApiError(
         #         response.status_code, f"Api Error: {response.reason} - {response.content!r}", response.json()

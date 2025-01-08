@@ -19,7 +19,7 @@ class TestItential2021_1(unittest.TestCase):
         contain all the fields and their values.
 
     The best we can do is test that the payload is crafted correctly and that the response object is the right type
-    and contains the library-required fields (e.g. _itential) and its methods work as expected.
+    and contains the library-required fields (e.g. itential_instance) and its methods work as expected.
 
     Methods that rely heavily on the 'include'/'exclude' filters will have to be tested in the integration tests.
     """
@@ -89,7 +89,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertEqual(job.name, "Test Workflow")
         self.assertEqual(job.status, "complete")
         self.assertEqual(job.variables, None)  # Assert that the job variables are not captured in 2021.1
-        self.assertIsInstance(job._itential, Itential2021_1)  # Assert that the job has an instance of Itential2021_1
+        self.assertIsInstance(job.itential_instance, Itential2021_1)  # Assert that the job has an instance of Itential2021_1
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_job_include(self, mock_call):
@@ -125,7 +125,7 @@ class TestItential2021_1(unittest.TestCase):
         # Test Response
         self.assertIsInstance(lean_job, Job2021_1)
         self.assertEqual(lean_job.id, "0752f4ce283b4fe98314f4f7")
-        self.assertIsInstance(lean_job._itential, Itential2021_1, type(lean_job._itential))
+        self.assertIsInstance(lean_job.itential_instance, Itential2021_1, type(lean_job.itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_job_exclude(self, mock_call):
@@ -173,7 +173,7 @@ class TestItential2021_1(unittest.TestCase):
         # Test Response
         self.assertIsInstance(lean_job, Job2021_1)
         self.assertEqual(lean_job.id, "0752f4ce283b4fe98314f4f7")  # _id is always returned unless explicitly excluded
-        self.assertIsInstance(lean_job._itential, Itential2021_1, type(lean_job._itential))
+        self.assertIsInstance(lean_job.itential_instance, Itential2021_1, type(lean_job.itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_job_neither_include_nor_exclude(self, mock_call):
@@ -221,7 +221,7 @@ class TestItential2021_1(unittest.TestCase):
         mock_call.return_value = mock_response
 
         # Create a Job object
-        job = Job2021_1(**{"_itential": self.itential2021_1}, **self.get_job_by_id_response_json)
+        job = Job2021_1(**{"itential_instance": self.itential2021_1}, **self.get_job_by_id_response_json)
 
         # Call get_job_output method
         job = self.itential2021_1.job.output(job=job)
@@ -229,7 +229,7 @@ class TestItential2021_1(unittest.TestCase):
         # Validate the job output is correctly applied to the variables attribute.
         self.assertEqual(job.variables, self.get_job_output_response_json)
         self.assertIsInstance(job, Job2021_1)
-        self.assertIsInstance(job._itential, Itential2021_1)
+        self.assertIsInstance(job.itential_instance, Itential2021_1)
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_job_output_using_job_id_string(self, mock_call):
@@ -250,7 +250,7 @@ class TestItential2021_1(unittest.TestCase):
         # Validate the job output is correctly applied to the variables attribute.
         self.assertEqual(job.variables, self.get_job_output_response_json)
         self.assertIsInstance(job, Job2021_1)
-        self.assertIsInstance(job._itential, Itential2021_1, type(job._itential))
+        self.assertIsInstance(job.itential_instance, Itential2021_1, type(job.itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_jobs_by_workflow_name(self, mock_call):
@@ -297,7 +297,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(jobs, list)
         self.assertIsInstance(jobs[0], Job2021_1)
         self.assertEqual(jobs[0].name, "Test Workflow")
-        self.assertIsInstance(jobs[0]._itential, Itential2021_1, type(jobs[0]._itential))
+        self.assertIsInstance(jobs[0].itential_instance, Itential2021_1, type(jobs[0].itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_jobs_by_query(self, mock_call):
@@ -335,7 +335,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(jobs, list)
         self.assertIsInstance(jobs[0], Job2021_1)
         self.assertEqual(jobs[0].name, "Test Workflow")
-        self.assertIsInstance(jobs[0]._itential, Itential2021_1, type(jobs[0]._itential))
+        self.assertIsInstance(jobs[0].itential_instance, Itential2021_1, type(jobs[0].itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_jobs_by_workflow_name_include(self, mock_call):
@@ -371,7 +371,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertEqual(lean_jobs[0].status, "complete")
         self.assertEqual(lean_jobs[0].last_updated_by, None)
         self.assertEqual(lean_jobs[0].variables, None)
-        self.assertIsInstance(lean_jobs[0]._itential, Itential2021_1, type(lean_jobs[0]._itential))
+        self.assertIsInstance(lean_jobs[0].itential_instance, Itential2021_1, type(lean_jobs[0].itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_jobs_by_workflow_name_exclude(self, mock_call):
@@ -413,7 +413,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertEqual(lean_jobs[0].decorators, None)
         self.assertEqual(lean_jobs[0].ancestors, None)
         self.assertEqual(lean_jobs[0].variables, None)
-        self.assertIsInstance(lean_jobs[0]._itential, Itential2021_1, type(lean_jobs[0]._itential))
+        self.assertIsInstance(lean_jobs[0].itential_instance, Itential2021_1, type(lean_jobs[0].itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_jobs_neither_include_nor_exclude(self, mock_call):
@@ -481,7 +481,7 @@ class TestItential2021_1(unittest.TestCase):
         # Test Response
         self.assertIsInstance(workflow, Workflow2021_1)
         self.assertEqual(workflow.name, "Test Workflow")
-        self.assertIsInstance(workflow._itential, Itential2021_1, type(workflow._itential))
+        self.assertIsInstance(workflow.itential_instance, Itential2021_1, type(workflow.itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_workflow_by_query(self, mock_call):
@@ -521,7 +521,7 @@ class TestItential2021_1(unittest.TestCase):
         # Test Response
         self.assertIsInstance(workflow, Workflow2021_1)
         self.assertEqual(workflow.name, "Test Workflow")
-        self.assertIsInstance(workflow._itential, Itential2021_1)
+        self.assertIsInstance(workflow.itential_instance, Itential2021_1)
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_workflow_by_workflow_name_include(self, mock_call):
@@ -559,7 +559,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(lean_workflow, Workflow2021_1)
         self.assertEqual(lean_workflow.name, "Test Workflow")
         self.assertEqual(lean_workflow.last_updated_by, "675c936a13675f000b815be4")
-        self.assertIsInstance(lean_workflow._itential, Itential2021_1)
+        self.assertIsInstance(lean_workflow.itential_instance, Itential2021_1)
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_workflows_by_workflow_name(self, mock_call):
@@ -602,7 +602,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(workflows, list)
         self.assertIsInstance(workflows[0], Workflow2021_1)
         self.assertEqual(workflows[0].name, "Test Workflow")
-        self.assertIsInstance(workflows[0]._itential, Itential2021_1, type(workflows[0]._itential))
+        self.assertIsInstance(workflows[0].itential_instance, Itential2021_1, type(workflows[0].itential_instance))
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_workflows_by_query(self, mock_call):
@@ -661,7 +661,7 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(workflows, list)
         self.assertIsInstance(workflows[0], Workflow2021_1, "The object in the list should be a Workflow2021_1 object.")
         self.assertIsInstance(
-            workflows[0]._itential, Itential2021_1, "The workflow object should have an instance of Itential2021_1."
+            workflows[0].itential_instance, Itential2021_1, "The workflow object should have an instance of Itential2021_1."
         )
         self.assertEqual(workflows[0].name, "Test Workflow", "The pydantic model should have stored the workflow name.")
 
@@ -689,7 +689,7 @@ class TestItential2021_1(unittest.TestCase):
 
         # Test Response
         self.assertIsInstance(workflow, Workflow2021_1)
-        self.assertIsInstance(workflow._itential, Itential2021_1)
+        self.assertIsInstance(workflow.itential_instance, Itential2021_1)
         self.assertEqual(workflow.name, "Test Workflow")
         self.assertEqual(workflow.id, None, "The id is not returned in the export_workflow response.")
         self.assertEqual(workflow.errors, None, "The errors are not returned in the export_workflow response.")
@@ -721,7 +721,7 @@ class TestItential2021_1(unittest.TestCase):
             }
         }
 
-        job = Job2021_1(**{"_itential": self.itential2021_1}, **self.get_job_by_id_response_json)
+        job = Job2021_1(**{"itential_instance": self.itential2021_1}, **self.get_job_by_id_response_json)
 
         # Call get_workflow method
         workflow = self.itential2021_1.workflow.search(job=job)
@@ -733,7 +733,7 @@ class TestItential2021_1(unittest.TestCase):
         # Test Response
         self.assertIsInstance(workflow, Workflow2021_1)
         self.assertEqual(workflow.name, "Test Workflow")
-        self.assertIsInstance(workflow._itential, Itential2021_1)
+        self.assertIsInstance(workflow.itential_instance, Itential2021_1)
 
 
 if __name__ == "__main__":

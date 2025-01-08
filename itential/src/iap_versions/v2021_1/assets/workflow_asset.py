@@ -7,14 +7,15 @@ from itential.src.exceptions import ApiError
 from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
 from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 
-if TYPE_CHECKING:
-    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
+# if TYPE_CHECKING:
+#     from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
 
 log = logging.getLogger(__name__)
 
 
 class WorkflowAsset(WorkflowAssetBase):
-    def __init__(self, parent: "Itential2021_1"):
+    # def __init__(self, parent: "Itential2021_1"):
+    def __init__(self, parent):
         self.parent = parent
         print(f"{type(self.parent)=}")
 
@@ -234,7 +235,7 @@ class WorkflowAsset(WorkflowAssetBase):
             if max_amt:
                 workflows = workflows[:max_amt]
 
-            return [Workflow2021_1(itential=self.parent, **workflow) for workflow in workflows]
+            return [Workflow2021_1(itential_instance=self.parent, **workflow) for workflow in workflows]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
@@ -251,7 +252,7 @@ class WorkflowAsset(WorkflowAssetBase):
         payload = {"options": {"name": workflow_name, "type": "automation"}}
         response = self.parent.call(method="POST", endpoint="/workflow_builder/export", json=payload)
         if response.ok:
-            return Workflow2021_1(itential=self.parent, **response.json())
+            return Workflow2021_1(itential_instance=self.parent, **response.json())
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
@@ -293,7 +294,7 @@ class WorkflowAsset(WorkflowAssetBase):
         elif isinstance(workflow, dict):
             # Convert to the pydantic model, then output the json for Itential import.
             # Removes fields that can't be imported.
-            workflow_obj = Workflow2021_1(itential=self.parent, **workflow).model_dump_to_import()
+            workflow_obj = Workflow2021_1(itential_instance=self.parent, **workflow).model_dump_to_import()
 
         else:
             raise ValueError(f"Invalid workflow object type: {type(workflow)}")

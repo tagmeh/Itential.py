@@ -1,0 +1,1 @@
+# Base Platform class (Itential) with version handling and authentication

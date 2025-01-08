@@ -56,6 +56,7 @@ The idea is to have an Itential instance that authenticates with a given server 
 If you have access to multiple Itential platform versions, you can create and authenticate multiple Itential instances.
 
 Local Itential Instance Example
+
 ```python
 from itential import Itential, ItentialVersion
 
@@ -84,6 +85,7 @@ print(len(cool_workflow_jobs))  # 50
 ```
 
 Remote Itential Instance Example
+
 ```python
 from itential import Itential, ItentialVersion
 

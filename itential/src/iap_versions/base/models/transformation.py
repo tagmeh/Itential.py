@@ -1,13 +1,12 @@
 from typing import TYPE_CHECKING, Optional
 
-from pydantic import BaseModel
+from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 if TYPE_CHECKING:
     from itential import Itential
 
 
-class Transformation(BaseModel):
-    itential: Optional["Itential"] = None  # Itential state instance.
+class Transformation(CustomBaseModel):
     name: str | None  # Name of the asset, NOT unique to the platform. Unique-ness based on id field.
     id: str | None
 

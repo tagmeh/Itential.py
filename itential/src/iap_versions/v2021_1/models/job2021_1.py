@@ -77,7 +77,7 @@ class Job2021_1(Job):
             print(f"Cannot get job '{self.id}' output for job that is not in 'complete' status. ({self.status})")
             return self
 
-        job = self.itential.get_job_output(job=self.id)
+        job = self.itential_instance.job.output(job=self.id)
         self.__dict__.update(job.__dict__)
         return self
 

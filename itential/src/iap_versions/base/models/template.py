@@ -1,13 +1,9 @@
 from typing import TYPE_CHECKING, Optional
 
-from pydantic import BaseModel
-
-if TYPE_CHECKING:
-    from itential import Itential
+from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 
-class Template(BaseModel):
-    itential: Optional["Itential"] = None  # Itential state instance.
+class Template(CustomBaseModel):
     name: str | None
     id: str | None
     type: str | None

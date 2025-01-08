@@ -1,20 +1,15 @@
 from abc import abstractmethod
-from typing import TYPE_CHECKING, Any, Optional
+from typing import  Any, Optional
 
-from pydantic import BaseModel
-
-if TYPE_CHECKING:
-    from itential import Itential
-    from itential.src.iap_versions.base import Job
+from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 
-class Workflow(BaseModel):
-    itential: Optional["Itential"] = None  # Itential state instance.
+class Workflow(CustomBaseModel):
     name: str | None  # Name of the workflow, unique to the IAP platform.
 
-    def get_jobs(self, get_all: bool = False, limit: int = 10, **kwargs: Any) -> list["Job"]:
+    def get_jobs(self, get_all: bool = False, limit: int = 10, **kwargs: Any) -> list:
         """Returns a list of jobs associated with this workflow"""
-        jobs: list[Job] = self.itential.job.search(workflow_name=self.name, get_all=get_all, limit=limit, **kwargs)
+        jobs = self.itential_instance.job.search(workflow_name=self.name, get_all=get_all, limit=limit, **kwargs)
         return jobs
 
     @abstractmethod

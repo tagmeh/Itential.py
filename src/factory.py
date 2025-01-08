@@ -1,0 +1,1 @@
+# Factory function for creating platform instances based on version

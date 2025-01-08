@@ -1,13 +1,9 @@
 from typing import TYPE_CHECKING, Optional
 
-from pydantic import BaseModel
-
-if TYPE_CHECKING:
-    from itential import Itential
+from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 
-class JsonForm(BaseModel):
-    itential: Optional["Itential"] = None  # Itential state instance.
+class JsonForm(CustomBaseModel):
     name: str | None  # Name of the asset, NOT unique to the platform. Unique-ness based on id field.
     id: str | None
 

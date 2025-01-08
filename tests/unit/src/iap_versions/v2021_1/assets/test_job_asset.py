@@ -19,7 +19,7 @@ class TestItential2021_1(unittest.TestCase):
         contain all the fields and their values.
 
     The best we can do is test that the payload is crafted correctly and that the response object is the right type
-    and contains the library-required fields (e.g. _itential) and its methods work as expected.
+    and contains the library-required fields (e.g. itential_instance) and its methods work as expected.
 
     Methods that rely heavily on the 'include'/'exclude' filters will have to be tested in the integration tests.
     """
