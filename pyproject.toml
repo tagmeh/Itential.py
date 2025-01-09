@@ -43,7 +43,7 @@ plugins = ['pydantic.mypy']
 
 [tool.coverage.run]
 branch = true  # Show branch coverage.
-include = ["itential/**"]  # We only care to test and view the main package.
+include = ["src/**"]  # We only care to test and view the main package.
 
 [tool.coverage.report]
 # Don't need to use 'include' here due to the 'include' in the tool.coverage.run section.
@@ -69,7 +69,7 @@ ignore_errors = true
 fail_under = 60
 
 [tool.coverage.html]
-include = ["itential/**"]
+include = ["src/**"]
 directory = "coverage_html_report"
 
 [tool.pytest.ini_options]
