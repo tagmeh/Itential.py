@@ -1,4 +1,8 @@
+import logging
+
 from src.base.models.custom_base import CustomBaseModel
+
+log = logging.getLogger(__name__)
 
 
 class JobModel(CustomBaseModel):

@@ -1,6 +1,9 @@
+import logging
 from abc import abstractmethod
 
 from src.base.models.custom_base import CustomBaseModel
+
+log = logging.getLogger(__name__)
 
 
 class WorkflowModel(CustomBaseModel):

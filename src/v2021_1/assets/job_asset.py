@@ -8,12 +8,12 @@ from src.exceptions import ApiError
 from src.v2021_1.models import JobModel2021_1
 
 if TYPE_CHECKING:
-    from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
+    from src.v2021_1.itential2021_1 import Itential2021_1  # Itential2021_1 imports JobAsset2021_1
 
 log = logging.getLogger(__name__)
 
 
-class JobAsset(JobAsset):
+class JobAsset2021_1(JobAsset):
     def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 

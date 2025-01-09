@@ -58,28 +58,28 @@ If you have access to multiple Itential platform versions, you can create and au
 Local Itential Instance Example
 
 ```python
-from itential import Itential, ItentialVersion
+from src import create_itential, ItentialVersion  # src will be "itential" in the future
 
 # Login to a local Itential with default auth and url.
-iap_2021_1 = Itential(version=ItentialVersion.V2021_1)
+iap_2021_1 = create_itential(version=ItentialVersion.V2021_1)
 
 # Get a job by ID using the Itential instance.
-single_job = iap_2021_1.get_job(job_id="3a27928f699e4658b4df5aeb")
+single_job = iap_2021_1.job.retrieve(job_id="3a27928f699e4658b4df5aeb")
 print(single_job.name)  # "Cool Workflow"
 # print(type(single_job))  # <class 'Job2021_1'>  subclassed from <class 'Job'>
 
 # Get the workflow associated with the job.
-cool_workflow = single_job.get_workflow()
+cool_workflow = single_job.retrieve_workflow()
 print(cool_workflow.name)  # "Cool Workflow"
 # print(type(cool_workflow))  # <class 'Workflow2021_1'> subclassed from <class 'Workflow'> 
 
 # Get a workflow by name using the Itential instance.
-another_workflow = iap_2021_1.get_workflow(workflow_name="Another Workflow")
+another_workflow = iap_2021_1.workflow.retrieve(workflow_name="Another Workflow")
 print(another_workflow.name)  # "Another Workflow"
 # print(type(another_workflow))  # <class 'Workflow2021_1'>
 
 # Get the jobs associated with the workflow.
-cool_workflow_jobs = cool_workflow.get_jobs(limit=50)
+cool_workflow_jobs = cool_workflow.search_jobs(limit=50)
 print(len(cool_workflow_jobs))  # 50
 # print(type(cool_workflow_jobs[0]))  # list[<class 'Job2021_1'>] 
 ```
@@ -87,18 +87,18 @@ print(len(cool_workflow_jobs))  # 50
 Remote Itential Instance Example
 
 ```python
-from itential import Itential, ItentialVersion
+from src import create_itential, ItentialVersion  # src will be "itential" in the future
 
 # Login to a remote Itential with custom auth and url.
-iap_2023_1 = Itential(
+iap_2023_1 = create_itential(
     version=ItentialVersion.V2023_1,
-    url="https://my.itential.com",
+    server_url="https://my.itential.com",
     username="my_username",
     password="my_password"
 )
 
 # Get a job by ID using the Itential instance.
-single_job = iap_2023_1.get_job(job_id="3a27928f699e4658b4df5aeb")
+single_job = iap_2023_1.job.retrieve(job_id="3a27928f699e4658b4df5aeb")
 ```
 
 ### Potential/Planned Features/Goals
