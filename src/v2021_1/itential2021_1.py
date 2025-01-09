@@ -1,7 +1,6 @@
 import logging
 from typing import Any
 
-from src.base.assets.scripts import Scripts
 from src.base.itential import Itential
 from src.v2021_1.assets.job_asset import JobAsset2021_1
 from src.v2021_1.assets.workflow_asset import WorkflowAsset2021_1
