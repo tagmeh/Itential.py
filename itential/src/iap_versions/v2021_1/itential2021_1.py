@@ -24,4 +24,3 @@ class Itential2021_1(Auth):
         self.job = JobAsset(self)
         self.workflow = WorkflowAsset(self)
         self.jsonform = JsonFormAsset(self)
-

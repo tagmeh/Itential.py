@@ -89,7 +89,9 @@ class TestItential2021_1(unittest.TestCase):
         self.assertEqual(job.name, "Test Workflow")
         self.assertEqual(job.status, "complete")
         self.assertEqual(job.variables, None)  # Assert that the job variables are not captured in 2021.1
-        self.assertIsInstance(job.itential_instance, Itential2021_1)  # Assert that the job has an instance of Itential2021_1
+        self.assertIsInstance(
+            job.itential_instance, Itential2021_1
+        )  # Assert that the job has an instance of Itential2021_1
 
     @patch("itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1.call")
     def test_get_lean_job_include(self, mock_call):
@@ -661,7 +663,9 @@ class TestItential2021_1(unittest.TestCase):
         self.assertIsInstance(workflows, list)
         self.assertIsInstance(workflows[0], Workflow2021_1, "The object in the list should be a Workflow2021_1 object.")
         self.assertIsInstance(
-            workflows[0].itential_instance, Itential2021_1, "The workflow object should have an instance of Itential2021_1."
+            workflows[0].itential_instance,
+            Itential2021_1,
+            "The workflow object should have an instance of Itential2021_1.",
         )
         self.assertEqual(workflows[0].name, "Test Workflow", "The pydantic model should have stored the workflow name.")
 

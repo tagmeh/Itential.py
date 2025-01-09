@@ -3,7 +3,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from src.base.response_models.workflow_response import Workflow
+from src.base import WorkflowModel
 from itential.src.versions import ItentialVersion
 
 
@@ -20,15 +20,12 @@ class WorkflowUser(BaseModel):
 
 class WorkflowError(BaseModel):
 
-    class Config:
-        populate_by_name = True
-
     task: str | None = None
     name: str | None = None
     message: str | None = None
 
 
-class Workflow2021_1(Workflow):
+class WorkflowModel2021_1(WorkflowModel):
     class Config:
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}
@@ -60,3 +57,8 @@ class Workflow2021_1(Workflow):
         """
         exclude_fields = {"_id", "id", "itential", "_version", "errors"}
         return self.model_dump(mode="json", by_alias=True, exclude=exclude_fields)
+
+    # Todo: Re-implement methods for response objects. These are convenience methods,
+    #  but cause a lot of type-hinting/circular dependency issues at the moment.
+    # def get_jobs(self, **kwargs) -> list["Job2021_1"]:
+    #     return self.itential_instance.job.search(workflow_name=self.name, **kwargs)

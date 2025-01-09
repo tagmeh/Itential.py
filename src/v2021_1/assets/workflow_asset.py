@@ -1,12 +1,12 @@
 import logging
 
-from typing import TYPE_CHECKING, Any, Literal, overload
+from typing import Any, Literal, overload
 
-from src.base.asset_classes.workflow_asset import WorkflowAssetBase
-from itential.src.exceptions import ApiError
+from src.base.assets.workflow import WorkflowAssetBase
+from src.exceptions import ApiError
+from src.v2021_1.assets.job_asset import JobModel2021_1
+from src.v2021_1.assets.workflow_asset import Workflow2021_1
 
-# if TYPE_CHECKING:
-#     from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
 
 log = logging.getLogger(__name__)
 
@@ -15,7 +15,6 @@ class WorkflowAsset(WorkflowAssetBase):
     # def __init__(self, parent: "Itential2021_1"):
     def __init__(self, parent):
         self.parent = parent
-        print(f"{type(self.parent)=}")
 
     @overload
     def retrieve(self, workflow_name: str, expand: list[str] = None) -> Workflow2021_1: ...
@@ -24,7 +23,7 @@ class WorkflowAsset(WorkflowAssetBase):
     def retrieve(self, query: dict[str, Any], expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
 
     @overload
-    def retrieve(self, job: Job2021_1, expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
+    def retrieve(self, job: JobModel2021_1, expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
 
     @overload
     def retrieve(self, job_id: int, expand: list[str] = None, **kwargs): ...
@@ -35,7 +34,7 @@ class WorkflowAsset(WorkflowAssetBase):
 
         Args:
             query (dict): The query to filter workflows by. Ex: {"name": "workflow_name"}
-            job (Job2021_1): The job object used to retrieve the associated workflow.
+            job (JobModel2021_1): The job object used to retrieve the associated workflow.
             job_id (int): The job id used to retrieve the associated workflow.
             workflow_name (str): The name of the workflow to retrieve.
 
@@ -56,7 +55,7 @@ class WorkflowAsset(WorkflowAssetBase):
             query = {"name": workflow_name}
         elif isinstance(job_id, str):
             query = {"name": job_id}
-        elif isinstance(job, Job2021_1):
+        elif isinstance(job, JobModel2021_1):
             query = {"name": job.name}
         elif isinstance(query, dict):
             del kwargs["query"]
@@ -324,7 +323,7 @@ class WorkflowAsset(WorkflowAssetBase):
                 exported_workflow.canvas_version = canvas_version
             self.upload(workflow=exported_workflow.model_dump_to_import())
 
-    def delete(self, workflow: str | Workflow2021_1) -> str:
+    def delete(self, workflow: str | "Workflow2021_1") -> str:
         """
         Delete a workflow from the Itential platform.
 

@@ -1,1 +1,0 @@
-# Defines the response object for a Job
