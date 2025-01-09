@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     from src.base import JobModel
@@ -20,4 +20,4 @@ class JobAsset(ABC):
     def search_lean(self, *args, **kwargs) -> list: ...
 
     @abstractmethod
-    def output(self, job: JobModel | str): ...
+    def output(self, job: Union["JobModel", str]): ...

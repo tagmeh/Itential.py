@@ -3,8 +3,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from src.versions import ItentialVersion
 from src.base import WorkflowModel
+from src.versions import ItentialVersion
 
 
 class WorkflowUser(BaseModel):
@@ -26,6 +26,7 @@ class WorkflowError(BaseModel):
 
 
 class WorkflowModel2021_1(WorkflowModel):
+
     class Config:
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}

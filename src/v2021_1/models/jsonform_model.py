@@ -3,8 +3,8 @@ from typing import Any
 
 from pydantic import Field
 
-from src import ItentialVersion
 from src.base.models.jsonform import JsonFormModel
+from src.versions import ItentialVersion
 
 
 class JsonFormModel2021_1(JsonFormModel):

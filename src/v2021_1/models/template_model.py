@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from src import ItentialVersion
 from src.base.models.template import TemplateModel
+from src.versions import ItentialVersion
 
 
 class TemplateUser(BaseModel):

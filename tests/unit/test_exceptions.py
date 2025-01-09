@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from itential.src.exceptions import ApiError, NotSupportedError
+from src.exceptions import ApiError, NotSupportedError
 
 
 class TestAuth(unittest.TestCase):

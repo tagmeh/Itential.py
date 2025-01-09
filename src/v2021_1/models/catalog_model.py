@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from src import ItentialVersion
 from src.base.models.catalog import CatalogModel
+from src.versions import ItentialVersion
 
 
 class CatalogModel2021_1(CatalogModel):
