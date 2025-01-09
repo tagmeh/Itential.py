@@ -3,7 +3,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from itential.src.versions import ItentialVersion
+from src.versions import ItentialVersion
 from src.base import WorkflowModel
 
 

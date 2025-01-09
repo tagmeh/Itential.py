@@ -4,6 +4,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from src import ItentialVersion
+from src.base import JobModel
 
 
 class JobMetrics(BaseModel):

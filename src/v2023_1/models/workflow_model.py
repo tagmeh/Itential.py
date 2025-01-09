@@ -4,6 +4,7 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from src import ItentialVersion
+from src.base import WorkflowModel
 
 
 class WorkflowUser(BaseModel):
@@ -28,7 +29,7 @@ class WorkflowError(BaseModel):
     message: str | None = None
 
 
-class BaseWorkflow2023_1(Workflow):
+class BaseWorkflow2023_1(WorkflowModel):
     class Config:
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.fromisoformat()}

@@ -1,32 +1,35 @@
 import logging
-from typing import Any, Literal, overload
+from typing import TYPE_CHECKING, Any, Literal, overload
 
-from src.base.assets.workflow import WorkflowAssetBase
+from src.base.assets.workflow import WorkflowAsset
 from src.exceptions import ApiError
 from src.v2021_1.assets.job_asset import JobModel2021_1
-from src.v2021_1.assets.workflow_asset import Workflow2021_1
+from src.v2021_1.models import WorkflowModel2021_1
+
+if TYPE_CHECKING:
+    from src.v2021_1.itential2021_1 import Itential2021_1
+
 
 log = logging.getLogger(__name__)
 
 
-class WorkflowAsset(WorkflowAssetBase):
-    # def __init__(self, parent: "Itential2021_1"):
-    def __init__(self, parent):
+class WorkflowAsset2021_1(WorkflowAsset):
+    def __init__(self, parent: "Itential2021_1"):
         self.parent = parent
 
     @overload
-    def retrieve(self, workflow_name: str, expand: list[str] = None) -> Workflow2021_1: ...
+    def retrieve(self, workflow_name: str, expand: list[str] = None) -> WorkflowModel2021_1: ...
 
     @overload
-    def retrieve(self, query: dict[str, Any], expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
+    def retrieve(self, query: dict[str, Any], expand: list[str] = None, **kwargs) -> WorkflowModel2021_1: ...
 
     @overload
-    def retrieve(self, job: JobModel2021_1, expand: list[str] = None, **kwargs) -> Workflow2021_1: ...
+    def retrieve(self, job: JobModel2021_1, expand: list[str] = None, **kwargs) -> WorkflowModel2021_1: ...
 
     @overload
-    def retrieve(self, job_id: int, expand: list[str] = None, **kwargs): ...
+    def retrieve(self, job_id: int, expand: list[str] = None, **kwargs) -> WorkflowModel2021_1: ...
 
-    def retrieve(self, **kwargs) -> Workflow2021_1 | None:
+    def retrieve(self, **kwargs) -> WorkflowModel2021_1 | None:
         """
         Opinionated workflows/search endpoint query method that only returns one workflow.
 
@@ -40,7 +43,7 @@ class WorkflowAsset(WorkflowAssetBase):
             kwargs (dict): Additional query parameters to pass to get_workflows_by_query
 
         Returns:
-            Workflow2021_1: A Workflow object with the workflow details.
+            WorkflowModel2021_1: A Workflow object with the workflow details.
         """
 
         job = kwargs.get("job")
@@ -69,7 +72,7 @@ class WorkflowAsset(WorkflowAssetBase):
 
     def retrieve_lean(
         self, workflow_name: str, include: list[str] = None, exclude: list[str] = None
-    ) -> Workflow2021_1 | None:
+    ) -> WorkflowModel2021_1 | None:
         """
         An opinionated method that requires either an 'include' or 'exclude' to limit the response size.
 
@@ -79,7 +82,7 @@ class WorkflowAsset(WorkflowAssetBase):
             exclude (list[str]): The fields to exclude in the workflow object. Exclusive with includes.
 
         Returns:
-            Workflow2021_1: A Workflow object with only the specified fields filled in.
+            WorkflowModel2021_1: A Workflow object with only the specified fields filled in.
         """
 
         if include and exclude:
@@ -116,7 +119,7 @@ class WorkflowAsset(WorkflowAssetBase):
         skip: int = 0,
         sort: dict[str, Literal[1, -1]] = None,
         fields: dict[str, Literal[0, 1]] = None,
-    ) -> list[Workflow2021_1]: ...
+    ) -> list[WorkflowModel2021_1]: ...
 
     @overload
     def search(
@@ -129,9 +132,9 @@ class WorkflowAsset(WorkflowAssetBase):
         skip: int = 0,
         sort: dict[str, Literal[1, -1]] = None,
         fields: dict[str, Literal[0, 1]] = None,
-    ) -> list[Workflow2021_1]: ...
+    ) -> list[WorkflowModel2021_1]: ...
 
-    def search(self, **kwargs) -> list[Workflow2021_1]:
+    def search(self, **kwargs) -> list[WorkflowModel2021_1]:
         """
         Get a list of workflows.
 
@@ -148,7 +151,7 @@ class WorkflowAsset(WorkflowAssetBase):
             fields (dict[str, Literal[0, 1]]): {"name": 1}. "name" field can be any field in the workflow json. Used to filter out other fields
 
         Returns:
-            list[Workflow2021_1]: A list of Workflow objects with the workflow details.
+            list[WorkflowModel2021_1]: A list of Workflow objects with the workflow details.
         """
 
         # Overload resolution
@@ -230,11 +233,11 @@ class WorkflowAsset(WorkflowAssetBase):
             if max_amt:
                 workflows = workflows[:max_amt]
 
-            return [Workflow2021_1(itential_instance=self.parent, **workflow) for workflow in workflows]
+            return [WorkflowModel2021_1(itential_instance=self.parent, **workflow) for workflow in workflows]
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
-    def download(self, workflow_name: str) -> Workflow2021_1:
+    def download(self, workflow_name: str) -> WorkflowModel2021_1:
         """
         Export/download a single workflow from the Itential server.
 
@@ -242,16 +245,16 @@ class WorkflowAsset(WorkflowAssetBase):
             workflow_name (str): The name of the workflow to export.
 
         Returns:
-            Workflow2021_1: A Workflow object with the workflow details.
+            WorkflowModel2021_1: A Workflow object with the workflow details.
         """
         payload = {"options": {"name": workflow_name, "type": "automation"}}
         response = self.parent.call(method="POST", endpoint="/workflow_builder/export", json=payload)
         if response.ok:
-            return Workflow2021_1(itential_instance=self.parent, **response.json())
+            return WorkflowModel2021_1(itential_instance=self.parent, **response.json())
         else:
             raise ApiError(response.status_code, f"Api Error: {response.reason} - {response.content}", response.json())
 
-    def export(self, workflow_name: str) -> Workflow2021_1:
+    def export(self, workflow_name: str) -> WorkflowModel2021_1:
         """
         Export/download a single workflow from the Itential server. This is a wrapper for the download method.
 
@@ -259,11 +262,11 @@ class WorkflowAsset(WorkflowAssetBase):
             workflow_name (str): The name of the workflow to export.
 
         Returns:
-            Workflow2021_1: A Workflow object with the workflow details.
+            WorkflowModel2021_1: A Workflow object with the workflow details.
         """
         return self.download(workflow_name=workflow_name)
 
-    def upload(self, workflow: dict | Workflow2021_1, canvas_version: Literal[1, 2] = 1) -> dict | str:
+    def upload(self, workflow: dict | WorkflowModel2021_1, canvas_version: Literal[1, 2] = 1) -> dict | str:
         """
         Import/upload a workflow into the Itential platform. Due to how the 2021.1 platform works, the workflow cannot be
             updated in-place, but instead must be deleted and re-imported.
@@ -275,7 +278,7 @@ class WorkflowAsset(WorkflowAssetBase):
             added to the workflow object before importing.
 
         Args:
-            workflow: Dict or Workflow2021_1 object to import.
+            workflow: Dict or WorkflowModel2021_1 object to import.
             canvas_version: Literal[1, 2]: The canvas version of the workflow. Default is 1.
 
         Returns:
@@ -283,13 +286,13 @@ class WorkflowAsset(WorkflowAssetBase):
 
         """
         # Step 1: Get workflow object to import.
-        if isinstance(workflow, Workflow2021_1):
+        if isinstance(workflow, WorkflowModel2021_1):
             workflow_obj = workflow.model_dump_to_import()
 
         elif isinstance(workflow, dict):
             # Convert to the pydantic model, then output the json for Itential import.
             # Removes fields that can't be imported.
-            workflow_obj = Workflow2021_1(itential_instance=self.parent, **workflow).model_dump_to_import()
+            workflow_obj = WorkflowModel2021_1(itential_instance=self.parent, **workflow).model_dump_to_import()
 
         else:
             raise ValueError(f"Invalid workflow object type: {type(workflow)}")
@@ -301,7 +304,7 @@ class WorkflowAsset(WorkflowAssetBase):
 
         # Step 2: Verify the workflow doesn't already exist on the platform
         exported_workflow = self.export(workflow_name=workflow_obj["name"])
-        if isinstance(exported_workflow, Workflow2021_1):
+        if isinstance(exported_workflow, WorkflowModel2021_1):
             log.debug("Workflow already exists on the platform. Deleting the existing workflow.")
             self.delete(workflow=exported_workflow.name)
 
@@ -321,22 +324,24 @@ class WorkflowAsset(WorkflowAssetBase):
                 exported_workflow.canvas_version = canvas_version
             self.upload(workflow=exported_workflow.model_dump_to_import())
 
-    def delete(self, workflow: str | "Workflow2021_1") -> str:
+    def delete(self, workflow: str | WorkflowModel2021_1) -> str:
         """
         Delete a workflow from the Itential platform.
 
         Args:
-            workflow (str | Workflow2021_1): The name of the workflow to delete or the Workflow object to delete.
+            workflow (str | WorkflowModel2021_1): The name of the workflow to delete or the Workflow object to delete.
 
         Returns:
             str: The name of the deleted workflow.
         """
-        if isinstance(workflow, Workflow2021_1):
+        if isinstance(workflow, WorkflowModel2021_1):
             workflow_name = workflow.name
         elif isinstance(workflow, str):
             workflow_name = workflow
         else:
-            raise ValueError(f"Invalid workflow object type: '{type(workflow)}' Requires: 'str' or 'Workflow2021_1'")
+            raise ValueError(
+                f"Invalid workflow object type: '{type(workflow)}' Requires: 'str' or 'WorkflowModel2021_1'"
+            )
 
         log.debug(f"Existing workflow '{workflow_name}'deleted.")
         response = self.parent.call(method="DELETE", endpoint=f"/workflow_builder/workflows/delete/{workflow_name}")
