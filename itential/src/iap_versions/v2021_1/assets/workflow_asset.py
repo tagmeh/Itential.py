@@ -1,6 +1,5 @@
 import logging
-
-from typing import TYPE_CHECKING, Any, Literal, overload
+from typing import Any, Literal, overload
 
 from itential.core import WorkflowAssetBase
 from itential.src.exceptions import ApiError

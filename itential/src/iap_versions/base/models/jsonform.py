@@ -1,4 +1,3 @@
-from typing import TYPE_CHECKING, Optional
 
 from itential.src.iap_versions.base.models.base import CustomBaseModel
 

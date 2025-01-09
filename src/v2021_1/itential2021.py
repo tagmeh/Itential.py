@@ -2,14 +2,11 @@ import logging
 from typing import Any
 
 from src.base.itential import Itential
-
 from src.v2021_1.assets.job_asset import JobAsset
 from src.v2021_1.assets.workflow_asset import WorkflowAsset
 
 # from src.v2021_1.asset_classes.jsonform_asset import JsonFormAsset
 # from src.v2021_1.asset_classes.scripts import Scripts
-
-
 from src.versions import ItentialVersion
 
 log = logging.getLogger(__name__)

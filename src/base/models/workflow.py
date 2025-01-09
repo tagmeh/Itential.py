@@ -1,5 +1,4 @@
 from abc import abstractmethod
-from typing import Any
 
 from src.base.models.custom_base import CustomBaseModel
 

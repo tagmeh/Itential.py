@@ -1,18 +1,17 @@
 # Base Platform class (Itential) with version handling and authentication
-from abc import ABC
 import logging
-import requests
 from typing import Any
 
-from src.exceptions import ApiError
+import requests
+
 from src.base.assets.job import JobAsset
 from src.base.assets.workflow import WorkflowAsset
-
+from src.exceptions import ApiError
 
 log = logging.getLogger(__name__)
 
 
-class Itential(ABC):
+class Itential:
     workflow = WorkflowAsset
     job = JobAsset
     # scripts = Scripts

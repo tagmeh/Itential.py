@@ -1,7 +1,7 @@
 # Factory function for creating platform instances based on version
 from src.base.itential import Itential
-from src.versions import ItentialVersion
 from src.v2021_1.itential2021 import Itential2021_1
+from src.versions import ItentialVersion
 
 
 def create_itential(

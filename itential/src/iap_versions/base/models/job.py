@@ -1,4 +1,3 @@
-
 from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 
@@ -12,6 +11,7 @@ class Job(CustomBaseModel):
     model.model_dump(mode='python') - Outputs the object with unresolved fields (like datetime > datetime object)
     model.model_dump_json() - Outputs a json string representation of the object. (string, nulls, true/false, "quotes")
     """
+
     name: str | None  # Name of the Job's workflow
     id: str | None  # ID of the job instance
 

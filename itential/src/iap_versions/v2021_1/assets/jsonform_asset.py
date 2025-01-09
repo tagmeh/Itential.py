@@ -1,5 +1,4 @@
 import logging
-from typing import TYPE_CHECKING
 
 from itential.src.exceptions import ApiError
 from itential.src.iap_versions.v2021_1.models.jsonform2021_1 import JsonForm2021_1

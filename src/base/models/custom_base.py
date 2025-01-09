@@ -1,6 +1,5 @@
-from typing import Optional
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 
 from src.base.itential import Itential
 

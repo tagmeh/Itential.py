@@ -4,9 +4,6 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from itential import Itential
-from itential.src.iap_versions.v2021_1 import Itential2021_1
-from itential.src.iap_versions.v2021_1.models.job2021_1 import Job2021_1
-from itential.src.iap_versions.v2021_1.models.workflow2021_1 import Workflow2021_1
 from itential.src.versions import ItentialVersion
 
 

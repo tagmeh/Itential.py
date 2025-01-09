@@ -1,5 +1,5 @@
-from abc import abstractmethod, ABC
-from typing import Any, overload, Literal
+from abc import ABC, abstractmethod
+from typing import Literal
 
 
 class WorkflowAsset(ABC):

@@ -1,10 +1,9 @@
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, overload, Literal
+from typing import Any, Literal, overload
 
 from itential.src.versions import ItentialVersion
-
 
 log = logging.getLogger(__name__)
 
@@ -30,9 +29,7 @@ class WorkflowAssetBase(ABC):
     def retrieve(self, **kwargs): ...
 
     @abstractmethod
-    def retrieve_lean(
-        self, workflow_name: str, include: list[str] = None, exclude: list[str] = None
-    ): ...
+    def retrieve_lean(self, workflow_name: str, include: list[str] = None, exclude: list[str] = None): ...
 
     @abstractmethod
     @overload
@@ -161,7 +158,7 @@ class Scripts(ABC):
     def scan_for_disallowed_names(self) -> None: ...
 
 
-class Itential(ABC):
+class Itential:
     _version_map: dict[ItentialVersion, str] = {
         ItentialVersion.V2021_1: "itential.src.iap_versions.v2021_1.itential2021_1.Itential2021_1",
         ItentialVersion.V2023_1: "itential.src.iap_versions.v2023_1.itential2023_1.Itential2023_1",

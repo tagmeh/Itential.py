@@ -1,11 +1,11 @@
 # Defines the Job-specific methods organized within the Job class.
 
 import logging
-from typing import TYPE_CHECKING, Any, Literal, overload, Optional, Union
+from typing import TYPE_CHECKING, Any, Literal, overload
 
+from src.base import JobAsset, JobModel
 from src.exceptions import ApiError
 from src.v2021_1.models import JobModel2021_1
-from src.base import JobAsset, JobModel
 
 if TYPE_CHECKING:
     from itential.src.iap_versions.v2021_1.itential2021_1 import Itential2021_1
@@ -236,8 +236,8 @@ class JobAsset(JobAsset):
     def search_lean(
         self,
         workflow_name: str,
-        include: Optional[list[str]] = None,
-        exclude: Optional[list[str]] = None,
+        include: list[str] | None = None,
+        exclude: list[str] | None = None,
         get_all: bool = False,
         max_amt: int = 0,
         expand: list[str] = None,
@@ -250,8 +250,8 @@ class JobAsset(JobAsset):
     def search_lean(
         self,
         query: dict[str, Any],
-        include: Optional[list[str]] = None,
-        exclude: Optional[list[str]] = None,
+        include: list[str] | None = None,
+        exclude: list[str] | None = None,
         get_all: bool = False,
         max_amt: int = 0,
         expand: list[str] = None,

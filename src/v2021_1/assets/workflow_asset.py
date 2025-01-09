@@ -1,12 +1,10 @@
 import logging
-
 from typing import Any, Literal, overload
 
 from src.base.assets.workflow import WorkflowAssetBase
 from src.exceptions import ApiError
 from src.v2021_1.assets.job_asset import JobModel2021_1
 from src.v2021_1.assets.workflow_asset import Workflow2021_1
-
 
 log = logging.getLogger(__name__)
 

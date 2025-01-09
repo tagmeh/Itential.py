@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import  Any, Optional
+from typing import Any
 
 from itential.src.iap_versions.base.models.base import CustomBaseModel
 

@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from itential.src.iap_versions.base.models.base import CustomBaseModel
 
 if TYPE_CHECKING:
-    from itential import Itential
+    pass
 
 
 class Transformation(CustomBaseModel):
