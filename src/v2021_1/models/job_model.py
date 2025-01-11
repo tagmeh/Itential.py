@@ -12,6 +12,7 @@ from src.versions import ItentialVersion
 class JobUser(BaseModel):
 
     class Config:
+        by_alias = True
         populate_by_name = True
 
     user_id: str | None = Field(alias="_id", default=None)
@@ -52,6 +53,7 @@ class JobModel2021_1(JobModel):
     """Describes a job in the 2021.1 version of the Itential API"""
 
     class Config:
+        by_alias = True
         populate_by_name = True
         json_encoders = {datetime: lambda v: v.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"}
 

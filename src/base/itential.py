@@ -5,6 +5,7 @@ from typing import Any
 import requests
 
 from src.base.assets.job import JobAsset
+from src.base.assets.utils import UtilsAsset
 from src.base.assets.workflow import WorkflowAsset
 from src.exceptions import ApiError
 
@@ -14,6 +15,7 @@ log = logging.getLogger(__name__)
 class Itential:
     workflow = WorkflowAsset
     job = JobAsset
+    utils = UtilsAsset
     # scripts = Scripts
 
     def __init__(

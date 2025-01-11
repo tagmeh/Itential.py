@@ -23,7 +23,7 @@ class JsonFormModel2021_1(JsonFormModel):
     name: str | None = None
     description: str | None = None
     struct: dict[str, Any] | None = None
-    schema: dict[str, Any] | None = None
+    form_schema: dict[str, Any] | None = Field(alias="schema", default=None)  # "schema" shadows a Pydantic attribute.
     ui_schema: dict[str, Any] | None = Field(alias="uiSchema", default=None)
     binding_schema: dict[str, Any] | None = Field(alias="bindingSchema", default=None)
     validation_schema: dict[str, Any] | None = Field(alias="validationSchema", default=None)

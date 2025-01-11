@@ -29,7 +29,7 @@ def concreter(abclass):
     return type(f"dummy_concrete_{abclass.__name__}", (abclass,), new_dict)
 
 
-def get_test_path(path: str) -> Path:
+def get_test_base_path(path: str) -> Path:
     """
     Returns the top level tests/ directory path.
 
@@ -42,4 +42,6 @@ def get_test_path(path: str) -> Path:
 
 
 if __name__ == "__main__":
-    assert str(get_test_path(__file__)).endswith("\\tests"), f"'{get_test_path(__file__)}' should end with '\\tests'"
+    assert str(get_test_base_path(__file__)).endswith(
+        "\\tests"
+    ), f"'{get_test_base_path(__file__)}' should end with '\\tests'"
