@@ -144,7 +144,7 @@ class JobAsset2021_1(JobAsset):
         """
 
         # Overload section
-        query = kwargs.get("query")
+        query = kwargs.get("query", {})  # An empty dict is viable, but None is not.
         if workflow_name := kwargs.get("workflow_name"):
             query = {"name": workflow_name}
 
@@ -208,21 +208,16 @@ class JobAsset2021_1(JobAsset):
         response = self.parent.call(method="POST", endpoint="/workflow_engine/jobs/search", json=payload)
         if response.ok:
             response_json = response.json()
-            response_json = {
-                "results": [],
-                "skip": 0,
-                "limit": 10,
-                "total": 5
-            }
 
             if get_all is True:
                 jobs: list[dict] = response_json["results"]
 
-                while response_json["skip"] < response_json["total"]:
+                # Monitoring payload skip value for unit testing purposes.
+                while payload["options"]["skip"] < response_json["total"]:
                     if max_amt and len(jobs) >= max_amt:
                         break
 
-                    payload["skip"] += payload["limit"]
+                    payload["options"]["skip"] += response_json["limit"]
 
                     response = self.parent.call(method="POST", endpoint="/workflow_engine/jobs/search", json=payload)
                     response_json = response.json()
