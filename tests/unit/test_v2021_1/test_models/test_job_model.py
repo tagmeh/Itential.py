@@ -74,3 +74,42 @@ class TestJobModel2021_1(unittest.TestCase):
 
         for key in list_of_camel_case_keys:
             self.assertIn(key, serialized_job_keys)
+
+    @patch("src.v2021_1.assets.job_asset.JobAsset2021_1.retrieve")
+    def test_update_method_complete(self, mock_retrieve):
+        """
+        Tests the update method of the JobModel2021_1 class.
+        """
+        job_json: dict = self.job_response_json
+        job = JobModel2021_1(itential_instance=self.itential, **job_json)
+
+        job.update()
+
+        # Nothing to update due to job being in "complete" status.
+        # Thus, the retrieve method should not be called.
+        mock_retrieve.assert_not_called()
+
+    @patch("src.v2021_1.assets.job_asset.JobAsset2021_1.retrieve")
+    def test_update_method_running(self, mock_retrieve):
+        """
+        Tests the update method of the JobModel2021_1 class.
+        """
+        job_json: dict = self.job_response_json
+        mock_retrieve.return_value = JobModel2021_1(itential_instance=self.itential, **job_json)
+
+        job = JobModel2021_1(itential_instance=self.itential, **job_json)
+        job.status = "running"  # Simulate a job that is still running.
+
+        job.update()
+
+        self.assertEqual(job.status, "complete")
+        mock_retrieve.assert_called_once()
+
+    def test___str__(self):
+        """
+        Tests the __str__ method of the JobModel2021_1 class.
+        """
+        job_json: dict = self.job_response_json
+        job = JobModel2021_1(itential_instance=self.itential, **job_json)
+
+        self.assertEqual(str(job), "JobModel2021_1 (bdec683c9d4b4abd879518d9)")

@@ -297,10 +297,11 @@ class TestJobAsset2021_1(unittest.TestCase):
         expected_payload = {
             "options": {
                 "query": {"name": "Test Workflow"},
-                "get_all": True,
+                # "get_all": True,  # 'get_all' is not a payload option, but a function argument.
+                #    And will not show up in the payload sent to the server.
                 # Everything below this point are defaults
-                "limit": 100,
-                "skip": 0,
+                "limit": 10,  # Has to match the static response object in order to get the correct "skip" value.
+                "skip": 20,  # Updated from 0 to 20 due to the get_all=True flag and the looping call logic.
                 "expand": ["last_updated_by", "created_by"],
                 "sort": {"metrics.start_time": -1},
                 "fields": {
@@ -316,11 +317,13 @@ class TestJobAsset2021_1(unittest.TestCase):
             }
         }
 
-        # Call get_jobs method
-        jobs = self.itential2021_1.job.search(workflow_name="Test Workflow", get_all=True)
+        # Limit is required and has to match the static response object. This will override the default limit of 100.
+        jobs = self.itential2021_1.job.search(workflow_name="Test Workflow", get_all=True, limit=10)
         _, kwargs = mock_call.call_args
 
         # Test Request
+        print(f"{kwargs['json']=}")
+        print(f"{expected_payload=}")
         self.assertEqual(kwargs["json"], expected_payload)
 
         # Test Response

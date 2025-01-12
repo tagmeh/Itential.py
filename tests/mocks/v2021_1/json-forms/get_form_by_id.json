@@ -1,181 +1,159 @@
 {
-	"id": "676b006548a3f709020cf785",
-	"created": "2024-12-24T18:41:41.060Z",
+	"id": "67830969d01f48005190c24e",
+	"created": "2025-01-12T00:14:33.883Z",
 	"createdBy": "admin@pronghorn",
-	"lastUpdated": "2024-12-24T18:53:42.043Z",
+	"lastUpdated": "2025-01-12T00:16:21.106Z",
 	"lastUpdatedBy": "admin@pronghorn",
-	"name": "TestJsonForm",
+	"name": "Cool JsonForm",
 	"description": null,
 	"struct": {
 		"type": "object",
 		"description": "",
 		"items": [
 			{
-				"nodeId": "8d4d3262-6258-4d16-be88-dee2db8e2814",
-				"type": "object",
+				"nodeId": "f6c19752-6aad-4f33-80c2-bef97c228490",
+				"type": "string",
+				"title": "Cool Text Box",
 				"description": "",
-				"items": [
+				"placeholder": "Enter some cool text here.",
+				"required": true,
+				"readOnly": false,
+				"binding": false,
+				"rel": "item",
+				"targetPointer": "/default",
+				"default": ""
+			},
+			{
+				"nodeId": "44b52e36-8a64-4aaf-9cc6-85bfb1a84616",
+				"type": "string",
+				"widget": "textarea",
+				"title": "Cool Text Area",
+				"description": "",
+				"placeholder": "Enter a lot of text here.",
+				"required": false
+			},
+			{
+				"nodeId": "f702fcf4-5b51-4010-835c-01341ffb927e",
+				"type": "boolean",
+				"title": "Checkbox A",
+				"description": "",
+				"default": true,
+				"enum": [
 					{
-						"nodeId": "e7306440-5f01-4ba7-95ea-4677ed0b9a63",
-						"type": "string",
-						"title": "Do you wish to cross the Bridge of Death?",
-						"description": "",
-						"placeholder": "Yes",
-						"required": true,
-						"enum": [
-							{
-								"id": "d5101402-22c0-4691-9360-75a0b77097ec",
-								"label": "Yes",
-								"value": "Yes"
-							},
-							{
-								"id": "76b0c5d1-edfa-427a-88ac-3f93524aa28f",
-								"label": "No",
-								"value": "No"
-							}
-						],
-						"binding": false,
-						"rel": "collection",
-						"targetPointer": "/enum"
+						"id": "61b59165-3dbb-4e84-851b-ecd5d327d082",
+						"value": true
 					},
 					{
-						"nodeId": "ce27d2cb-888d-4c1b-b1e2-412be8519533",
-						"type": "object",
-						"description": "",
-						"items": [
-							{
-								"nodeId": "b4b082fd-a907-4643-a30b-16b91c53ed5b",
-								"type": "string",
-								"title": "What is your name?",
-								"description": "Must answer truthfully.",
-								"placeholder": "Sir Lancelot of Camelot",
-								"required": true,
-								"readOnly": false,
-								"binding": false,
-								"rel": "item",
-								"targetPointer": "/default"
-							},
-							{
-								"nodeId": "d8e51a78-c6d1-48a1-a8b6-694e3397b31d",
-								"type": "string",
-								"title": "What is your Quest?",
-								"description": "Must answer truthfully.",
-								"placeholder": "To find the Holy Grail!",
-								"required": true,
-								"readOnly": false,
-								"binding": false,
-								"rel": "item",
-								"targetPointer": "/default"
-							},
-							{
-								"nodeId": "9a04771d-a775-4bfe-8fea-7ee8b6b474a1",
-								"type": "string",
-								"widget": "textarea",
-								"title": "What is the capital of Assyria?",
-								"description": "",
-								"placeholder": "I don't know that! Auuuuuuuugh!",
-								"required": true,
-								"default": ""
-							}
-						],
-						"title": "If Yes"
+						"id": "e83d2555-53da-445f-8b1b-556bca831781",
+						"value": false
+					}
+				]
+			},
+			{
+				"nodeId": "8e7bc8a8-c97a-4cbd-8435-8d0ecaa1a1c9",
+				"type": "boolean",
+				"title": "Checkbox B",
+				"description": "",
+				"default": false,
+				"enum": [
+					{
+						"id": "1b0c9839-71c2-4fbe-8ffa-fdec177c2367",
+						"value": true
+					},
+					{
+						"id": "86a9a31b-76e2-469b-85c5-2ca3118833c1",
+						"value": false
+					}
+				]
+			},
+			{
+				"nodeId": "88a9db90-549f-4beb-8630-59a9454ba60a",
+				"type": "string",
+				"title": "Cool Dropdown",
+				"description": "",
+				"placeholder": "Select an item",
+				"required": false,
+				"enum": [
+					{
+						"id": "dc809c93-58a5-4efa-bee8-86adb7c14805",
+						"label": "Choose ME!",
+						"value": "Choose ME!"
+					},
+					{
+						"id": "b7acd1a7-9765-4f82-9386-e94d010aeb15",
+						"label": "No, ME!",
+						"value": "No, ME!"
 					}
 				],
-				"title": "Five... Three Questions to Cross the Bridge of Death!"
+				"binding": false,
+				"rel": "collection",
+				"targetPointer": "/enum"
 			}
 		]
 	},
 	"schema": {
-		"title": "TestJsonForm",
+		"title": "Cool JsonForm",
 		"description": "",
 		"type": "object",
-		"required": [],
+		"required": [
+			"coolTextBox"
+		],
 		"properties": {
-			"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
-				"type": "object",
-				"title": "Five... Three Questions to Cross the Bridge of Death!",
+			"coolTextBox": {
+				"type": "string",
+				"title": "Cool Text Box",
 				"description": "",
-				"required": [
-					"doYouWishToCrossTheBridgeOfDeath"
-				],
-				"properties": {
-					"doYouWishToCrossTheBridgeOfDeath": {
-						"type": "string",
-						"title": "Do you wish to cross the Bridge of Death?",
-						"description": "",
-						"enum": [
-							"Yes",
-							"No"
-						]
-					},
-					"ifYes": {
-						"type": "object",
-						"title": "If Yes",
-						"description": "",
-						"required": [
-							"whatIsYourName",
-							"whatIsYourQuest",
-							"whatIsTheCapitalOfAssyria"
-						],
-						"properties": {
-							"whatIsYourName": {
-								"type": "string",
-								"title": "What is your name?",
-								"description": "Must answer truthfully."
-							},
-							"whatIsYourQuest": {
-								"type": "string",
-								"title": "What is your Quest?",
-								"description": "Must answer truthfully."
-							},
-							"whatIsTheCapitalOfAssyria": {
-								"type": "string",
-								"title": "What is the capital of Assyria?",
-								"description": "",
-								"default": ""
-							}
-						}
-					}
-				}
+				"default": ""
+			},
+			"coolTextArea": {
+				"type": "string",
+				"title": "Cool Text Area",
+				"description": ""
+			},
+			"checkboxA": {
+				"type": "boolean",
+				"title": "Checkbox A",
+				"description": "",
+				"default": true,
+				"enum": [
+					true,
+					false
+				]
+			},
+			"checkboxB": {
+				"type": "boolean",
+				"title": "Checkbox B",
+				"description": "",
+				"default": false,
+				"enum": [
+					true,
+					false
+				]
+			},
+			"coolDropdown": {
+				"type": "string",
+				"title": "Cool Dropdown",
+				"description": "",
+				"enum": [
+					"Choose ME!",
+					"No, ME!"
+				]
 			}
 		}
 	},
 	"uiSchema": {
-		"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
-			"ui:collapseByDefault": false,
-			"doYouWishToCrossTheBridgeOfDeath": {
-				"ui:placeholder": "Yes"
-			},
-			"ifYes": {
-				"ui:collapseByDefault": false,
-				"whatIsYourName": {
-					"ui:placeholder": "Sir Lancelot of Camelot"
-				},
-				"whatIsYourQuest": {
-					"ui:placeholder": "To find the Holy Grail!"
-				},
-				"whatIsTheCapitalOfAssyria": {
-					"ui:placeholder": "I don't know that! Auuuuuuuugh!",
-					"ui:widget": "textarea"
-				}
-			}
+		"coolTextBox": {
+			"ui:placeholder": "Enter some cool text here."
+		},
+		"coolTextArea": {
+			"ui:placeholder": "Enter a lot of text here.",
+			"ui:widget": "textarea"
+		},
+		"coolDropdown": {
+			"ui:placeholder": "Select an item"
 		}
 	},
-	"bindingSchema": {
-		"properties": {
-			"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
-				"properties": {
-					"ifYes": {
-						"properties": {}
-					}
-				}
-			}
-		}
-	},
-	"validationSchema": {
-		"fiveThreeQuestionsToCrossTheBridgeOfDeath": {
-			"ifYes": {}
-		}
-	},
+	"bindingSchema": {},
+	"validationSchema": {},
 	"version": "2020.1"
 }
