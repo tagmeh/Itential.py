@@ -4,7 +4,6 @@ from src.base.assets.scripts import ScriptsAsset
 from src.base.assets.utils import UtilsAsset
 from src.base.assets.workflow import WorkflowAsset
 from src.base.itential import Itential
-from src.base.models.catalog import CatalogModel
 from src.base.models.job import JobModel
 from src.base.models.jsonform import JsonFormModel
 from src.base.models.template import TemplateModel
@@ -23,5 +22,4 @@ __all__ = [
     "JsonFormModel",
     "TemplateModel",
     "TransformationModel",
-    "CatalogModel",
 ]

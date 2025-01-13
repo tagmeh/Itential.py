@@ -5,7 +5,6 @@ from src.v2021_1.assets.workflow_asset import WorkflowAsset2021_1
 
 # from src.v2021_1.assets.template_asset import TemplateAsset2021_1
 # from src.v2021_1.assets.transformation_asset import TransformationAsset2021_1
-# from src.v2021_1.assets.catalog_asset import CatalogAsset2021_1
 
 __all__ = [
     "JobAsset2021_1",
@@ -14,5 +13,4 @@ __all__ = [
     "ScriptsAsset2021_1",
     # "TemplateAsset2021_1",
     # "TransformationAsset2021_1",
-    # "CatalogAsset2021_1",
 ]
