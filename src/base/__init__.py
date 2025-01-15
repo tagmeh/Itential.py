@@ -2,6 +2,7 @@ from src.base.assets.job import JobAsset
 from src.base.assets.jsonform import JsonFormAsset
 from src.base.assets.scripts import ScriptsAsset
 from src.base.assets.utils import UtilsAsset
+from src.base.assets.transformation import TransformationAsset
 from src.base.assets.workflow import WorkflowAsset
 from src.base.itential import Itential
 from src.base.models.job import JobModel
@@ -15,6 +16,7 @@ __all__ = [
     "WorkflowAsset",
     "ScriptsAsset",
     "UtilsAsset",
+    "TransformationAsset",
     "JsonFormAsset",
     "Itential",
     "JobModel",

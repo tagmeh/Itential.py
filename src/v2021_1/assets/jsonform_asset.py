@@ -41,18 +41,18 @@ class JsonFormAsset2021_1(JsonFormAsset):
         }
         """
 
-        payload = {"queryParameters": {}}
+        params = {"queryParameters": {}}
 
         if contains:
-            payload["contains"] = contains
+            params["contains"] = contains
 
         if equals:
-            payload["equals"] = equals
+            params["equals"] = equals
 
         if contains and equals:
             log.warning("JsonFormAsset Search(): 'contains' and 'equals' parameters can clash. Use with caution.")
 
-        response = self.parent.call(method="GET", endpoint="/json-forms/forms", json=payload)
+        response = self.parent.call(method="GET", endpoint="/json-forms/forms", params=params)
 
         if response.ok:
             json_forms = response.json()
