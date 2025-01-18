@@ -6,6 +6,8 @@ from src.v2021_1.assets.job_asset import JobAsset2021_1
 from src.v2021_1.assets.jsonform_asset import JsonFormAsset2021_1
 from src.v2021_1.assets.scripts_asset import ScriptsAsset2021_1
 from src.v2021_1.assets.workflow_asset import WorkflowAsset2021_1
+from src.v2021_1.assets.transformation_asset import TransformationAsset2021_1
+from src.v2021_1.assets.utils_asset import UtilsAsset2021_1
 from src.versions import ItentialVersion
 
 log = logging.getLogger(__name__)
@@ -24,3 +26,5 @@ class Itential2021_1(Itential):
         self.job = JobAsset2021_1(self)
         self.workflow = WorkflowAsset2021_1(self)
         self.jsonform = JsonFormAsset2021_1(self)
+        self.transformation = TransformationAsset2021_1(self)
+        self.utils = UtilsAsset2021_1(self)
