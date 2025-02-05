@@ -1,0 +1,18 @@
+{
+	"results": [
+		{
+			"_id": "0752f4ce283b4fe98314f4f7",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"status": "complete",
+			"metrics": {
+				"start_time": 1734755197375,
+				"user": "675c936a13675f000b815be4",
+				"progress": 1,
+				"end_time": 1734755202446
+			}
+		}
+	],
+	"skip": 0,
+	"limit": 1,
+	"total": 5
+}

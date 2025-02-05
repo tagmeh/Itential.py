@@ -1,0 +1,996 @@
+{
+	"items": [
+		{
+			"_id": "3c4fa6d4-d602-4507-8b5d-8aca8e7e4d8e",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					}
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					}
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					}
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"inputSchema": {
+				"type": "object",
+				"properties": {
+					"delaySeconds": {
+						"title": "time",
+						"type": "integer",
+						"minimum": 1,
+						"examples": [
+							1200
+						]
+					},
+					"color": {
+						"title": "str",
+						"type": "string",
+						"examples": [
+							"Hello"
+						]
+					}
+				},
+				"required": [
+					"delaySeconds",
+					"color"
+				]
+			},
+			"outputSchema": {
+				"type": "object",
+				"properties": {
+					"delaySeconds": {
+						"title": "time",
+						"type": "integer",
+						"minimum": 1,
+						"examples": [
+							1200
+						]
+					},
+					"color": {
+						"title": "str",
+						"type": "string",
+						"examples": [
+							"Hello"
+						]
+					},
+					"_id": {
+						"type": "string",
+						"pattern": "^[0-9a-f]{24}$"
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"favColorString": {
+						"title": "combinedStrings",
+						"type": "string",
+						"examples": [
+							"Hello World"
+						]
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [],
+			"last_updated": "2024-12-04T20:56:18.510Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": {
+				"_id": "67506f5b00d71a000b4d443d",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"memberOf": [
+					{
+						"groupId": "674ded7e9b6cdc000b84053b",
+						"aaaManaged": true
+					},
+					{
+						"aaaManaged": false,
+						"groupId": "67509d705b5b8d000b634040"
+					}
+				],
+				"assignedRoles": [
+					{
+						"roleId": "674ded8a339c16de627d42c7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d1"
+					},
+					{
+						"roleId": "674ded719b6cdc000b84052f"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4224"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4220"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4222"
+					},
+					{
+						"roleId": "674ded7f339c16de627d423a"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4296"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4299"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429a"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4297"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4298"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cd"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cf"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ca"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ce"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4307"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4308"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4309"
+					},
+					{
+						"roleId": "674ded8a339c16de627d430a"
+					},
+					{
+						"roleId": "674ded80339c16de627d423e"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4231"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4232"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42dc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42da"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42db"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840538"
+					},
+					{
+						"roleId": "674ded80339c16de627d423d"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422a"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422b"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840534"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422d"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4228"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429c"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429f"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429d"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429e"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42aa"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ad"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ae"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42af"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ab"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ac"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ba"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bd"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42be"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d5"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4234"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b299"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b29b"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b29c"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a8"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840537"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422f"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840536"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4236"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840532"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4238"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840535"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4226"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ef"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42fa"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42df"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e1"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840539"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ea"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42eb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ec"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ed"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4312"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4315"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4316"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4313"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4314"
+					},
+					{
+						"roleId": "674ded89339c16de627d425c"
+					},
+					{
+						"roleId": "674ded89339c16de627d425d"
+					},
+					{
+						"roleId": "675071872c69b26b7bc5c259"
+					},
+					{
+						"roleId": "6757079e6f3ed68edc6ca5b3"
+					}
+				],
+				"inactive": false,
+				"lastLogin": "2025-01-11T22:21:06.867Z",
+				"_meta": {
+					"created": "2024-12-04T15:03:55.642Z",
+					"updated": "2025-01-11T22:21:06.863Z"
+				}
+			},
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": {
+				"_id": "67506f5b00d71a000b4d443d",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"memberOf": [
+					{
+						"groupId": "674ded7e9b6cdc000b84053b",
+						"aaaManaged": true
+					},
+					{
+						"aaaManaged": false,
+						"groupId": "67509d705b5b8d000b634040"
+					}
+				],
+				"assignedRoles": [
+					{
+						"roleId": "674ded8a339c16de627d42c7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d1"
+					},
+					{
+						"roleId": "674ded719b6cdc000b84052f"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4224"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4220"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4222"
+					},
+					{
+						"roleId": "674ded7f339c16de627d423a"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4296"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4299"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429a"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4297"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4298"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cd"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42cf"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ca"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ce"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4307"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4308"
+					},
+					{
+						"roleId": "674ded8a339c16de627d4309"
+					},
+					{
+						"roleId": "674ded8a339c16de627d430a"
+					},
+					{
+						"roleId": "674ded80339c16de627d423e"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4231"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4232"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42dc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42da"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42db"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840538"
+					},
+					{
+						"roleId": "674ded80339c16de627d423d"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422a"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422b"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840534"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422d"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4228"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429c"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429f"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429d"
+					},
+					{
+						"roleId": "674ded8a339c16de627d429e"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42aa"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ad"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ae"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42af"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ab"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ac"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ba"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bd"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42be"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42bc"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42d5"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4234"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b299"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b29b"
+					},
+					{
+						"roleId": "67506f3b2c69b26b7bc5b29c"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42a8"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840537"
+					},
+					{
+						"roleId": "674ded7f339c16de627d422f"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840536"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4236"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840532"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4238"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840535"
+					},
+					{
+						"roleId": "674ded7f339c16de627d4226"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ef"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42fa"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42f4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b6"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42b7"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c4"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c5"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c1"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42c2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42df"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e2"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e3"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e0"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e1"
+					},
+					{
+						"roleId": "674ded719b6cdc000b840539"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e8"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42e9"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ea"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42eb"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ec"
+					},
+					{
+						"roleId": "674ded8a339c16de627d42ed"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4312"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4315"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4316"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4313"
+					},
+					{
+						"roleId": "674ded8b339c16de627d4314"
+					},
+					{
+						"roleId": "674ded89339c16de627d425c"
+					},
+					{
+						"roleId": "674ded89339c16de627d425d"
+					},
+					{
+						"roleId": "675071872c69b26b7bc5c259"
+					},
+					{
+						"roleId": "6757079e6f3ed68edc6ca5b3"
+					}
+				],
+				"inactive": false,
+				"lastLogin": "2025-01-11T22:21:06.867Z",
+				"_meta": {
+					"created": "2024-12-04T15:03:55.642Z",
+					"updated": "2025-01-11T22:21:06.863Z"
+				}
+			}
+		}
+	],
+	"skip": 0,
+	"end": 1,
+	"count": 1,
+	"total": 1,
+	"limit": 25,
+	"previous": null,
+	"next": null
+}

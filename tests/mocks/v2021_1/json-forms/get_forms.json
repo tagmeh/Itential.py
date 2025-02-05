@@ -1,0 +1,211 @@
+[
+	{
+		"id": "67830969d01f48005190c24e",
+		"createdBy": "admin@pronghorn",
+		"lastUpdatedBy": "admin@pronghorn",
+		"struct": {
+			"type": "object",
+			"description": "",
+			"items": [
+				{
+					"nodeId": "f6c19752-6aad-4f33-80c2-bef97c228490",
+					"type": "string",
+					"title": "Cool Text Box",
+					"description": "",
+					"placeholder": "Enter some cool text here.",
+					"required": true,
+					"readOnly": false,
+					"binding": false,
+					"rel": "item",
+					"targetPointer": "/default",
+					"default": ""
+				},
+				{
+					"nodeId": "44b52e36-8a64-4aaf-9cc6-85bfb1a84616",
+					"type": "string",
+					"widget": "textarea",
+					"title": "Cool Text Area",
+					"description": "",
+					"placeholder": "Enter a lot of text here.",
+					"required": false
+				},
+				{
+					"nodeId": "f702fcf4-5b51-4010-835c-01341ffb927e",
+					"type": "boolean",
+					"title": "Checkbox A",
+					"description": "",
+					"default": true,
+					"enum": [
+						{
+							"id": "61b59165-3dbb-4e84-851b-ecd5d327d082",
+							"value": true
+						},
+						{
+							"id": "e83d2555-53da-445f-8b1b-556bca831781",
+							"value": false
+						}
+					]
+				},
+				{
+					"nodeId": "8e7bc8a8-c97a-4cbd-8435-8d0ecaa1a1c9",
+					"type": "boolean",
+					"title": "Checkbox B",
+					"description": "",
+					"default": false,
+					"enum": [
+						{
+							"id": "1b0c9839-71c2-4fbe-8ffa-fdec177c2367",
+							"value": true
+						},
+						{
+							"id": "86a9a31b-76e2-469b-85c5-2ca3118833c1",
+							"value": false
+						}
+					]
+				},
+				{
+					"nodeId": "88a9db90-549f-4beb-8630-59a9454ba60a",
+					"type": "string",
+					"title": "Cool Dropdown",
+					"description": "",
+					"placeholder": "Select an item",
+					"required": false,
+					"enum": [
+						{
+							"id": "dc809c93-58a5-4efa-bee8-86adb7c14805",
+							"label": "Choose ME!",
+							"value": "Choose ME!"
+						},
+						{
+							"id": "b7acd1a7-9765-4f82-9386-e94d010aeb15",
+							"label": "No, ME!",
+							"value": "No, ME!"
+						}
+					],
+					"binding": false,
+					"rel": "collection",
+					"targetPointer": "/enum"
+				}
+			]
+		},
+		"bindingSchema": {},
+		"validationSchema": {},
+		"tags": [],
+		"created": "2025-01-12T00:14:33.883Z",
+		"lastUpdated": "2025-01-12T00:16:21.106Z",
+		"name": "Cool JsonForm",
+		"description": null,
+		"schema": {
+			"title": "Cool JsonForm",
+			"description": "",
+			"type": "object",
+			"required": [
+				"coolTextBox"
+			],
+			"properties": {
+				"coolTextBox": {
+					"type": "string",
+					"title": "Cool Text Box",
+					"description": "",
+					"default": ""
+				},
+				"coolTextArea": {
+					"type": "string",
+					"title": "Cool Text Area",
+					"description": ""
+				},
+				"checkboxA": {
+					"type": "boolean",
+					"title": "Checkbox A",
+					"description": "",
+					"default": true,
+					"enum": [
+						true,
+						false
+					]
+				},
+				"checkboxB": {
+					"type": "boolean",
+					"title": "Checkbox B",
+					"description": "",
+					"default": false,
+					"enum": [
+						true,
+						false
+					]
+				},
+				"coolDropdown": {
+					"type": "string",
+					"title": "Cool Dropdown",
+					"description": "",
+					"enum": [
+						"Choose ME!",
+						"No, ME!"
+					]
+				}
+			}
+		},
+		"uiSchema": {
+			"coolTextBox": {
+				"ui:placeholder": "Enter some cool text here."
+			},
+			"coolTextArea": {
+				"ui:placeholder": "Enter a lot of text here.",
+				"ui:widget": "textarea"
+			},
+			"coolDropdown": {
+				"ui:placeholder": "Select an item"
+			}
+		},
+		"version": "2020.1"
+	},
+	{
+		"id": "67830a27d01f48005190c24f",
+		"createdBy": "admin@pronghorn",
+		"lastUpdatedBy": "admin@pronghorn",
+		"struct": {
+			"type": "object",
+			"description": "",
+			"items": [
+				{
+					"nodeId": "845d161c-e8ce-499f-81b5-c154109ba1ed",
+					"type": "string",
+					"title": "Textbox",
+					"description": "",
+					"placeholder": "Enter text",
+					"required": false,
+					"readOnly": false,
+					"binding": false,
+					"rel": "item",
+					"targetPointer": "/default"
+				}
+			]
+		},
+		"bindingSchema": {},
+		"validationSchema": {},
+		"tags": [],
+		"created": "2025-01-12T00:17:43.392Z",
+		"lastUpdated": "2025-01-12T00:17:54.201Z",
+		"name": "Second JsonForm",
+		"description": null,
+		"schema": {
+			"title": "Second JsonForm",
+			"description": "",
+			"type": "object",
+			"required": [],
+			"properties": {
+				"textbox": {
+					"type": "string",
+					"title": "Textbox",
+					"description": ""
+				}
+			}
+		},
+		"uiSchema": {
+			"textbox": {
+				"ui:placeholder": "Enter text"
+			}
+		},
+		"version": "2020.1"
+	}
+]

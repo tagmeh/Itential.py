@@ -1,0 +1,205 @@
+{
+	"results": [
+		{
+			"_id": "a364d119-cf1a-4e13-b991-0bcbd653a9e4",
+			"name": "Test Workflow",
+			"type": "automation",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"x": 0,
+					"y": 0.5
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"x": 0.5245901639344263,
+					"y": 0.49612403100775193
+				},
+				"df40": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolStrVar",
+							"value": "String Var"
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.09123307198859587,
+					"y": 0.49612403100775193
+				},
+				"1d51": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolArrVar",
+							"value": [
+								"Arr",
+								"a",
+								"var"
+							]
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.2052744119743407,
+					"y": 0.49612403100775193
+				},
+				"d146": {
+					"name": "newVariable",
+					"canvasName": "newVariable",
+					"summary": "Create a Job Variable",
+					"description": "Create a new Job variable by Job ID and assign it a value.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"name": "coolObjVar",
+							"value": {
+								"property": "value"
+							}
+						},
+						"outgoing": {
+							"value": null
+						}
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.31931575196008555,
+					"y": 0.49612403100775193
+				},
+				"ee7e": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": 5
+						},
+						"outgoing": {
+							"time_in_milliseconds": null
+						},
+						"error": "",
+						"decorators": []
+					},
+					"deprecated": false,
+					"groups": [],
+					"x": 0.4333570919458304,
+					"y": 0.49612403100775193,
+					"scheduled": false
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"df40": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"workflow_end": {},
+				"df40": {
+					"1d51": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"1d51": {
+					"d146": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"d146": {
+					"ee7e": {
+						"type": "standard",
+						"state": "success"
+					}
+				},
+				"ee7e": {
+					"workflow_end": {
+						"type": "standard",
+						"state": "success"
+					}
+				}
+			},
+			"font_size": 12,
+			"last_updated": "2024-12-21T04:26:01.139Z",
+			"last_updated_by": "675c936a13675f000b815be4",
+			"lastUpdatedVersion": "5.40.5-2021.1.128.0",
+			"inputSchema": {
+				"type": "object",
+				"properties": {}
+			},
+			"outputSchema": {
+				"type": "object",
+				"properties": {
+					"_id": {
+						"type": "string",
+						"pattern": "^[0-9a-f]{24}$"
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"coolStrVar": {
+						"type": "string"
+					},
+					"coolArrVar": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"coolObjVar": {
+						"type": "object",
+						"properties": {
+							"property": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			},
+			"groups": [],
+			"created": "2024-12-21T04:24:00.993Z",
+			"created_by": "675c936a13675f000b815be4",
+			"createdVersion": "5.40.5-2021.1.128.0",
+			"tags": []
+		}
+	],
+	"skip": 0,
+	"limit": 1,
+	"total": 1
+}

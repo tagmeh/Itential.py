@@ -1,0 +1,48 @@
+{
+  "id": "67830a27d01f48005190c24f",
+  "created": "2025-01-12T00:17:43.392Z",
+  "createdBy": "admin@pronghorn",
+  "lastUpdated": "2025-01-12T00:17:54.201Z",
+  "lastUpdatedBy": "admin@pronghorn",
+  "name": "Second JsonForm",
+  "description": null,
+  "struct": {
+    "type": "object",
+    "description": "",
+    "items": [
+      {
+        "nodeId": "845d161c-e8ce-499f-81b5-c154109ba1ed",
+        "type": "string",
+        "title": "Textbox",
+        "description": "",
+        "placeholder": "Enter text",
+        "required": false,
+        "readOnly": false,
+        "binding": false,
+        "rel": "item",
+        "targetPointer": "/default"
+      }
+    ]
+  },
+  "schema": {
+    "title": "Second JsonForm",
+    "description": "",
+    "type": "object",
+    "required": [],
+    "properties": {
+      "textbox": {
+        "type": "string",
+        "title": "Textbox",
+        "description": ""
+      }
+    }
+  },
+  "uiSchema": {
+    "textbox": {
+      "ui:placeholder": "Enter text"
+    }
+  },
+  "bindingSchema": {},
+  "validationSchema": {},
+  "version": "2020.1"
+}

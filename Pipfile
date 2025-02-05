@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 requests = "*"
+pydantic = "*"
 
 [dev-packages]
 nose = "*"
@@ -12,6 +13,18 @@ mypy = "*"
 types-requests = "*"
 black = "*"
 ipython = "*"
+typing-extensions = "*"
+coverage = {extras = ["toml"] }
+ruff = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.10"
+
+[scripts]
+test = "coverage run -m unittest"  # Runs the tests and collects coverage data
+report = "coverage report"  # Prints the coverage report to the terminal
+html = "coverage html"  # Updates the htmlcov directory with the coverage report
+open = "start coverage_html_report/index.html"  # Opens the coverage report in the browser
+format = "black ."  # Formats the code using black.
+freeze = "pipenv requirements "  # "> requirements.txt" to update the requirements.txt file.
+lint = "ruff check"

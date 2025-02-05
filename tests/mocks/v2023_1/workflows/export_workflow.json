@@ -1,0 +1,211 @@
+{
+	"name": "Color Timer Workflow",
+	"tasks": {
+		"workflow_start": {
+			"name": "workflow_start",
+			"groups": [],
+			"nodeLocation": {
+				"x": -12,
+				"y": -600
+			},
+			"x": 0,
+			"y": 0.5
+		},
+		"workflow_end": {
+			"name": "workflow_end",
+			"groups": [],
+			"nodeLocation": {
+				"x": 0,
+				"y": -216
+			},
+			"x": 1,
+			"y": 0.5
+		},
+		"60cb": {
+			"name": "delay",
+			"canvasName": "delay",
+			"summary": "Delay a Job",
+			"description": "Delay a Job for a duration by Job ID and number of seconds.",
+			"location": "Application",
+			"locationType": null,
+			"app": "WorkFlowEngine",
+			"type": "operation",
+			"displayName": "WorkFlowEngine",
+			"variables": {
+				"incoming": {
+					"time": "$var.job.delaySeconds"
+				},
+				"outgoing": {
+					"time_in_milliseconds": ""
+				}
+			},
+			"actor": "Pronghorn",
+			"groups": [],
+			"nodeLocation": {
+				"x": 0,
+				"y": -312
+			}
+		},
+		"22ff": {
+			"name": "updateJobDescription",
+			"canvasName": "updateJobDescription",
+			"summary": "Update Job Description",
+			"description": "Overwrite the job description with a new one",
+			"location": "Application",
+			"locationType": null,
+			"app": "WorkFlowEngine",
+			"type": "operation",
+			"displayName": "WorkFlowEngine",
+			"variables": {
+				"incoming": {
+					"description": "$var.job.favColorString"
+				},
+				"outgoing": {
+					"description": ""
+				}
+			},
+			"actor": "Pronghorn",
+			"groups": [],
+			"nodeLocation": {
+				"x": 0,
+				"y": -408
+			}
+		},
+		"eacd": {
+			"name": "stringConcat",
+			"canvasName": "concat",
+			"summary": "Concatenates strings together.",
+			"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+			"location": "Application",
+			"locationType": null,
+			"app": "WorkFlowEngine",
+			"type": "automatic",
+			"displayName": "String",
+			"variables": {
+				"incoming": {
+					"str": "$var.job.color",
+					"stringN": " is my favorite color!"
+				},
+				"outgoing": {
+					"combinedStrings": "$var.job.favColorString"
+				}
+			},
+			"actor": "Pronghorn",
+			"groups": [],
+			"nodeLocation": {
+				"x": -6,
+				"y": -504
+			}
+		}
+	},
+	"transitions": {
+		"workflow_start": {
+			"eacd": {
+				"state": "success",
+				"type": "standard"
+			}
+		},
+		"workflow_end": {},
+		"60cb": {
+			"workflow_end": {
+				"state": "success",
+				"type": "standard"
+			}
+		},
+		"22ff": {
+			"60cb": {
+				"state": "success",
+				"type": "standard"
+			}
+		},
+		"eacd": {
+			"22ff": {
+				"state": "success",
+				"type": "standard"
+			}
+		}
+	},
+	"inputSchema": {
+		"type": "object",
+		"properties": {
+			"delaySeconds": {
+				"title": "time",
+				"type": "integer",
+				"minimum": 1,
+				"examples": [
+					1200
+				]
+			},
+			"color": {
+				"title": "str",
+				"type": "string",
+				"examples": [
+					"Hello"
+				]
+			}
+		},
+		"required": [
+			"delaySeconds",
+			"color"
+		]
+	},
+	"outputSchema": {
+		"type": "object",
+		"properties": {
+			"delaySeconds": {
+				"title": "time",
+				"type": "integer",
+				"minimum": 1,
+				"examples": [
+					1200
+				]
+			},
+			"color": {
+				"title": "str",
+				"type": "string",
+				"examples": [
+					"Hello"
+				]
+			},
+			"_id": {
+				"type": "string",
+				"pattern": "^[0-9a-f]{24}$"
+			},
+			"initiator": {
+				"type": "string"
+			},
+			"favColorString": {
+				"title": "combinedStrings",
+				"type": "string",
+				"examples": [
+					"Hello World"
+				]
+			}
+		}
+	},
+	"canvasVersion": 3,
+	"type": "automation",
+	"font_size": 12,
+	"errorHandler": null,
+	"preAutomationTime": 0,
+	"sla": 0,
+	"last_updated": "2024-12-04T20:56:18.510Z",
+	"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+	"created": "2024-12-04T20:52:50.046Z",
+	"created_by": {
+		"provenance": "Local AAA",
+		"username": "admin@pronghorn",
+		"firstname": "admin",
+		"inactive": false
+	},
+	"createdVersion": "5.46.0-2023.1.41.1",
+	"last_updated_by": {
+		"provenance": "Local AAA",
+		"username": "admin@pronghorn",
+		"firstname": "admin",
+		"inactive": false
+	},
+	"tags": [],
+	"groups": [],
+	"migrationVersion": 2
+}

@@ -1,0 +1,10 @@
+-i https://pypi.org/simple
+annotated-types==0.7.0; python_version >= '3.8'
+certifi==2024.12.14; python_version >= '3.6'
+charset-normalizer==3.4.0; python_full_version >= '3.7.0'
+idna==3.10; python_version >= '3.6'
+pydantic==2.10.4; python_version >= '3.8'
+pydantic-core==2.27.2; python_version >= '3.8'
+requests==2.32.3; python_version >= '3.8'
+typing-extensions==4.12.2; python_version >= '3.8'
+urllib3==2.3.0; python_version >= '3.9'

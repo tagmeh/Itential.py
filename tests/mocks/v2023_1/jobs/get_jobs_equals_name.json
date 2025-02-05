@@ -1,0 +1,1394 @@
+{
+	"message": "Successfully retrieved items",
+	"data": [
+		{
+			"_id": "bb1e045c5caa4822a8dd1059",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1733346922873,
+						"user": "Pronghorn",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "eacd",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"60cb"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1733346953003,
+						"run_time": 30130
+					}
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"22ff"
+						],
+						"error": []
+					},
+					"taskId": "60cb",
+					"owner": "Pronghorn",
+					"iterations": [
+						"23e347a7-3c66-4f9b-a9ca-412070c783a9"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:22.985Z",
+					"end_time": 1733346952996,
+					"finish_state": "success"
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"eacd"
+						],
+						"error": []
+					},
+					"taskId": "22ff",
+					"owner": "Pronghorn",
+					"iterations": [
+						"23c83474-1751-4407-b486-ee57f150828d"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "60cb",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:22.942Z",
+					"end_time": 1733346922967,
+					"finish_state": "success"
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "eacd",
+					"owner": "Pronghorn",
+					"iterations": [
+						"9829cc5d-fc78-436f-af02-816792f81097"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "22ff",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:22.890Z",
+					"end_time": 1733346922905,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [
+				"default"
+			],
+			"last_updated": "2024-12-04T21:15:53.001Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": "67506f5b00d71a000b4d443d",
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": "67506f5b00d71a000b4d443d",
+			"description": "Red is my favorite color!",
+			"status": "complete",
+			"variables": {
+				"color": "Red",
+				"delaySeconds": 30,
+				"_id": "bb1e045c5caa4822a8dd1059",
+				"initiator": "Pronghorn",
+				"favColorString": "Red is my favorite color!"
+			},
+			"watchers": [],
+			"ancestors": [
+				"bb1e045c5caa4822a8dd1059"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1733346922873,
+				"user": "Pronghorn",
+				"progress": 1,
+				"end_time": 1733346953003
+			}
+		},
+		{
+			"_id": "38cd31d558d940059e63112f",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1733346923050,
+						"user": "Pronghorn",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "eacd",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"60cb"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1733346953247,
+						"run_time": 30197
+					}
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"22ff"
+						],
+						"error": []
+					},
+					"taskId": "60cb",
+					"owner": "Pronghorn",
+					"iterations": [
+						"caa95202-7652-43fb-92d6-624e4560fd56"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.204Z",
+					"end_time": 1733346953232,
+					"finish_state": "success"
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"eacd"
+						],
+						"error": []
+					},
+					"taskId": "22ff",
+					"owner": "Pronghorn",
+					"iterations": [
+						"a6ef86a2-7d1e-47c8-b8d2-3829460f51c7"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "60cb",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.113Z",
+					"end_time": 1733346923159,
+					"finish_state": "success"
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "eacd",
+					"owner": "Pronghorn",
+					"iterations": [
+						"86902eda-f2b2-4c97-8d3b-88bb8f651ab5"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "22ff",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.059Z",
+					"end_time": 1733346923081,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [
+				"default"
+			],
+			"last_updated": "2024-12-04T21:15:53.244Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": "67506f5b00d71a000b4d443d",
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": "67506f5b00d71a000b4d443d",
+			"description": "Blue is my favorite color!",
+			"status": "complete",
+			"variables": {
+				"color": "Blue",
+				"delaySeconds": 30,
+				"_id": "38cd31d558d940059e63112f",
+				"initiator": "Pronghorn",
+				"favColorString": "Blue is my favorite color!"
+			},
+			"watchers": [],
+			"ancestors": [
+				"38cd31d558d940059e63112f"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1733346923050,
+				"user": "Pronghorn",
+				"progress": 1,
+				"end_time": 1733346953247
+			}
+		},
+		{
+			"_id": "69f53088a4e04d1fbc0e88f8",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1733346923257,
+						"user": "Pronghorn",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "eacd",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"60cb"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1733346953387,
+						"run_time": 30130
+					}
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"22ff"
+						],
+						"error": []
+					},
+					"taskId": "60cb",
+					"owner": "Pronghorn",
+					"iterations": [
+						"5d9325fd-376d-45c5-bea8-7326e33f9028"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.370Z",
+					"end_time": 1733346953379,
+					"finish_state": "success"
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"eacd"
+						],
+						"error": []
+					},
+					"taskId": "22ff",
+					"owner": "Pronghorn",
+					"iterations": [
+						"52325afa-01d9-461e-b63a-aa44abd60829"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "60cb",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.328Z",
+					"end_time": 1733346923349,
+					"finish_state": "success"
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "eacd",
+					"owner": "Pronghorn",
+					"iterations": [
+						"612b41ce-d14c-4f95-a391-c1050e6ccaa6"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "22ff",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.264Z",
+					"end_time": 1733346923289,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [
+				"default"
+			],
+			"last_updated": "2024-12-04T21:15:53.385Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": "67506f5b00d71a000b4d443d",
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": "67506f5b00d71a000b4d443d",
+			"description": "Green is my favorite color!",
+			"status": "complete",
+			"variables": {
+				"color": "Green",
+				"delaySeconds": 30,
+				"_id": "69f53088a4e04d1fbc0e88f8",
+				"initiator": "Pronghorn",
+				"favColorString": "Green is my favorite color!"
+			},
+			"watchers": [],
+			"ancestors": [
+				"69f53088a4e04d1fbc0e88f8"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1733346923257,
+				"user": "Pronghorn",
+				"progress": 1,
+				"end_time": 1733346953387
+			}
+		},
+		{
+			"_id": "819dd3eb356b49a39a3187d4",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1733346923440,
+						"user": "Pronghorn",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "eacd",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"60cb"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1733346953536,
+						"run_time": 30096
+					}
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"22ff"
+						],
+						"error": []
+					},
+					"taskId": "60cb",
+					"owner": "Pronghorn",
+					"iterations": [
+						"11ab8c19-3ee3-493a-b71a-f9d446d6d6df"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.514Z",
+					"end_time": 1733346953527,
+					"finish_state": "success"
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"eacd"
+						],
+						"error": []
+					},
+					"taskId": "22ff",
+					"owner": "Pronghorn",
+					"iterations": [
+						"fb3e628d-5d7e-45b4-b107-fe4588164ed5"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "60cb",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.480Z",
+					"end_time": 1733346923494,
+					"finish_state": "success"
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "eacd",
+					"owner": "Pronghorn",
+					"iterations": [
+						"a094fbe7-81bd-48b2-aaad-c800c8fe5500"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "22ff",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.445Z",
+					"end_time": 1733346923463,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [
+				"default"
+			],
+			"last_updated": "2024-12-04T21:15:53.534Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": "67506f5b00d71a000b4d443d",
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": "67506f5b00d71a000b4d443d",
+			"description": "Yellow is my favorite color!",
+			"status": "complete",
+			"variables": {
+				"color": "Yellow",
+				"delaySeconds": 30,
+				"_id": "819dd3eb356b49a39a3187d4",
+				"initiator": "Pronghorn",
+				"favColorString": "Yellow is my favorite color!"
+			},
+			"watchers": [],
+			"ancestors": [
+				"819dd3eb356b49a39a3187d4"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1733346923440,
+				"user": "Pronghorn",
+				"progress": 1,
+				"end_time": 1733346953536
+			}
+		},
+		{
+			"_id": "cec9ca248e9c4feb81bc9110",
+			"name": "Color Timer Workflow",
+			"tasks": {
+				"workflow_start": {
+					"name": "workflow_start",
+					"groups": [],
+					"nodeLocation": {
+						"x": -12,
+						"y": -600
+					},
+					"x": 0,
+					"y": 0.5,
+					"status": "complete",
+					"metrics": {
+						"start_time": 1733346923638,
+						"user": "Pronghorn",
+						"finish_state": "success"
+					},
+					"taskId": "workflow_start",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {
+						"success": [
+							{
+								"task": "eacd",
+								"type": "standard"
+							}
+						]
+					}
+				},
+				"workflow_end": {
+					"name": "workflow_end",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -216
+					},
+					"x": 1,
+					"y": 0.5,
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"60cb"
+						],
+						"error": []
+					},
+					"taskId": "workflow_end",
+					"owner": "Pronghorn",
+					"iterations": [],
+					"transitions": {},
+					"endTasks": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"metrics": {
+						"end_time": 1733346953743,
+						"run_time": 30105
+					}
+				},
+				"60cb": {
+					"name": "delay",
+					"canvasName": "delay",
+					"summary": "Delay a Job",
+					"description": "Delay a Job for a duration by Job ID and number of seconds.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"time": "$var.job.delaySeconds"
+						},
+						"outgoing": {
+							"time_in_milliseconds": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -312
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"22ff"
+						],
+						"error": []
+					},
+					"taskId": "60cb",
+					"owner": "Pronghorn",
+					"iterations": [
+						"3120856c-ac31-42cf-9a84-f29b5a39c962"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "workflow_end",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.722Z",
+					"end_time": 1733346953732,
+					"finish_state": "success"
+				},
+				"22ff": {
+					"name": "updateJobDescription",
+					"canvasName": "updateJobDescription",
+					"summary": "Update Job Description",
+					"description": "Overwrite the job description with a new one",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "operation",
+					"displayName": "WorkFlowEngine",
+					"variables": {
+						"incoming": {
+							"description": "$var.job.favColorString"
+						},
+						"outgoing": {
+							"description": ""
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": 0,
+						"y": -408
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [
+							"eacd"
+						],
+						"error": []
+					},
+					"taskId": "22ff",
+					"owner": "Pronghorn",
+					"iterations": [
+						"eb0ec249-a62a-49df-affa-acedbdaf304c"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "60cb",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.694Z",
+					"end_time": 1733346923707,
+					"finish_state": "success"
+				},
+				"eacd": {
+					"name": "stringConcat",
+					"canvasName": "concat",
+					"summary": "Concatenates strings together.",
+					"description": "Concatenates a string with a second string(s). The second parameter can be a string or array.",
+					"location": "Application",
+					"locationType": null,
+					"app": "WorkFlowEngine",
+					"type": "automatic",
+					"displayName": "String",
+					"variables": {
+						"incoming": {
+							"str": "$var.job.color",
+							"stringN": " is my favorite color!"
+						},
+						"outgoing": {
+							"combinedStrings": "$var.job.favColorString"
+						}
+					},
+					"actor": "Pronghorn",
+					"groups": [],
+					"nodeLocation": {
+						"x": -6,
+						"y": -504
+					},
+					"status": "complete",
+					"previous": {
+						"incomplete": [],
+						"complete": [],
+						"error": []
+					},
+					"taskId": "eacd",
+					"owner": "Pronghorn",
+					"iterations": [
+						"3b78f14c-0e18-47fa-b89a-4bce162f754f"
+					],
+					"transitions": {
+						"success": [
+							{
+								"task": "22ff",
+								"type": "standard"
+							}
+						]
+					},
+					"serverId": "fa2bc25806492128f812d8fa8c9991fcc74f05fcdcab7e1e0b89c253d5e2b738",
+					"start_time": "2024-12-04T21:15:23.643Z",
+					"end_time": 1733346923674,
+					"finish_state": "success"
+				}
+			},
+			"transitions": {
+				"workflow_start": {
+					"eacd": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"workflow_end": {},
+				"60cb": {
+					"workflow_end": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"22ff": {
+					"60cb": {
+						"state": "success",
+						"type": "standard"
+					}
+				},
+				"eacd": {
+					"22ff": {
+						"state": "success",
+						"type": "standard"
+					}
+				}
+			},
+			"canvasVersion": 3,
+			"type": "automation",
+			"font_size": 12,
+			"errorHandler": null,
+			"preAutomationTime": 0,
+			"sla": 0,
+			"groups": [
+				"default"
+			],
+			"last_updated": "2024-12-04T21:15:53.741Z",
+			"lastUpdatedVersion": "5.46.0-2023.1.41.1",
+			"created": "2024-12-04T20:52:50.046Z",
+			"created_by": "67506f5b00d71a000b4d443d",
+			"createdVersion": "5.46.0-2023.1.41.1",
+			"encodingVersion": 1,
+			"last_updated_by": "67506f5b00d71a000b4d443d",
+			"description": "Orange is my favorite color!",
+			"status": "complete",
+			"variables": {
+				"color": "Orange",
+				"delaySeconds": 30,
+				"_id": "cec9ca248e9c4feb81bc9110",
+				"initiator": "Pronghorn",
+				"favColorString": "Orange is my favorite color!"
+			},
+			"watchers": [],
+			"ancestors": [
+				"cec9ca248e9c4feb81bc9110"
+			],
+			"decorators": [],
+			"metrics": {
+				"start_time": 1733346923638,
+				"user": "Pronghorn",
+				"progress": 1,
+				"end_time": 1733346953743
+			}
+		}
+	],
+	"metadata": {
+		"skip": 0,
+		"limit": 5,
+		"nextPageSkip": 5,
+		"previousPageSkip": null,
+		"total": 1249,
+		"currentPageSize": 5,
+		"hints": []
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"_id": "0752f4ce283b4fe98314f4f7",
+	"initiator": "admin@pronghorn",
+	"coolStrVar": "String Var",
+	"coolArrVar": [
+		"Arr",
+		"a",
+		"var"
+	],
+	"coolObjVar": {
+		"property": "value"
+	}
+}

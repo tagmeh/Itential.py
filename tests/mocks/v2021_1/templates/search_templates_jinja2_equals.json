@@ -1,0 +1,36 @@
+{
+	"items": [
+		{
+			"_id": "676aee931963af066f7acf33",
+			"command": "",
+			"template": "{%- if rangeStart is integer and rangeEnd is integer -%}\n    {{- range(rangeStart, rangeEnd+1) | random -}}\n{%- else -%}\n    {#- Output a negative integer if not provided with two integers to generate a range from. If you're reading this trying to troubleshoot the issue. What are you doing? Pass in integers! -#}\n    -1\n{%- endif %}",
+			"data": "{\"rangeStart\": \"0\",\"rangeEnd\": 10}",
+			"type": "jinja2",
+			"name": "randomNumberGenerator",
+			"description": "Given a range, will return a random number within the range, inclusive.",
+			"group": "TestGroup",
+			"created": "2024-12-24T17:34:07.887Z",
+			"lastUpdated": "2024-12-24T17:34:07.887Z",
+			"createdBy": {
+				"_id": "675c936a13675f000b815be4",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"inactive": false
+			},
+			"lastUpdatedBy": {
+				"_id": "675c936a13675f000b815be4",
+				"provenance": "Local AAA",
+				"username": "admin@pronghorn",
+				"firstname": "admin",
+				"inactive": false
+			}
+		}
+	],
+	"total": 1,
+	"skip": 0,
+	"limit": null,
+	"count": 1,
+	"next": null,
+	"previous": null
+}
